@@ -1,0 +1,19 @@
+{
+  "name": "Suomi",
+  "nav": [
+    { "label": "Keittiöille",     "href": "kitchens.html" },
+    { "label": "Johdolle",        "href": "management.html" },
+    { "label": "Terminaaleille",  "href": "terminals.html" },
+    { "label": "Näin se toimii",  "href": "how-it-works.html" },
+    { "label": "Meistä",          "href": "about.html" },
+    { "label": "Blogi",           "href": "blog/" },
+    { "label": "Yhteystiedot",    "href": "index.html#contact" }
+  ],
+  "cta": {
+    "demo": "Varaa demo"
+  },
+  "footer": {
+    "copyright": "Copyright 2025 © NoWaste Futures Oy. Kaikki oikeudet pidätetään.",
+    "euAlt": "Euroopan unionin osarahoittama"
+  }
+}

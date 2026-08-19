@@ -1,0 +1,1807 @@
+/* Hand-written layer, loaded after the Webflow CSS so it always wins.
+   Never edit zipli.webflow.css, webflow.css or normalize.css. Those are
+   Webflow output and a re-export overwrites them. Everything we add lives
+   here so a re-export stays a clean drop-in. */
+
+/* ---------------------------------------------------------------------
+   Design tokens
+   The palette lifted out of the Webflow export. Use these in new work
+   instead of pasting hex values, so a brand change is one edit here.
+   --------------------------------------------------------------------- */
+:root {
+  /* Brand */
+  --zipli-lime: #adf85a;          /* primary accent, h1, CTA hover */
+  --zipli-lime-soft: #b6f075;     /* secondary accent surfaces */
+  --zipli-green: #085f33;         /* deep green, CTA text and fills */
+  --zipli-blush: #fff0f2;         /* pale pink section background */
+  --zipli-purple: #d08cfb;        /* Webflow --secondary */
+  --zipli-blue: #0050bd;          /* links and highlights */
+  --zipli-red: #fe5858;           /* alerts */
+
+  /* Neutrals */
+  --zipli-black: #000;
+  --zipli-ink: #171717;
+  --zipli-graphite: #2f2f2f;
+  --zipli-grey: #7b7b7b;
+  --zipli-line: #d6d6d6;
+  --zipli-mist: #ebebeb;
+  --zipli-white: #fff;
+
+  /* Type. The site scales with the viewport: body font-size is 0.8333vw,
+     so 1em is 1/120th of the viewport width above 991px and 16px below.
+     Size new work in em to inherit that scaling. */
+  --zipli-font-display: "Space Grotesk", sans-serif;
+  --zipli-font-body: "Satoshi Variable", Satoshi, Arial, sans-serif;
+
+  /* Layout */
+  --zipli-container: 90em;        /* .main-container.new-home */
+  --zipli-gutter: 2em;            /* .padding-global */
+  --zipli-radius-pill: 4.5625em;  /* .nav-cta */
+}
+
+/* ---------------------------------------------------------------------
+   Accessibility and polish the export does not cover
+   --------------------------------------------------------------------- */
+
+/* Webflow ships no visible focus ring. Keyboard users need one. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--zipli-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Styleguide page only. Scoped so it can never leak into a real page.
+   --------------------------------------------------------------------- */
+.sg-body { background: var(--zipli-white); }
+
+.sg-section {
+  max-width: var(--zipli-container);
+  margin: 0 auto;
+  padding: 4em var(--zipli-gutter);
+  border-bottom: 1px solid var(--zipli-line);
+}
+
+.sg-label {
+  font-family: var(--zipli-font-body);
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zipli-grey);
+  margin: 0 0 1.5em;
+}
+
+.sg-note {
+  font-family: var(--zipli-font-body);
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--zipli-graphite);
+  margin: 0.75em 0 0;
+  max-width: 46em;
+}
+
+.sg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  gap: 1.5em;
+}
+
+.sg-swatch {
+  border: 1px solid var(--zipli-line);
+  border-radius: 0.75em;
+  overflow: hidden;
+}
+
+.sg-swatch__chip { height: 6em; }
+
+.sg-swatch__meta {
+  padding: 0.9em 1em;
+  font-family: var(--zipli-font-body);
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.sg-swatch__name { font-weight: 500; display: block; }
+.sg-swatch__hex { color: var(--zipli-grey); }
+
+.sg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  align-items: center;
+}
+
+.sg-dark {
+  background: var(--zipli-black);
+  padding: 2em;
+  border-radius: 0.75em;
+}
+
+/* ---------------------------------------------------------------------
+   Language switcher
+   A plain text link rather than a third white pill, so it does not eat
+   horizontal room in a navbar that is already tight.
+   --------------------------------------------------------------------- */
+.lang-switch {
+  align-self: center;
+  margin-left: 1.25em;
+  color: var(--zipli-white);
+  font-family: var(--zipli-font-body);
+  font-size: 1.3125em;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.lang-switch:hover { color: var(--zipli-lime); }
+
+/* ---------------------------------------------------------------------
+   Non-English navbar
+   The Webflow nav is sized for four short English words at a fixed 7em
+   gap. Finnish labels are far longer and overflow it. Scoped by lang so
+   the English layout stays byte-for-byte what Webflow shipped.
+   --------------------------------------------------------------------- */
+html:not([lang="en"]) .nav-menu-two {
+  grid-column-gap: 2.5em;
+  grid-row-gap: 2.5em;
+}
+
+html:not([lang="en"]) .nav-link,
+html:not([lang="en"]) .nav-cta-text {
+  white-space: nowrap;
+  font-size: 1.6em;
+}
+
+html:not([lang="en"]) .nav-cta-text { font-size: 1.15em; }
+
+html:not([lang="en"]) .navbar-wrapper {
+  grid-column-gap: 1.5em;
+  grid-row-gap: 1.5em;
+}
+
+/* Styleguide sits under the overlaid navbar, so its first block needs
+   clearance the real pages get from their hero. */
+.sg-section:first-of-type { padding-top: 10em; }
+
+/* The navbar is white-on-transparent, designed to sit over the dark hero.
+   The styleguide has no hero, so give it a dark strip to sit on. */
+.sg-body .navbar-logo-left { background: var(--zipli-black); }
+
+/* =====================================================================
+   CLIENT-FIRST UTILITIES
+   =====================================================================
+   The Webflow export already ships part of Client-First: padding-global,
+   main-container, the padding-{size} spacers, and a few text-* utilities.
+   This block fills in the tiers that were missing so the system is
+   complete and predictable.
+
+   Everything here is in em on purpose. The site scales fluidly (body is
+   0.8333vw above 991px), so an em utility scales with the layout and a
+   px or rem one does not. Never add a px or rem value to this block.
+
+   Nothing here overrides an existing Webflow class. It is all additive,
+   so the current pages render exactly as before.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Spacers. An empty div whose only job is vertical space.
+     <div class="padding-large"></div>
+   Sets padding-top only, so spacers never collapse into each other and
+   the space between two blocks is always one predictable value.
+   The five middle tiers are Webflow's originals and are listed here for
+   reference only, they are not redefined.
+   --------------------------------------------------------------------- */
+.padding-xxsmall { padding-top: 0.5em; }
+.padding-xsmall  { padding-top: 1em; }
+.padding-xsmall-2 { padding-top: 1.5em; }
+/* .padding-small    2.5em   from zipli.webflow.css */
+/* .padding-medium   3em     from zipli.webflow.css */
+/* .padding-large    5.5em   from zipli.webflow.css */
+/* .padding-xlarge   8em     from zipli.webflow.css */
+/* .padding-xxlarge  10em    from zipli.webflow.css */
+.padding-huge    { padding-top: 14em; }
+.padding-xhuge   { padding-top: 18em; }
+
+/* ---------------------------------------------------------------------
+   Section padding. Top and bottom in one class, for the outer shell of
+   a section. Use this instead of a spacer at each end when the section
+   has a background colour, so the colour covers the padding.
+   --------------------------------------------------------------------- */
+.padding-section-small  { padding-top: 5.5em;  padding-bottom: 5.5em; }
+.padding-section-medium { padding-top: 8em;    padding-bottom: 8em; }
+.padding-section-large  { padding-top: 10em;   padding-bottom: 10em; }
+
+@media screen and (max-width: 767px) {
+  .padding-section-small  { padding-top: 3em; padding-bottom: 3em; }
+  .padding-section-medium { padding-top: 4em; padding-bottom: 4em; }
+  .padding-section-large  { padding-top: 5em; padding-bottom: 5em; }
+}
+
+/* ---------------------------------------------------------------------
+   Content max widths. Sit inside main-container to narrow a block of
+   text or a card row. The container controls the page frame, these
+   control the measure.
+   --------------------------------------------------------------------- */
+.max-width-xxsmall { width: 100%; max-width: 20em; }
+.max-width-xsmall  { width: 100%; max-width: 25em; }
+.max-width-small   { width: 100%; max-width: 30em; }
+.max-width-medium  { width: 100%; max-width: 40em; }
+.max-width-large   { width: 100%; max-width: 48em; }
+.max-width-xlarge  { width: 100%; max-width: 60em; }
+.max-width-xxlarge { width: 100%; max-width: 70em; }
+.max-width-full    { width: 100%; max-width: none; }
+
+/* Pair with a container to centre it. */
+.align-center { margin-left: auto; margin-right: auto; }
+
+/* ---------------------------------------------------------------------
+   Text alignment. Several Webflow classes hardcode text-align: center
+   (h1, h2, .heading.cta), so these exist to override without writing a
+   one-off class each time.
+   --------------------------------------------------------------------- */
+.text-align-left   { text-align: left; }
+.text-align-center { text-align: center; }
+.text-align-right  { text-align: right; }
+
+/* ---------------------------------------------------------------------
+   Type scale. text-size-small already exists in the Webflow CSS but is
+   set in rem, so it does not scale with the rest of the page. These are
+   the scaling tiers. Prefer them for new work.
+   --------------------------------------------------------------------- */
+.text-size-tiny   { font-size: 0.875em; line-height: 1.4; }
+.text-size-regular { font-size: 1.125em; line-height: 1.4; }
+.text-size-medium { font-size: 1.5em;   line-height: 1.3; }
+.text-size-large  { font-size: 2em;     line-height: 1.3; }
+.text-size-xlarge { font-size: 2.75em;  line-height: 1.2; }
+
+.text-weight-medium { font-weight: 500; }
+.text-weight-bold   { font-weight: 700; }
+
+.text-color-green { color: var(--zipli-green); }
+.text-color-lime  { color: var(--zipli-lime); }
+.text-color-grey  { color: var(--zipli-grey); }
+
+/* Styleguide: spacing scale visualiser. */
+.sg-scale { display: grid; gap: 0.5em; margin-top: 2em; }
+
+.sg-scale__row {
+  display: grid;
+  grid-template-columns: 14em 5em 1fr;
+  align-items: center;
+  gap: 1em;
+  font-family: var(--zipli-font-body);
+  font-size: 1em;
+}
+
+.sg-scale__name { font-weight: 500; }
+.sg-scale__val { color: var(--zipli-grey); }
+.sg-scale__bar { background: var(--zipli-lime); height: 1.25em; border-radius: 2px; }
+.sg-scale__bar--inherited { background: var(--zipli-lime-soft); }
+
+.sg-flag {
+  border-left: 4px solid var(--zipli-red);
+  background: var(--zipli-blush);
+  padding: 1.25em 1.5em;
+  border-radius: 0 0.5em 0.5em 0;
+  margin-top: 1.5em;
+}
+
+/* =====================================================================
+   LAYOUT GRIDS
+   =====================================================================
+   Before this block the whole stylesheet contained exactly two
+   grid-template-columns declarations, both one-off. Every new multi-column
+   section had to hand-roll its own grid. These are the reusable tiers.
+
+   Base class carries display and gap, a combo class carries the column
+   count, matching the house pattern of .b2b-solution-card.reverse and
+   .main-container.new-home.
+
+     <div class="layout-grid cols-3"> ... </div>
+
+   Collapse follows what the home page already does: the 4-up help card
+   grid drops to one column at 767px, so nothing here collapses earlier
+   than the site already would.
+   ===================================================================== */
+.layout-grid {
+  display: grid;
+  grid-column-gap: 2em;
+  grid-row-gap: 2em;
+  grid-auto-columns: 1fr;
+}
+
+.layout-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.layout-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.layout-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+/* Asymmetric pair. Narrow rail beside a wide body, for a sticky heading
+   next to a list, or a caption beside an image. */
+.layout-grid.cols-sidebar     { grid-template-columns: 1fr 2fr; }
+.layout-grid.cols-sidebar-end { grid-template-columns: 2fr 1fr; }
+
+/* Column count follows the available width rather than being declared.
+   Use when the number of items is not known at build time. */
+.layout-grid.cols-auto { grid-template-columns: repeat(auto-fit, minmax(18em, 1fr)); }
+
+/* Gap overrides. Default is 2em, taken from the existing help card grid. */
+.layout-grid.gap-small  { grid-column-gap: 1em; grid-row-gap: 1em; }
+.layout-grid.gap-large  { grid-column-gap: 4em; grid-row-gap: 4em; }
+.layout-grid.gap-xlarge { grid-column-gap: 6em; grid-row-gap: 6em; }
+
+/* Vertical alignment within a row of unequal-height items. Named items-*
+   rather than align-* because .align-center is already taken above, where
+   it means margin auto. */
+.layout-grid.items-start  { align-items: start; }
+.layout-grid.items-center { align-items: center; }
+
+@media screen and (max-width: 991px) {
+  .layout-grid.cols-3,
+  .layout-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .layout-grid.cols-sidebar,
+  .layout-grid.cols-sidebar-end { grid-template-columns: 1fr; }
+}
+
+@media screen and (max-width: 767px) {
+  .layout-grid.cols-2,
+  .layout-grid.cols-3,
+  .layout-grid.cols-4,
+  .layout-grid.cols-auto { grid-template-columns: 1fr; }
+  .layout-grid.gap-large,
+  .layout-grid.gap-xlarge { grid-column-gap: 2.5em; grid-row-gap: 2.5em; }
+}
+
+/* =====================================================================
+   COMPONENTS
+   =====================================================================
+   Every component here is extracted from a pattern the home page already
+   uses, not invented. The point is that the guide describes the site we
+   have rather than a second, parallel design language. Each block names
+   the Webflow class it generalises, so if the original ever changes you
+   know what to check.
+
+   Shared traits pulled out of the export, applied consistently here:
+     - large radius, 2.5em, not the 8-12px a component library defaults to
+     - flat pastel fills, no borders and no shadows anywhere
+     - large light display type, weight 300-500, not bold
+   ===================================================================== */
+
+:root {
+  --zipli-radius-card: 2.5em;     /* .how-can-we-help-card */
+  --zipli-radius-soft: 0.75em;    /* small surfaces, images */
+}
+
+/* ---------------------------------------------------------------------
+   Section header
+   Eyebrow, heading and lede as one unit. The home page rebuilds this by
+   hand in every section, which is why the gap above the lede is a
+   different value in each one. Centred by default because h2 is.
+     <div class="section-header">
+       <p class="section-header-eyebrow">Eyebrow</p>
+       <h2>Heading</h2>
+       <p class="section-header-lede">One or two sentences.</p>
+     </div>
+   --------------------------------------------------------------------- */
+.section-header {
+  width: 100%;
+  max-width: 48em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-header.wide { max-width: 70em; }
+
+.section-header.left {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+.section-header.left h2,
+.section-header.left .section-header-lede { text-align: left; }
+
+.section-header-eyebrow {
+  font-family: var(--zipli-font-body);
+  font-size: 1.125em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zipli-grey);
+  margin: 0 0 1em;
+}
+
+.section-header-lede {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 1em 0 0;
+}
+
+/* ---------------------------------------------------------------------
+   Feature card
+   Generalises .how-can-we-help-card, the four-up on the home page. Same
+   fill, radius and padding; the difference is that the icon and the title
+   pill are optional and the fill is swappable.
+     <div class="feature-card">
+       <div class="feature-card-top">
+         <div class="feature-card-icon"> svg </div>
+         <div class="feature-card-tag"><p class="feature-card-tag-text">Label</p></div>
+       </div>
+       <div class="padding-small"></div>
+       <h4>Title</h4>
+       <p class="feature-card-body">Body copy.</p>
+     </div>
+   --------------------------------------------------------------------- */
+.feature-card {
+  background-color: var(--zipli-blush);
+  border-radius: var(--zipli-radius-card);
+  padding: 1.8em 1.8em 2.5em;
+}
+
+/* Fill variants. Blush is the default because that is what the home page
+   uses. Dark inverts the text colour with it. */
+.feature-card.lime  { background-color: var(--zipli-lime-soft); }
+.feature-card.mist  { background-color: var(--zipli-mist); }
+.feature-card.white { background-color: var(--zipli-white); }
+
+.feature-card.dark {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+}
+
+.feature-card.dark h4,
+.feature-card.dark .feature-card-body { color: var(--zipli-white); }
+
+.feature-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+}
+
+/* The white circle behind the icon. Sized from .how-can-we-help-icon-wrapper. */
+.feature-card-icon {
+  background-color: var(--zipli-white);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 5.06em;
+  height: 5.06em;
+  padding: 1.05em;
+  flex: none;
+  display: flex;
+}
+
+.feature-card-icon svg,
+.feature-card-icon img { width: 100%; height: auto; }
+
+/* The white pill holding the category label. From .help-card-top-title-wrapper. */
+.feature-card-tag {
+  background-color: var(--zipli-white);
+  border-radius: 7.5em;
+  justify-content: center;
+  align-items: center;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  display: flex;
+}
+
+.feature-card-tag-text {
+  font-size: 1.425em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.feature-card-body {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.3;
+  margin: 0.6em 0 0;
+}
+
+/* ---------------------------------------------------------------------
+   Media split
+   Generalises .b2b-solution-card, the alternating image-and-text rows.
+   Add .reverse to flip the image to the other side. Built on flex like
+   the original rather than the grid above, because the two halves are
+   not equal width and the image sizes itself.
+     <div class="media-split">
+       <div class="media-split-content"> heading + copy </div>
+       <div class="media-split-media"><img ...></div>
+     </div>
+   --------------------------------------------------------------------- */
+.media-split {
+  justify-content: space-between;
+  align-items: center;
+  grid-column-gap: 4em;
+  grid-row-gap: 4em;
+  max-width: 84.8em;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.media-split.reverse { flex-flow: row-reverse; }
+
+.media-split-content {
+  width: 100%;
+  max-width: 38em;
+}
+
+.media-split-media { width: 100%; max-width: 38em; }
+
+.media-split-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Rounded photo variant. The home page product shots are cut-outs with no
+   background, so they get no radius; a real photograph needs one. */
+.media-split-media.rounded img { border-radius: var(--zipli-radius-card); }
+
+/* Phone variant, for a portrait app screenshot. At the default 38em max
+   width a ~9:19.5 screenshot runs far taller than the text column beside
+   it, so this narrows the image instead of letting it set the row's
+   height. */
+.media-split-media.phone { max-width: 18em; margin: 0 auto; }
+
+.media-split-title {
+  text-align: left;
+  font-family: var(--zipli-font-body);
+  font-size: 3em;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .media-split,
+  .media-split.reverse {
+    flex-flow: column;
+    grid-column-gap: 2.5em;
+    grid-row-gap: 2.5em;
+  }
+  .media-split-content,
+  .media-split-media { max-width: none; }
+  .media-split-title { font-size: 2.25em; }
+}
+
+/* ---------------------------------------------------------------------
+   Step list
+   Generalises the .how-it-work-timeline-card row in the black section.
+   A numbered circle beside a title. Horizontal by default, matching the
+   home page; add .stacked for a vertical list.
+     <div class="step-list">
+       <div class="step-item">
+         <div class="step-number">1</div>
+         <h4 class="step-title">Do the thing</h4>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.step-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  grid-column-gap: 4em;
+  grid-row-gap: 4em;
+  flex-wrap: wrap;
+}
+
+.step-list.stacked {
+  flex-flow: column;
+  grid-column-gap: 2.5em;
+  grid-row-gap: 2.5em;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 1.5em;
+}
+
+/* Lime-soft circle, from .numbering-box. */
+.step-number {
+  background-color: var(--zipli-lime-soft);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 3.5em;
+  height: 3.5em;
+  flex: none;
+  font-family: var(--zipli-font-display);
+  font-size: 1.5em;
+  font-weight: 500;
+  color: var(--zipli-black);
+  display: flex;
+}
+
+.step-title {
+  font-family: var(--zipli-font-body);
+  font-size: 2.5em;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* The home page runs this on the black section, so give it an inverted
+   variant rather than making callers write a colour override. */
+.step-list.on-dark .step-title { color: var(--zipli-white); }
+
+@media screen and (max-width: 767px) {
+  .step-list { flex-flow: column; grid-column-gap: 2.5em; grid-row-gap: 2.5em; }
+  .step-title { font-size: 1.75em; }
+}
+
+/* ---------------------------------------------------------------------
+   Pull quote
+   Generalises the .project-manager-quate block. A large light quote with
+   an attribution, optionally beside a portrait. Pair with .media-split
+   when you want the portrait alongside.
+     <blockquote class="pull-quote">
+       <p class="pull-quote-text">Quote.</p>
+       <p class="pull-quote-attrib">Name</p>
+       <p class="pull-quote-role">Role, Organisation</p>
+     </blockquote>
+   --------------------------------------------------------------------- */
+/* Webflow's base stylesheet gives every blockquote a 5px grey border-left
+   and fixed px padding (webflow.css:268). That contradicts the no-borders
+   rule this system follows, and the px padding does not scale, so reset
+   both here rather than at each call site. */
+.pull-quote {
+  margin: 0;
+  padding: 0;
+  border-left: 0;
+}
+
+.pull-quote-text {
+  text-align: left;
+  font-family: var(--zipli-font-display);
+  font-size: 3em;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.pull-quote-attrib {
+  font-family: var(--zipli-font-display);
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 1em 0 0;
+}
+
+.pull-quote-role {
+  font-family: var(--zipli-font-body);
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--zipli-grey);
+  margin: 0.25em 0 0;
+}
+
+.pull-quote.on-dark .pull-quote-text,
+.pull-quote.on-dark .pull-quote-attrib { color: var(--zipli-white); }
+.pull-quote.on-dark .pull-quote-role { color: var(--zipli-line); }
+
+@media screen and (max-width: 767px) {
+  .pull-quote-text { font-size: 2em; }
+  .pull-quote-attrib { font-size: 1.5em; }
+}
+
+/* Small variant: a one-line personal tagline rather than an editorial
+   pull quote, e.g. a founder motto under a bio. Same shape, quieter type. */
+.pull-quote.small .pull-quote-text {
+  font-size: 1.5em;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pull-quote.small .pull-quote-attrib {
+  font-size: 1.125em;
+  margin-top: 0.75em;
+}
+
+/* ---------------------------------------------------------------------
+   Person card
+   Generalises the pair of contacts in the CTA section. Portrait, name,
+   role and a contact line. The original sets letter-spacing in px, which
+   is one of the fixed-unit bugs, so this uses em instead.
+     <div class="person-card">
+       <img class="person-card-photo" src="..." alt="">
+       <h4 class="person-card-name">Name</h4>
+       <p class="person-card-role">Role</p>
+       <a class="person-card-link" href="mailto:...">email</a>
+     </div>
+   --------------------------------------------------------------------- */
+.person-card { text-align: left; }
+
+.person-card-photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--zipli-radius-card);
+  display: block;
+  margin-bottom: 1.5em;
+}
+
+.person-card-name {
+  font-family: var(--zipli-font-display);
+  font-size: 2.5em;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.person-card-role {
+  font-family: var(--zipli-font-body);
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--zipli-grey);
+  margin: 0.3em 0 0;
+}
+
+.person-card-link {
+  font-family: var(--zipli-font-body);
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--zipli-black);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  display: inline-block;
+  margin-top: 0.5em;
+  transition: color 0.3s;
+}
+
+.person-card-link:hover { color: var(--zipli-green); }
+
+.person-card.on-dark .person-card-name,
+.person-card.on-dark .person-card-link { color: var(--zipli-white); }
+.person-card.on-dark .person-card-role { color: var(--zipli-line); }
+.person-card.on-dark .person-card-link:hover { color: var(--zipli-lime); }
+
+/* =====================================================================
+   COMPONENTS, TIER 2
+   =====================================================================
+   The stat band and the image card extend patterns the export already
+   had. The logo cloud, the accordion and the CTA band are genuinely new,
+   because the export has no precedent for them, so they are built from
+   the same three traits as everything above: 2.5em radius, flat fills
+   with no borders or shadows, and large light type.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Stat band
+   The number styling is lifted from .box-title, the big figure in the
+   black hero-bottom box: Space Grotesk 500 at a tight line-height with
+   negative tracking. The original sets letter-spacing in px, which does
+   not scale, so this uses em.
+     <div class="stat-band layout-grid cols-3">
+       <div class="stat-item">
+         <p class="stat-number">1/3</p>
+         <p class="stat-label">of all food produced is wasted</p>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.stat-band { width: 100%; }
+
+.stat-item { text-align: left; }
+.stat-item.center { text-align: center; }
+
+.stat-number {
+  font-family: var(--zipli-font-display);
+  font-size: 8em;
+  font-weight: 500;
+  line-height: 0.93;
+  letter-spacing: -0.04em;
+  color: var(--zipli-black);
+  margin: 0;
+}
+
+/* The 8em figure is right for two or three across. Four across at that
+   size overflows on a laptop, so step it down. */
+.stat-band.compact .stat-number { font-size: 5.5em; }
+
+.stat-label {
+  font-size: 2.25em;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0.4em 0 0;
+}
+
+.stat-band.on-dark .stat-number,
+.stat-band.on-dark .stat-label { color: var(--zipli-white); }
+
+.stat-band.lime .stat-number { color: var(--zipli-lime); }
+
+@media screen and (max-width: 991px) {
+  .stat-number { font-size: 5.5em; }
+  .stat-band.compact .stat-number { font-size: 4em; }
+}
+
+/* ---------------------------------------------------------------------
+   Logo cloud
+   For partner, customer and funder marks. Sized by height rather than
+   width so marks of different proportions sit on one optical line, which
+   is the thing most logo rows get wrong.
+
+   Deliberately no greyscale-to-colour hover. The marks used here are
+   already flat black, and the effect is the single clearest tell of a
+   template site.
+     <div class="logo-cloud">
+       <img class="logo-cloud-item" src="..." alt="City of Helsinki">
+     </div>
+   --------------------------------------------------------------------- */
+.logo-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  grid-column-gap: 5.5em;
+  grid-row-gap: 3em;
+}
+
+.logo-cloud.left { justify-content: flex-start; }
+
+.logo-cloud-item {
+  height: 4em;
+  width: auto;
+  max-width: 14em;
+  object-fit: contain;
+  flex: none;
+}
+
+/* Marks with a lot of internal padding, or a tall stacked lockup, need to
+   run larger to look the same weight as a plain wordmark. */
+.logo-cloud-item.tall { height: 6em; }
+
+.logo-cloud.on-dark .logo-cloud-item { filter: invert(1); }
+
+@media screen and (max-width: 767px) {
+  .logo-cloud { grid-column-gap: 3em; grid-row-gap: 2.5em; }
+  .logo-cloud-item { height: 3em; }
+  .logo-cloud-item.tall { height: 4.5em; }
+}
+
+/* ---------------------------------------------------------------------
+   FAQ accordion
+   Built on <details> and <summary>, so it opens and closes with no
+   JavaScript at all and is keyboard accessible for free. The only work
+   here is hiding the browser's default triangle and drawing our own
+   plus, which becomes a minus when the item is open.
+     <div class="faq-list">
+       <details class="faq-item">
+         <summary class="faq-question">Question text</summary>
+         <div class="faq-answer"><p>Answer.</p></div>
+       </details>
+     </div>
+   --------------------------------------------------------------------- */
+.faq-list {
+  width: 100%;
+  max-width: 60em;
+}
+
+.faq-item {
+  background-color: var(--zipli-blush);
+  border-radius: var(--zipli-radius-card);
+  padding: 1.8em 2.5em;
+  margin-bottom: 1em;
+}
+
+.faq-item.mist { background-color: var(--zipli-mist); }
+
+.faq-question {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-column-gap: 2em;
+  padding-right: 0.5em;
+  font-family: var(--zipli-font-body);
+  font-size: 2em;
+  font-weight: 400;
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Both are needed: the pseudo-element for WebKit, list-style for the rest. */
+.faq-question::-webkit-details-marker { display: none; }
+
+/* The plus. Two gradient layers on one box, so there is no icon file to
+   keep in sync and it inherits the current colour. Layer one is the
+   horizontal bar, layer two the vertical one. */
+.faq-question::after {
+  content: "";
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+  background:
+    linear-gradient(currentColor, currentColor) center no-repeat,
+    linear-gradient(currentColor, currentColor) center no-repeat;
+  background-size: 100% 0.09em, 0.09em 100%;
+  transition: background-size 0.3s;
+}
+
+/* Open collapses the vertical bar to nothing, leaving the horizontal one,
+   so the plus becomes a minus. Note this cannot be done by rotating the
+   box: a plus turned a quarter turn is still a plus. */
+.faq-item[open] .faq-question::after {
+  background-size: 100% 0.09em, 0.09em 0;
+}
+
+.faq-answer {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.4;
+  padding-top: 0.5em;
+  max-width: 34em;
+}
+
+.faq-answer p { margin: 0; font-size: inherit; line-height: inherit; }
+
+/* An answer can point at another page. Same quiet treatment as .plan-note:
+   Webflow's default blue underline is louder than the answer around it. */
+.faq-answer a {
+  color: var(--zipli-green);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.faq-answer a:hover { text-decoration: underline; }
+
+@media screen and (max-width: 767px) {
+  .faq-item { padding: 1.5em 1.8em; }
+  .faq-question { font-size: 1.5em; }
+}
+
+/* ---------------------------------------------------------------------
+   Image card
+   The feature card with a picture on top instead of an icon. The image
+   sits flush to the card edges, so it takes the card radius on its top
+   two corners and the padding moves onto an inner wrapper.
+     <div class="feature-card image-card">
+       <img class="image-card-media" src="..." alt="">
+       <div class="image-card-body">
+         <h4>Title</h4>
+         <p class="feature-card-body">Copy.</p>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.feature-card.image-card { padding: 0; overflow: hidden; }
+
+.image-card-media {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+
+/* Portrait crop, for a person rather than a scene. */
+.image-card-media.portrait { aspect-ratio: 1; }
+
+.image-card-body { padding: 1.8em 1.8em 2.5em; }
+
+/* ---------------------------------------------------------------------
+   CTA band
+   A closing call to action. Lime by default because that is the brand
+   accent, dark as the alternative. Rounded rather than full-bleed, so it
+   reads as a block on the page like every other surface here.
+     <div class="cta-band">
+       <h2 class="cta-band-title">Heading</h2>
+       <p class="cta-band-lede">Supporting line.</p>
+       <a href="#" class="main-button w-button">Book a demo →</a>
+     </div>
+   --------------------------------------------------------------------- */
+.cta-band {
+  background-color: var(--zipli-lime);
+  border-radius: var(--zipli-radius-card);
+  padding: 5.5em 4em;
+  text-align: center;
+}
+
+.cta-band.dark { background-color: var(--zipli-black); }
+.cta-band.blush { background-color: var(--zipli-blush); }
+
+.cta-band-title {
+  font-family: var(--zipli-font-display);
+  font-size: 4em;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--zipli-black);
+  margin: 0;
+  text-align: center;
+}
+
+.cta-band-lede {
+  font-size: 1.75em;
+  font-weight: 300;
+  line-height: 1.4;
+  max-width: 30em;
+  margin: 0.8em auto 0;
+}
+
+.cta-band-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 1.5em;
+  margin-top: 2.5em;
+}
+
+.cta-band.dark .cta-band-title,
+.cta-band.dark .cta-band-lede { color: var(--zipli-white); }
+
+@media screen and (max-width: 767px) {
+  .cta-band { padding: 3em 1.8em; }
+  .cta-band-title { font-size: 2.5em; }
+}
+
+/* ---------------------------------------------------------------------
+   Page hero
+
+   The home page hero is a full-height statement: 5em heading, 18em of
+   padding above it, nothing else. A subpage cannot afford that, it has to
+   say what the page is about before the fold. So this is the same hero
+   shell on the same photograph, only shorter, with room for a lede line
+   under the heading. Put .page on the wrapper and the lede inside it.
+   --------------------------------------------------------------------- */
+
+.hero-wrapper.page {
+  padding-top: 12em;
+  padding-bottom: 8em;
+}
+
+/* A subpage headline is a sentence, not a two-word statement, so it needs a
+   step down from the 5em the home page uses or it fills the screen. */
+.heading.page {
+  max-width: 16em;
+  text-align: center;
+  font-size: 3.75em;
+  line-height: 1.05;
+}
+
+.hero-lede {
+  max-width: 40em;
+  color: var(--zipli-white);
+  text-align: center;
+  font-size: 1.75em;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .hero-wrapper.page {
+    padding-top: 9em;
+    padding-bottom: 5em;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Nav gap
+
+   The Webflow nav sets a 7em gap between links, which was tuned for the
+   four anchor links the home page used to be the whole site. The sitemap
+   now carries three audience pages plus How it works and Contact, and at
+   five items that gap pushes the first link into the logo and wraps the
+   longest label. Narrowing the gap fits five without touching the type.
+
+   Non-English keeps its own tighter gap in the lang-scoped block above,
+   which outranks this on specificity, so this only affects English.
+   --------------------------------------------------------------------- */
+
+@media screen and (min-width: 992px) {
+  .nav-menu-two {
+    grid-column-gap: 3em;
+    grid-row-gap: 3em;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Nav link and CTA type, scaled down from the Webflow export's 2em / 1.3125em
+   (looked oversized against the rest of the nav bar). Desktop only, so
+   tablet/mobile keep the export's own smaller breakpoint sizes.
+   --------------------------------------------------------------------- */
+@media screen and (min-width: 992px) {
+  .nav-link {
+    font-size: 1.5em;
+  }
+
+  .nav-cta-text {
+    font-size: 1.15em;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Ordered step list
+   A numbered instructional list, sized to match feature-card body copy.
+   Webflow's base ol/ul (webflow.css:283) sets padding-left in px, which
+   breaks the em-scaling rule, so this overrides it for callers who need
+   a real <ol> instead of the .step-list circle-and-title component.
+   Pairs naturally with .media-split for "numbered steps beside a
+   screenshot".
+     <ol class="step-ordered-list">
+       <li>Do the first thing.</li>
+     </ol>
+   --------------------------------------------------------------------- */
+.step-ordered-list {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.5;
+  padding-left: 1.4em;
+  margin: 0;
+}
+
+.step-ordered-list li { margin-bottom: 0.75em; }
+.step-ordered-list li:last-child { margin-bottom: 0; }
+.step-ordered-list li::marker { font-weight: 500; color: var(--zipli-green); }
+
+/* =====================================================================
+   BLOG
+   =====================================================================
+   The article template and its listing card. No blog existed in the
+   Webflow export, so these are new rather than generalised from an
+   existing block, but every value reuses what is already on the page:
+   .section-header-eyebrow for the theme label, .feature-card for the
+   listing card, .pull-quote for in-article quotes, .cta-band for the
+   closing CTA. Nothing here introduces a new type size, radius or fill
+   the system doesn't already have.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Article hero
+   Same shell as .hero-wrapper.page (see How it works), with an eyebrow
+   naming the audience above the h1.
+     <div class="hero-wrapper page">
+       <p class="section-header-eyebrow on-dark">For terminal coordinators</p>
+       <h1 class="heading page">Title</h1>
+       <div class="padding-medium"></div>
+       <p class="hero-lede">One sentence of context.</p>
+     </div>
+   --------------------------------------------------------------------- */
+.section-header-eyebrow.on-dark { color: var(--zipli-lime-soft); }
+
+.hero-wrapper.page .section-header-eyebrow {
+  text-align: center;
+  margin: 0 0 0.75em;
+}
+
+/* ---------------------------------------------------------------------
+   Article meta
+   Author, publish date and read time, in the white space between the
+   hero and the first paragraph. Avatar reuses .person-card-photo sizing
+   logic at a smaller scale rather than a new size.
+     <div class="article-meta">
+       <img class="article-meta-avatar" src="{{base}}images/people/name.png" alt="Author name">
+       <div>
+         <p class="article-meta-name">Author Name</p>
+         <p class="article-meta-detail">19 August 2026 &middot; 7 min read</p>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.article-meta {
+  display: flex;
+  align-items: center;
+  grid-column-gap: 1em;
+  width: 100%;
+  max-width: 48em;
+  margin: 0 auto 2.5em;
+}
+
+.article-meta-avatar {
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+}
+
+.article-meta-name {
+  font-size: 1.125em;
+  font-weight: 500;
+  margin: 0;
+}
+
+.article-meta-detail {
+  font-size: 1.125em;
+  font-weight: 300;
+  color: var(--zipli-grey);
+  margin: 0.2em 0 0;
+}
+
+/* ---------------------------------------------------------------------
+   Article body
+   Wraps the running text of a blog post. Left-aligned and narrower than
+   a full section, because h2 is centred site-wide by default and a
+   48em column reads like body copy, not a page section. h3 in
+   zipli.webflow.css is fixed px (24px/30px), which breaks the em-scaling
+   rule, so it is redeclared here in em.
+     <div class="article-body">
+       <p>Lede paragraph.</p>
+       <h2>Section heading</h2>
+       <p>Body copy.</p>
+       <h3>Subheading</h3>
+       <p>Body copy.</p>
+       <ul><li>...</li></ul>
+       <blockquote class="pull-quote">...</blockquote>
+       <p class="article-sources">Source: ...</p>
+     </div>
+   --------------------------------------------------------------------- */
+.article-body {
+  width: 100%;
+  max-width: 48em;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.article-body > * + * { margin-top: 1.2em; }
+
+/* Lede: the opening line, set larger and heavier than running body copy
+   so it reads as the hook rather than the first line of the argument,
+   the way a magazine or news site opens a piece. */
+.article-body > p:first-of-type {
+  font-size: 1.875em;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.article-body h2 {
+  text-align: left;
+  font-size: 2em;
+  line-height: 1.25;
+  margin-top: 1.8em;
+}
+
+.article-body h3 {
+  font-family: var(--zipli-font-display);
+  text-align: left;
+  font-size: 1.375em;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-top: 1.5em;
+}
+
+.article-body p,
+.article-body li {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4em;
+  margin: 0;
+}
+
+.article-body li + li { margin-top: 0.5em; }
+.article-body li::marker { font-weight: 500; color: var(--zipli-green); }
+
+.article-body a {
+  color: var(--zipli-blue);
+  text-decoration: underline;
+}
+
+.article-body a:hover { color: var(--zipli-green); }
+
+.article-body .pull-quote {
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+
+/* Source citations at the end of a post. Small and grey, like .sg-note,
+   so it reads as reference material rather than part of the argument. */
+.article-sources {
+  font-size: 1em !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: var(--zipli-grey);
+  border-top: 1px solid var(--zipli-line);
+  padding-top: 1.5em;
+  margin-top: 3em !important;
+}
+
+.article-sources a { color: var(--zipli-grey); }
+
+/* Same-theme cross-links at the end of a post, before the sources line. */
+.article-crosslinks {
+  border-top: 1px solid var(--zipli-line);
+  padding-top: 1.5em;
+  margin-top: 3em !important;
+}
+
+.article-crosslinks-label {
+  font-size: 1.125em !important;
+  font-weight: 500 !important;
+  color: var(--zipli-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75em !important;
+}
+
+/* Each related-post link gets a lime dot instead of a generic bullet, and
+   reads as a link list rather than another inline citation, so it drops
+   the blue/underline treatment .article-body a uses for in-text sources. */
+.article-crosslinks p:not(.article-crosslinks-label) {
+  position: relative;
+  padding-left: 1.3em;
+  margin-top: 0.6em !important;
+}
+
+.article-crosslinks p:not(.article-crosslinks-label)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--zipli-lime);
+}
+
+.article-crosslinks p:not(.article-crosslinks-label) a {
+  color: var(--zipli-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.article-crosslinks p:not(.article-crosslinks-label) a:hover {
+  color: var(--zipli-green);
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+  .article-body h2 { font-size: 1.6em; }
+  .article-body h3 { font-size: 1.25em; }
+  .article-body p,
+  .article-body li { font-size: 1.25em; }
+}
+
+/* ---------------------------------------------------------------------
+   Blog card
+   .feature-card.image-card (see Image card above) with a theme tag and
+   a length badge, for the /blog/ index. Three cards can share a topic
+   (short/medium/long), so the badge is what tells them apart at a
+   glance.
+     <a href="..." class="feature-card image-card blog-card mist">
+       <img class="image-card-media" src="{{base}}images/blog/slug.jpg" alt="...">
+       <div class="image-card-body">
+         <div class="feature-card-top">
+           <div class="feature-card-tag"><p class="feature-card-tag-text">Theme</p></div>
+           <p class="blog-card-length">Short read &middot; 2 min</p>
+         </div>
+         <div class="padding-small"></div>
+         <h4>Title</h4>
+         <p class="feature-card-body">Dek.</p>
+         <p class="blog-card-readmore">Read more →</p>
+       </div>
+     </a>
+   --------------------------------------------------------------------- */
+a.feature-card.blog-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease;
+}
+
+/* The tag pill and the "Short read · 2 min" text are each one line, not
+   two columns fighting for space, so let the pair wrap onto its own line
+   rather than squeezing the pill's text mid-word. */
+.blog-card .feature-card-top { flex-wrap: wrap; }
+.blog-card .feature-card-tag { flex: none; }
+.blog-card .feature-card-tag-text { white-space: nowrap; }
+
+a.feature-card.blog-card:hover { transform: translateY(-0.25em); }
+
+.blog-card-length {
+  font-size: 1.125em;
+  font-weight: 500;
+  color: var(--zipli-grey);
+  align-self: center;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.blog-card .feature-card-body {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* CTA text link at the foot of a card. Same green as .nav-cta-text, so it
+   reads as an action rather than more body copy. */
+.blog-card-readmore {
+  display: inline-block;
+  font-size: 1.125em;
+  font-weight: 500;
+  color: var(--zipli-green);
+  margin-top: 1em !important;
+}
+
+a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline; }
+
+/* ---------------------------------------------------------------------
+   Blog theme group
+   One .section-header per theme on the /blog/ index, left-aligned so
+   five stacked sections don't read as five separate hero moments.
+   --------------------------------------------------------------------- */
+.blog-theme-group + .blog-theme-group { margin-top: 5.5em; }
+
+/* ---------------------------------------------------------------------
+   Photo placeholder
+   Stand-in for a real photograph that hasn't been dropped in yet. Same
+   pastel-fill, large-radius language as .feature-card, so an unfilled
+   slot still looks like part of the system rather than a broken image.
+   Swap for a real <img> in .media-split-media (or drop straight in)
+   using the same aspect ratio; delete the icon and the placeholder line.
+   Cap the height with max-height alongside aspect-ratio on a wide slot
+   (21/9, 16/9), so a wide placeholder never grows into a tall block of
+   near-empty colour with the caption stranded in the middle of it.
+     <div class="photo-placeholder" style="aspect-ratio:4/3">
+       <svg class="photo-placeholder-icon" ...></svg>
+       <p class="photo-placeholder-label">Caption of the intended photo.</p>
+     </div>
+   --------------------------------------------------------------------- */
+.photo-placeholder {
+  width: 100%;
+  background-color: var(--zipli-blush);
+  border-radius: var(--zipli-radius-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.75em;
+  padding: 2em;
+}
+
+.photo-placeholder.lime { background-color: var(--zipli-lime-soft); }
+.photo-placeholder.mist { background-color: var(--zipli-mist); }
+
+.photo-placeholder-icon {
+  width: 2.25em;
+  height: 2.25em;
+  color: var(--zipli-grey);
+  opacity: 0.6;
+  flex: none;
+}
+
+.photo-placeholder-label {
+  font-size: 1.125em;
+  font-weight: 500;
+  color: var(--zipli-grey);
+  max-width: 24em;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Plan card
+   A pricing tier. Built as a modifier on .feature-card, the same way
+   .image-card is, so the radius, padding and the four fills come for
+   free and a row of tiers is just a .layout-grid of them. The price
+   figure is .stat-number's treatment stepped down: Space Grotesk 500,
+   tight line-height, negative tracking. Nothing here is bordered or
+   shadowed, so the "recommended" tier is marked with a fill rather than
+   with an outline the rest of the system never uses.
+     <div class="layout-grid cols-3">
+       <div class="feature-card plan-card white">
+         <p class="plan-name">Mini</p>
+         <p class="plan-scope">1 to 3 sites</p>
+         <p class="plan-price">&euro;87<span class="plan-price-unit">/site/mo</span></p>
+         <ul class="plan-features">
+           <li>Connects sites to one data platform</li>
+         </ul>
+       </div>
+     </div>
+   The feature list is pushed to the foot of the card, so the lists line
+   up across a row even when one tier has a longer price line than the
+   next. Collapse is inherited from .layout-grid, which is why there are
+   no breakpoints of its own here.
+   --------------------------------------------------------------------- */
+.feature-card.plan-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.2em 1.8em 2.5em;
+}
+
+.plan-name {
+  font-family: var(--zipli-font-display);
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.plan-scope {
+  font-size: 1.125em;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--zipli-grey);
+  margin: 0.4em 0 0;
+}
+
+.plan-price {
+  font-family: var(--zipli-font-display);
+  font-size: 4em;
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0.35em 0 0;
+}
+
+/* The unit rides on the figure, so it is sized as a fraction of it and
+   drops back to body type: at 4em a matching display unit reads as part
+   of the number rather than as a qualifier. */
+.plan-price-unit {
+  font-family: var(--zipli-font-body);
+  font-size: 0.28em;
+  font-weight: 300;
+  letter-spacing: 0;
+  margin-left: 0.35em;
+}
+
+/* A tier with no number. "Ask for a quote" set at 4em wraps to three
+   lines and shouts louder than the tiers that do have a price. */
+.plan-price.quote {
+  font-size: 2.25em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.plan-features {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 1.6em 0 0;
+}
+
+.plan-features li {
+  position: relative;
+  font-size: 1.25em;
+  font-weight: 300;
+  line-height: 1.35;
+  padding-left: 1.3em;
+}
+
+.plan-features li + li { margin-top: 0.6em; }
+
+/* Same lime dot as .article-crosslinks, for the same reason: a list marker
+   that belongs to this system rather than the browser's bullet. */
+.plan-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 50%;
+  background: var(--zipli-lime);
+}
+
+/* Lime on lime disappears, so the dot goes deep green on the lime fill. */
+.feature-card.lime .plan-features li::before { background: var(--zipli-green); }
+
+/* .feature-card.dark only inverts h4 and .feature-card-body, because those
+   were the only text parts it had. The plan card's parts need it too. */
+.feature-card.dark .plan-name,
+.feature-card.dark .plan-price,
+.feature-card.dark .plan-features li { color: var(--zipli-white); }
+.feature-card.dark .plan-scope { color: var(--zipli-line); }
+
+/* Wide variant: one tier on its own rather than a row of them, for a page
+   where there is a single price (kitchens) or none yet (terminals). Same
+   card, turned on its side so a lone tier does not sit as a narrow column
+   with three quarters of the row empty beside it. Needs the extra
+   .plan-card-head wrapper; the column version does not. */
+.feature-card.plan-card.wide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 4em;
+  grid-row-gap: 2em;
+  align-items: center;
+  padding: 2.5em 2.5em 3em;
+}
+
+.feature-card.plan-card.wide .plan-features { margin: 0; padding: 0; }
+
+@media screen and (max-width: 767px) {
+  .feature-card.plan-card.wide { grid-template-columns: 1fr; }
+  .plan-price { font-size: 3em; }
+}
+
+/* The billing small print under a row of tiers. Grey and centred, so it
+   reads as a footnote to the row rather than as another claim. */
+.plan-note {
+  font-size: 1.125em;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--zipli-grey);
+  text-align: center;
+  max-width: 44em;
+  margin: 0 auto;
+}
+
+/* A footnote may point at another page, e.g. kitchens sending a multi-site
+   operator to the dashboard pricing. Webflow's default link is blue and
+   underlined, which shouts louder than the grey line around it. */
+.plan-note a {
+  color: var(--zipli-green);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.plan-note a:hover { text-decoration: underline; }
+
+/* =====================================================================
+   RESPONSIVE REPAIRS
+   =====================================================================
+   Three overflow bugs found by sweeping every page from 320px to 1920px.
+   All three predate this layer and all three live in Webflow output, so
+   they are corrected here rather than in the export.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Footer link row
+   The export stacks the footer links into a column at 767px, but between
+   768 and 991 they stay in one horizontal row. That is the band where the
+   body font-size jumps back to a fixed 16px, so the row is suddenly at
+   full size in a narrower window and runs off the right edge on every
+   page. Letting the row wrap fixes the whole band without a breakpoint of
+   its own, and costs nothing above 992px where it already fits on one line.
+   --------------------------------------------------------------------- */
+.footer_links {
+  flex-wrap: wrap;
+  grid-row-gap: 1.5em;
+}
+
+.footer_links-wrapper {
+  flex-wrap: wrap;
+  grid-row-gap: 1em;
+}
+
+/* ---------------------------------------------------------------------
+   Subpage headline steps
+   .heading.page overrides the export's font-size with two classes, so the
+   single-class steps the export applies to .heading at 991, 767 and 479
+   never reach it and the subpage h1 stayed at 3.75em all the way down.
+   On a 320 to 414 phone that is wide enough for one long word to break out
+   of the viewport, which is what "accountability" does on the management
+   page. These are the same three breakpoints the export uses, so the
+   subpage headline now steps down in time with the home page one.
+   --------------------------------------------------------------------- */
+@media screen and (max-width: 991px) {
+  .heading.page { font-size: 3.25em; }
+}
+
+@media screen and (max-width: 767px) {
+  .heading.page { font-size: 2.75em; }
+  .hero-lede { font-size: 1.5em; }
+}
+
+@media screen and (max-width: 479px) {
+  .heading.page { font-size: 2.25em; }
+}
+
+/* ---------------------------------------------------------------------
+   Home page video embed
+   The Cloudinary iframe carries width="370" height="650" as attributes.
+   Below roughly 430px that is wider than the gutters leave, so cap it and
+   let the aspect ratio hold the height rather than the attribute.
+   --------------------------------------------------------------------- */
+#videoIframe {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 370 / 650;
+}
+
+/* ---------------------------------------------------------------------
+   Quote profile row
+   .profile-info sets the name block and the partner mark side by side in
+   a flex row. The mark carries a max-width rather than a flex-basis, so
+   on a narrow phone it refuses to shrink and pushes out of the card
+   instead. Letting the row wrap puts the mark on its own line, which is
+   where it wants to be at that width anyway.
+   --------------------------------------------------------------------- */
+@media screen and (max-width: 767px) {
+  .profile-info {
+    flex-wrap: wrap;
+    grid-row-gap: 1em;
+  }
+}
+
+/* =====================================================================
+   TYPE SCALE BELOW 992PX
+   =====================================================================
+   Above 992px the body font-size is a vw value, so every em size on the
+   page scales with the window and the hierarchy holds itself. Below 992px
+   the base locks to a fixed 16px and that stops being true: the desktop
+   em sizes are suddenly rendered at full size inside a narrow window.
+
+   Sweeping the pages from 320px up showed the curve is not just large, it
+   is inverted. The export sets h2 to 4em for everything from 991px down to
+   480px, which is 64px on a 600px phone, and then to 1.6em below 479px,
+   which is 25.6px, smaller than the 24px .feature-card-body sitting under
+   it. So a section heading ends up smaller than the card copy it
+   introduces, and there is nothing in between the two extremes.
+
+   These three blocks replace that with one curve: a tablet step at 991,
+   a phone step at 767 and a small-phone step at 479. Every value is still
+   in em, so the relationships hold if the base ever changes. They sit at
+   the end of the file so they win over the per-component 767 rules above,
+   which were written before the whole scale was looked at together.
+   ===================================================================== */
+
+/* Tablet, 768 to 991. The window is narrow but the base is already 16px,
+   so the display sizes need bringing down to fit the measure. */
+@media screen and (max-width: 991px) {
+  h2 { font-size: 2.75em; }
+  .cta-band-title { font-size: 2.75em; }
+  .pull-quote-text { font-size: 2.5em; }
+  .media-split-title { font-size: 2.25em; }
+  .step-title { font-size: 2em; }
+  .plan-price { font-size: 3em; }
+  .faq-question { font-size: 1.75em; }
+}
+
+/* Phone. Body copy comes down with the headings here: 24px running text on
+   a 480px screen is around 26 characters a line, which reads as a large
+   print edition rather than as a page. */
+@media screen and (max-width: 767px) {
+  h2 { font-size: 2.25em; }
+  .cta-band-title { font-size: 2.25em; }
+  .pull-quote-text { font-size: 2em; }
+  .media-split-title { font-size: 2em; }
+  .step-title { font-size: 1.75em; }
+  .plan-price { font-size: 2.75em; }
+  .faq-question { font-size: 1.5em; }
+  .stat-label { font-size: 1.5em; }
+  .feature-card-body,
+  .faq-answer,
+  .section-header-lede { font-size: 1.25em; }
+}
+
+/* Small phone, 320 to 479. h4 is lifted rather than lowered here, because
+   the export drops it to 1.125em, which puts a card title below the card
+   body under it. */
+@media screen and (max-width: 479px) {
+  h2 { font-size: 2em; }
+  h4 { font-size: 1.25em; }
+  .cta-band-title { font-size: 1.875em; }
+  .media-split-title { font-size: 1.75em; }
+  .pull-quote-text { font-size: 1.75em; }
+  .step-title { font-size: 1.5em; }
+  .plan-price { font-size: 2.5em; }
+  .plan-name { font-size: 1.5em; }
+  .faq-question { font-size: 1.375em; }
+  .stat-label { font-size: 1.25em; }
+  .feature-card-body,
+  .faq-answer,
+  .section-header-lede { font-size: 1.125em; }
+}

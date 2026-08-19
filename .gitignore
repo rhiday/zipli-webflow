@@ -1,0 +1,11 @@
+dist/
+node_modules/
+.DS_Store
+
+# Machine-specific and scratch, per the workspace rules
+.env
+.env.*
+!.env.example
+*.local.md
+.claude/settings.local.json
+docs/_local/

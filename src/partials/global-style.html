@@ -1,0 +1,21 @@
+    <div class="global-style w-embed">
+      <style>
+body {
+ font-size: max(0.8333333333333334vw, 10px);
+}
+/* Max Font Size */
+@media screen and (min-width:1920px) {
+ body {font-size: 16px;}
+}
+/* Container Max Width */
+/* Min Font Size */
+/* The 16px floor below only applies under 992px. Between 992 and 1199 the
+   raw vw value falls to 8.3px, which puts body copy at 12px on a small
+   laptop, so max() holds 1em at 10px through that band. 10px is the
+   largest floor that still lets the 90em container plus its 2em gutters
+   fit inside a 992px window. */
+@media screen and (max-width:991px) {
+ body {font-size: 16px;}
+}
+</style>
+    </div>

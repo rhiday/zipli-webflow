@@ -1,0 +1,19 @@
+{
+  "name": "English",
+  "nav": [
+    { "label": "Kitchens",   "href": "kitchens.html" },
+    { "label": "Management", "href": "management.html" },
+    { "label": "Terminals",  "href": "terminals.html" },
+    { "label": "How it works",   "href": "how-it-works.html" },
+    { "label": "About",          "href": "about.html" },
+    { "label": "Blog",           "href": "blog/" },
+    { "label": "Contact",        "href": "index.html#contact" }
+  ],
+  "cta": {
+    "demo": "Book a demo"
+  },
+  "footer": {
+    "copyright": "Copyright 2025 © NoWaste Futures Oy. All Rights Reserved.",
+    "euAlt": "Co-funded by the European Union"
+  }
+}

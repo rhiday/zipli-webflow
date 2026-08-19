@@ -1,0 +1,164 @@
+<!-- meta
+title: The kitchen door problem | Zipli
+description: Why food waste measurement and food waste redistribution need to work together, and how Zipli's architecture closes the chain of custody that CSRD reporting requires.
+-->
+<!DOCTYPE html>
+<html data-wf-site="6706c51d7ac521c2c8b580a0">
+<head>
+{{> head}}
+</head>
+<body>
+  <div class="page-wrapper">
+{{> global-style}}
+{{> nav}}
+    <div class="main-wrapper">
+
+      <section class="hero-section new-hoe">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="hero-wrapper page">
+              <p class="section-header-eyebrow on-dark">Zipli vs. measurement tools</p>
+              <h1 class="heading page">The kitchen door problem</h1>
+              <div class="padding-medium"></div>
+              <p class="hero-lede">Why food waste measurement and food waste redistribution need
+                to work together.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="padding-section-medium">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="article-body">
+              <div class="article-meta">
+                <img class="article-meta-avatar" src="{{base}}images/people/ninja-fedy.png" alt="Ninja Fedy">
+                <div>
+                  <p class="article-meta-name">Ninja Fedy</p>
+                  <p class="article-meta-detail">19 August 2026 &middot; 7 min read</p>
+                </div>
+              </div>
+
+              <p>In 2013, Winnow launched with a simple idea: put a smart scale in commercial
+                kitchens, connect it to a tablet, and start measuring what gets thrown away. The
+                data would tell chefs where they were over-producing, and over-production would go
+                down. It worked. Winnow now operates in kitchens across 70+ countries and claims
+                to have helped its customers save over 120,000 tonnes of food from being
+                wasted.</p>
+
+              <p>Leanpath followed a similar path: camera-based food waste tracking, kitchen
+                analytics, reduction targets. Both companies have built credible products that
+                have delivered measurable results for their customers.</p>
+
+              <p>But there is a limitation in the measurement-first model that becomes
+                increasingly significant as food waste regulation moves from voluntary to
+                mandatory, and as the expectations of corporate sustainability reporting
+                evolve.</p>
+
+              <p>The limitation is this: measurement tools stop at the kitchen door.</p>
+
+              <h2>What stopping at the kitchen door means</h2>
+
+              <p>When Winnow or Leanpath identifies food as waste, the tool does its job. It
+                records the event, categorises the food, updates the analytics dashboard. The
+                kitchen manager sees the data. Over time, they adjust production quantities. Waste
+                goes down.</p>
+
+              <p>But what happens to the food identified as surplus in the meantime? In most
+                kitchens using measurement-only tools, it goes to bio-waste. The tool told you it
+                was surplus. It did not do anything about the surplus. The redistribution, if it
+                happens at all, is a separate process with separate data in a separate system.</p>
+
+              <h2>Why this matters for CSRD</h2>
+
+              <p>Under CSRD&rsquo;s ESRS E5 framework, food waste reporting requires traceability.
+                The data must show what happened to food identified as surplus: did it go to
+                bio-waste, or was it redistributed? These are materially different outcomes with
+                materially different ESG implications.</p>
+
+              <p>A measurement tool that does not connect to the redistribution chain cannot
+                produce the chain of custody that distinguishes between these two outcomes. The
+                chain of custody is broken. And broken chains of custody are a CSRD compliance
+                problem.</p>
+
+              <h2>The architecture of a complete solution</h2>
+
+              <p>Zipli was designed to close the chain. When a kitchen logs surplus food in Zipli,
+                two things happen simultaneously. First, the data event is created: timestamp,
+                food type, quantity, donor identity. Second, the redistribution process is
+                initiated: the donation is matched to a nearby hub, the hub sees the incoming
+                donation in real time, and the food is collected and redistributed.</p>
+
+              <p>The logging and the redistribution are not two separate processes connected by a
+                manual handoff. They are a single event in a single platform. The chain of custody
+                runs from the moment of logging to the moment of delivery at the redistribution
+                hub, with every step documented in the same data record.</p>
+
+              <h2>The hardware consideration</h2>
+
+              <p>Winnow&rsquo;s Snap AI requires camera hardware at each waste station.
+                Leanpath&rsquo;s Tracker requires dedicated scales and cameras. For a catering
+                chain rolling out across dozens of sites, the capital cost, installation
+                logistics, and ongoing maintenance creates significant friction.</p>
+
+              <p>Zipli&rsquo;s mobile-first approach changes the deployment calculus entirely. No
+                hardware procurement. No installation. No maintenance. Onboarding a new site takes
+                minutes. And because the tool fits into the kitchen manager&rsquo;s existing
+                workflow rather than requiring a new one, adoption is more consistent and data
+                quality is more reliable across sites.</p>
+
+              <h2>When measurement tools are the right choice</h2>
+
+              <p>This analysis should not be read as a dismissal of Winnow or Leanpath. For an
+                operations team whose primary objective is reducing over-production through
+                kitchen analytics, a measurement-first tool is a sensible starting point. The
+                insights they provide about waste patterns and production efficiency are genuine
+                and valuable.</p>
+
+              <p>The question is what the organisation needs the tool to do. If the goal is
+                CSRD-compliant food waste reporting with a complete chain of custody, or a
+                platform that actively connects surplus food to redistribution networks and
+                documents the impact, measurement tools are the wrong starting point.</p>
+
+              <p>The food waste technology market is maturing. Measurement and redistribution are
+                different capabilities. The organisations that need both need a platform that does
+                not stop at the kitchen door.</p>
+
+              <div class="article-crosslinks">
+                <p class="article-crosslinks-label">Continue reading</p>
+                <p><a href="{{base}}blog/measurement-vs-redistribution.html">Food waste
+                  measurement and redistribution are not the same thing</a></p>
+                <p><a href="{{base}}blog/why-leanpath-winnow-stop-at-kitchen-door.html">Why
+                  Leanpath and Winnow stop at the kitchen door</a></p>
+              </div>
+
+              <p class="article-sources">References:
+                <a href="https://winnowsolutions.com" target="_blank" rel="noopener">Winnow</a> &middot;
+                <a href="https://www.leanpath.com" target="_blank" rel="noopener">Leanpath</a> &middot; CSRD ESRS E5 &middot; EU Waste Framework Directive.</p>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="padding-section-medium">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="cta-band">
+              <h2 class="cta-band-title">See a platform that closes the chain</h2>
+              <p class="cta-band-lede">Measurement and redistribution, in one auditable
+                record.</p>
+              <div class="cta-band-actions">
+                <a href="https://calendar.app.google/iv3785myKHh5hD9DA" target="_blank" rel="noopener" class="main-button w-button">Book a demo →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+{{> footer}}
+  </div>
+{{> scripts}}
+</body>
+</html>

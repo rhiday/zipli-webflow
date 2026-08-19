@@ -1,0 +1,26 @@
+  <div id="videoModal" style="display:none;opacity:0" class="pop-up-video-wrapper">
+    <div class="pop-up-video-box">
+      <div class="w-embed w-iframe"><iframe id="videoIframe" width="auto" height="530" style="border-radius: 25px" allow="autoplay; fullscreen" frameborder="0">
+        </iframe></div>
+      <div data-w-id="d26d7342-711f-d1f6-9a46-d31e7775084f" class="pop-up-close-box">
+        <div class="w-embed">
+          <div onclick="closeVideo()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 60 60" fill="none">
+              <path d="M16.7272 40.7272C16.0243 41.4302 16.0243 42.5697 16.7272 43.2727C17.4302 43.9756 18.5699 43.9756 19.2728 43.2727L16.7272 40.7272ZM31.2727 31.2727C31.9757 30.5697 31.9757 29.4302 31.2727 28.7272C30.5698 28.0243 29.4302 28.0243 28.7273 28.7272L31.2727 31.2727ZM28.7273 28.7272C28.0243 29.4302 28.0243 30.5697 28.7273 31.2727C29.4302 31.9756 30.5698 31.9756 31.2727 31.2727L28.7273 28.7272ZM43.2727 19.2727C43.9757 18.5698 43.9757 17.4301 43.2727 16.7272C42.5698 16.0242 41.4302 16.0242 40.7273 16.7272L43.2727 19.2727ZM31.2727 28.7272C30.5698 28.0243 29.4302 28.0243 28.7273 28.7272C28.0243 29.4302 28.0243 30.5697 28.7273 31.2727L31.2727 28.7272ZM40.7273 43.2727C41.4302 43.9756 42.5698 43.9756 43.2727 43.2727C43.9757 42.5697 43.9757 41.4302 43.2727 40.7272L40.7273 43.2727ZM28.7273 31.2727C29.4302 31.9756 30.5698 31.9756 31.2727 31.2727C31.9757 30.5697 31.9757 29.4302 31.2727 28.7272L28.7273 31.2727ZM19.2728 16.7272C18.5699 16.0242 17.4302 16.0242 16.7272 16.7272C16.0243 17.4301 16.0243 18.5698 16.7272 19.2727L19.2728 16.7272ZM19.2728 43.2727L31.2727 31.2727L28.7273 28.7272L16.7272 40.7272L19.2728 43.2727ZM31.2727 31.2727L43.2727 19.2727L40.7273 16.7272L28.7273 28.7272L31.2727 31.2727ZM28.7273 31.2727L40.7273 43.2727L43.2727 40.7272L31.2727 28.7272L28.7273 31.2727ZM31.2727 28.7272L19.2728 16.7272L16.7272 19.2727L28.7273 31.2727L31.2727 28.7272Z" fill="white"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+const videoModal = document.getElementById("videoModal");
+const videoIframe = document.getElementById("videoIframe");
+const videoURL = "https://player.cloudinary.com/embed/?cloud_name=dvo7onadk&public_id=WhatsApp_Video_2025-05-16_at_18.18.42_1_owdqja&profile=cld-default";
+function openVideo() {
+  videoIframe.src = videoURL + "&autoplay=true&loop=true&muted=true";
+}
+function closeVideo() {
+  videoIframe.src = "";
+}
+</script>

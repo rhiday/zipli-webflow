@@ -1,0 +1,903 @@
+<!-- meta
+title: Zipli styleguide
+description: Internal reference for the Zipli marketing site type scale, palette and components.
+-->
+<!DOCTYPE html>
+<html data-wf-site="6706c51d7ac521c2c8b580a0">
+<head>
+{{> head}}
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="sg-body">
+  <div class="page-wrapper">
+{{> global-style}}
+{{> nav}}
+    <div class="main-wrapper">
+
+      <section class="sg-section">
+        <p class="sg-label">Styleguide</p>
+        <h2 style="text-align:left">Zipli marketing site</h2>
+        <p class="sg-note">Every element below uses the classes that already ship in
+          <code>zipli.webflow.css</code>. Copy the markup straight into a new page in
+          <code>src/pages/</code>. Do not invent new class names for something that
+          already exists here.</p>
+        <p class="sg-note"><strong>Scaling:</strong> above 991px the body font-size is
+          <code>0.8333vw</code>, so <code>1em</code> is 1/120th of the viewport width and the whole
+          layout scales with the window. Below 991px it locks to 16px. Size everything in
+          <code>em</code> or it will not scale with the rest of the page.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Colour</p>
+        <div class="sg-grid">
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#adf85a"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Lime</span><span class="sg-swatch__hex">--zipli-lime · #adf85a</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#b6f075"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Lime soft</span><span class="sg-swatch__hex">--zipli-lime-soft · #b6f075</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#085f33"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Green</span><span class="sg-swatch__hex">--zipli-green · #085f33</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#fff0f2"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Blush</span><span class="sg-swatch__hex">--zipli-blush · #fff0f2</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#d08cfb"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Purple</span><span class="sg-swatch__hex">--zipli-purple · #d08cfb</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#0050bd"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Blue</span><span class="sg-swatch__hex">--zipli-blue · #0050bd</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#fe5858"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Red</span><span class="sg-swatch__hex">--zipli-red · #fe5858</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#171717"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Ink</span><span class="sg-swatch__hex">--zipli-ink · #171717</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#7b7b7b"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Grey</span><span class="sg-swatch__hex">--zipli-grey · #7b7b7b</span></div></div>
+          <div class="sg-swatch"><div class="sg-swatch__chip" style="background:#d6d6d6"></div><div class="sg-swatch__meta"><span class="sg-swatch__name">Line</span><span class="sg-swatch__hex">--zipli-line · #d6d6d6</span></div></div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Type scale</p>
+        <div class="sg-dark">
+          <h1 class="heading">Heading one</h1>
+          <p class="sg-note" style="color:#7b7b7b">
+            <code>h1.heading</code> · Space Grotesk 500 · 5em / 97% · lime on dark
+          </p>
+        </div>
+        <div style="margin-top:2em">
+          <h2 style="text-align:left">Heading two</h2>
+          <p class="sg-note"><code>h2</code> · Space Grotesk 500 · 3.125em / 1.3 · centred by default, override with <code>text-align</code></p>
+        </div>
+        <div style="margin-top:2em">
+          <h4>Heading four</h4>
+          <p class="sg-note"><code>h4</code> · 1.5em / 1.2 · weight 700</p>
+        </div>
+        <div style="margin-top:2em">
+          <p>Body paragraph. Satoshi Variable 300 at 1.5em, line-height 1.2. This is the
+            default for all running text on the site.</p>
+          <p class="sg-note"><code>p</code></p>
+        </div>
+        <div style="margin-top:2em">
+          <div class="text-size-small line-height">Small text, used in the footer and captions.</div>
+          <p class="sg-note"><code>.text-size-small.line-height</code></p>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Buttons</p>
+        <div class="sg-row">
+          <a href="#" class="nav-cta w-inline-block"><p class="nav-cta-text">Primary CTA</p></a>
+          <div class="sg-dark" style="padding:1.5em">
+            <a href="#" class="nav-cta hide-pc w-inline-block" style="display:flex"><p class="nav-cta-text show">Green CTA</p></a>
+          </div>
+        </div>
+        <p class="sg-note"><code>.nav-cta</code> is a white pill that turns lime on hover, with
+          <code>.nav-cta-text</code> inside it. Adding <code>.hide-pc</code> gives the green
+          variant used inside the mobile menu. Wrap in an <code>&lt;a&gt;</code>, never a
+          <code>&lt;div&gt;</code>, so it is keyboard reachable.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Layout</p>
+        <p class="sg-note">Every section follows the same three-level nesting. Start from this
+          when you build a new one.</p>
+        <pre style="background:#ebebeb;padding:1.5em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6"><code>&lt;section class="my-section"&gt;
+  &lt;div class="padding-global"&gt;              &lt;!-- 2em side gutter --&gt;
+    &lt;div class="main-container new-home"&gt;   &lt;!-- 90em max, centred --&gt;
+      &lt;div class="padding-xlarge"&gt;&lt;/div&gt;    &lt;!-- vertical rhythm spacer --&gt;
+      ...content...
+      &lt;div class="padding-xlarge"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        <p class="sg-note">The three levels never change: <code>.padding-global</code> owns the
+          side gutter, <code>.main-container</code> owns the max width, and spacers own the
+          vertical rhythm. Do not put a side padding on a container or a max width on a section.
+          The full spacing and width scales are in the next three blocks.</p>
+      </section>
+
+
+      <section class="sg-section">
+        <p class="sg-label">Spacing scale</p>
+        <p class="sg-note">This project follows Client-First. A spacer is an empty div that
+          does nothing but create vertical space, and it sets <code>padding-top</code> only, so
+          spacers never collapse into each other. Reach for a spacer before you write a margin.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6"><code>&lt;div class="padding-large"&gt;&lt;/div&gt;</code></pre>
+        <div class="sg-scale" style="margin-top:2em">
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xxsmall</code><span class="sg-scale__val">0.5em</span><div><div class="sg-scale__bar" style="width:2.8%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xsmall</code><span class="sg-scale__val">1em</span><div><div class="sg-scale__bar" style="width:5.6%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xsmall-2</code><span class="sg-scale__val">1.5em</span><div><div class="sg-scale__bar" style="width:8.3%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-small</code><span class="sg-scale__val">2.5em</span><div><div class="sg-scale__bar sg-scale__bar--inherited" style="width:13.9%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-medium</code><span class="sg-scale__val">3em</span><div><div class="sg-scale__bar sg-scale__bar--inherited" style="width:16.7%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-large</code><span class="sg-scale__val">5.5em</span><div><div class="sg-scale__bar sg-scale__bar--inherited" style="width:30.6%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xlarge</code><span class="sg-scale__val">8em</span><div><div class="sg-scale__bar sg-scale__bar--inherited" style="width:44.4%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xxlarge</code><span class="sg-scale__val">10em</span><div><div class="sg-scale__bar sg-scale__bar--inherited" style="width:55.6%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-huge</code><span class="sg-scale__val">14em</span><div><div class="sg-scale__bar" style="width:77.8%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-xhuge</code><span class="sg-scale__val">18em</span><div><div class="sg-scale__bar" style="width:100.0%"></div></div></div>
+        </div>
+        <p class="sg-note">The paler bars are the five tiers Webflow shipped and are unchanged.
+          The brighter bars are the tiers added in <code>custom.css</code> to complete the scale.</p>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Known wrinkle:</strong>
+            <code>.padding-small</code> (2.5em) and <code>.padding-medium</code> (3em) are almost
+            the same size, so the scale has a flat spot in the middle and a large jump from medium
+            to large. If you find yourself unsure which of the two to use, that is why. Worth
+            re-spacing at some point, but changing them shifts the existing home page, so it is a
+            deliberate decision rather than a cleanup.</p>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Section padding</p>
+        <p class="sg-note">Use these on the section shell when it has a background colour, so the
+          colour covers the padding. Use spacers instead when the background is inherited.
+          They collapse to smaller values below 767px.</p>
+        <div class="sg-scale">
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-section-small</code><span class="sg-scale__val">5.5em</span><div><div class="sg-scale__bar" style="width:55%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-section-medium</code><span class="sg-scale__val">8em</span><div><div class="sg-scale__bar" style="width:80%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.padding-section-large</code><span class="sg-scale__val">10em</span><div><div class="sg-scale__bar" style="width:100%"></div></div></div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Max widths</p>
+        <p class="sg-note">The container sets the page frame. These sit inside it and control the
+          measure of a block of text or a row of cards. Add <code>.align-center</code> to centre one.</p>
+        <div class="sg-scale">
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-xxsmall</code><span class="sg-scale__val">20em</span><div><div class="sg-scale__bar" style="width:28.6%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-xsmall</code><span class="sg-scale__val">25em</span><div><div class="sg-scale__bar" style="width:35.7%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-small</code><span class="sg-scale__val">30em</span><div><div class="sg-scale__bar" style="width:42.9%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-medium</code><span class="sg-scale__val">40em</span><div><div class="sg-scale__bar" style="width:57.1%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-large</code><span class="sg-scale__val">48em</span><div><div class="sg-scale__bar" style="width:68.6%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-xlarge</code><span class="sg-scale__val">60em</span><div><div class="sg-scale__bar" style="width:85.7%"></div></div></div>
+          <div class="sg-scale__row"><code class="sg-scale__name">.max-width-xxlarge</code><span class="sg-scale__val">70em</span><div><div class="sg-scale__bar" style="width:100%"></div></div></div>
+        </div>
+        <p class="sg-note">Containers, for comparison: <code>.main-container</code> 99.9em,
+          <code>.main-container.new-home</code> 90em (what the home page uses),
+          <code>.main-container.reciver</code> 106em.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Layout grids</p>
+        <p class="sg-note">Before this existed, the whole stylesheet contained exactly two
+          <code>grid-template-columns</code> declarations, both one-off, so every multi-column
+          section hand-rolled its own grid. Use these instead. The base class carries the display
+          and the gap, a combo class carries the column count, which is the same pattern as
+          <code>.b2b-solution-card.reverse</code> and <code>.main-container.new-home</code>.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6"><code>&lt;div class="layout-grid cols-3"&gt;
+  &lt;div&gt;...&lt;/div&gt;
+  &lt;div&gt;...&lt;/div&gt;
+  &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p class="sg-note" style="margin-top:2em"><code>.cols-2</code></p>
+        <div class="layout-grid cols-2" style="margin-top:1em">
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">1</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">2</div>
+        </div>
+
+        <p class="sg-note" style="margin-top:2em"><code>.cols-3</code></p>
+        <div class="layout-grid cols-3" style="margin-top:1em">
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">1</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">2</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">3</div>
+        </div>
+
+        <p class="sg-note" style="margin-top:2em"><code>.cols-4</code></p>
+        <div class="layout-grid cols-4" style="margin-top:1em">
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">1</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">2</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">3</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">4</div>
+        </div>
+
+        <p class="sg-note" style="margin-top:2em"><code>.cols-sidebar</code> is 1fr 2fr, for a
+          heading or label rail beside a wider body. <code>.cols-sidebar-end</code> is the mirror.</p>
+        <div class="layout-grid cols-sidebar" style="margin-top:1em">
+          <div style="background:#b6f075;border-radius:.75em;padding:2em;text-align:center">1fr</div>
+          <div style="background:#fff0f2;border-radius:.75em;padding:2em;text-align:center">2fr</div>
+        </div>
+
+        <p class="sg-note" style="margin-top:2em"><code>.cols-auto</code> fits as many
+          <code>18em</code> columns as the width allows, for when the item count is not known
+          when you write the markup.</p>
+        <div class="layout-grid cols-auto" style="margin-top:1em">
+          <div style="background:#ebebeb;border-radius:.75em;padding:2em;text-align:center">auto</div>
+          <div style="background:#ebebeb;border-radius:.75em;padding:2em;text-align:center">auto</div>
+          <div style="background:#ebebeb;border-radius:.75em;padding:2em;text-align:center">auto</div>
+          <div style="background:#ebebeb;border-radius:.75em;padding:2em;text-align:center">auto</div>
+          <div style="background:#ebebeb;border-radius:.75em;padding:2em;text-align:center">auto</div>
+        </div>
+
+        <p class="sg-note" style="margin-top:2em"><strong>Modifiers.</strong> Gap defaults to
+          <code>2em</code>, the value the existing help card grid uses. Override with
+          <code>.gap-small</code> (1em), <code>.gap-large</code> (4em) or
+          <code>.gap-xlarge</code> (6em). Vertical alignment is <code>.items-start</code> and
+          <code>.items-center</code>, named that way because <code>.align-center</code> is
+          already taken and means margin auto.</p>
+        <p class="sg-note"><strong>Collapse.</strong> At 991px three and four columns become two
+          and the sidebar pair becomes one. At 767px everything becomes one column. That matches
+          what the home page four-up already does, so nothing here collapses earlier than the
+          site would on its own.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Components</p>
+        <p class="sg-note">Each of these is extracted from a pattern the home page already uses,
+          not invented for this guide. The name of the Webflow class it generalises is noted with
+          each one, so if the original changes you know what to check. Shared traits across all of
+          them, taken from the export: a large <code>2.5em</code> radius rather than the 8 to 12px
+          a component library defaults to, flat pastel fills with no borders and no shadows, and
+          large light display type at weight 300 to 500 rather than bold.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Page hero</p>
+        <p class="sg-note">The home page hero is a statement: a 5em heading, 18em of padding above
+          it and nothing else. A subpage cannot afford that, it has to say what the page is about
+          before the fold. So this is the same shell on the same photograph, only shorter, with a
+          lede under the heading. Put <code>.page</code> on both the wrapper and the heading, and
+          the lede between the heading and the button.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;section class="hero-section new-hoe"&gt;
+  &lt;div class="padding-global"&gt;
+    &lt;div class="main-container new-home"&gt;
+      &lt;div class="hero-wrapper page"&gt;
+        &lt;h1 class="heading page"&gt;What this page is about&lt;/h1&gt;
+        &lt;div class="padding-medium"&gt;&lt;/div&gt;
+        &lt;p class="hero-lede"&gt;One sentence of context.&lt;/p&gt;
+        &lt;div class="padding-large"&gt;&lt;/div&gt;
+        &lt;div class="hero-button-wrapper"&gt;
+          &lt;a href="#" class="main-button w-button"&gt;Book a demo →&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        <p class="sg-note"><code>.heading.page</code> steps the h1 down from 5em to 3.75em,
+          because a subpage headline is a sentence rather than two words and at 5em it fills the
+          screen. Live examples: <a href="{{base}}kitchens.html">kitchens</a>,
+          <a href="{{base}}management.html">management</a>,
+          <a href="{{base}}terminals.html">terminals</a>.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Section header</p>
+        <p class="sg-note">Eyebrow, heading and lede as one unit. The home page rebuilds this by
+          hand in every section, which is why the gap above the lede is a slightly different value
+          each time. Centred by default, because <code>h2</code> is; add <code>.left</code> to
+          align it left and <code>.wide</code> to widen the measure from 48em to 70em.</p>
+        <div class="section-header" style="margin-top:2em">
+          <p class="section-header-eyebrow">Why it matters</p>
+          <h2>There is a mismatch in food systems</h2>
+          <p class="section-header-lede">One third of all produced food goes to waste while
+            millions of people cannot afford quality meals.</p>
+        </div>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="section-header"&gt;
+  &lt;p class="section-header-eyebrow"&gt;Why it matters&lt;/p&gt;
+  &lt;h2&gt;There is a mismatch in food systems&lt;/h2&gt;
+  &lt;p class="section-header-lede"&gt;One or two sentences.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Feature card</p>
+        <p class="sg-note">Generalises <code>.how-can-we-help-card</code>, the four-up on the home
+          page. Same fill, radius and padding. The difference is that the icon circle and the
+          title pill are optional and the fill is swappable, so the card works in places the
+          original could not go. Drop it into a <code>.layout-grid</code> for a row of them.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <div class="feature-card">
+            <div class="feature-card-top">
+              <div class="feature-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></div>
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Cities</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>Reduce costs, support local wellbeing</h4>
+            <p class="feature-card-body">Meet climate, food waste and social policy targets with
+              real-time food tracking.</p>
+          </div>
+          <div class="feature-card lime">
+            <div class="feature-card-top">
+              <div class="feature-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Retail</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>Build a responsible brand</h4>
+            <p class="feature-card-body">Reduce disposal costs and simplify donations by
+              automating redistribution logistics.</p>
+          </div>
+        </div>
+        <div class="layout-grid cols-3" style="margin-top:2em;background:#ebebeb;padding:2em;border-radius:1em">
+          <div class="feature-card mist">
+            <h4>Without the top row</h4>
+            <p class="feature-card-body">Icon and pill are both optional.</p>
+          </div>
+          <div class="feature-card white">
+            <h4>White fill</h4>
+            <p class="feature-card-body">For use on a coloured section background.</p>
+          </div>
+          <div class="feature-card dark">
+            <h4>Dark fill</h4>
+            <p class="feature-card-body">Inverts the text colour with it, no override needed.</p>
+          </div>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Fills: default blush, plus <code>.lime</code>,
+          <code>.mist</code>, <code>.white</code> and <code>.dark</code>. The row above sits on a
+          grey backdrop only so that the <code>.white</code> card is visible; on a white page it
+          would disappear, which is the point of it, it is for use on a coloured section.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Media split</p>
+        <p class="sg-note">Generalises <code>.b2b-solution-card</code>, the alternating rows of
+          image and text. Add <code>.reverse</code> to flip the image to the other side. It is
+          built on flex rather than the layout grid above, because the two halves are not equal
+          width and the image sizes itself. Add <code>.rounded</code> to the media half for a
+          real photograph; the home page product shots are cut-outs with no background, which is
+          why they carry no radius.</p>
+        <div class="media-split" style="margin-top:2em">
+          <div class="media-split-content">
+            <h2 class="media-split-title">Mobile app for every-day food matchmaking</h2>
+            <div class="padding-medium"></div>
+            <p class="feature-card-body">At the core of saving perfectly good food is finding a
+              match between organisations with excess food and those who can use it.</p>
+          </div>
+          <div class="media-split-media">
+            <div style="background:#fff0f2;border-radius:2.5em;aspect-ratio:4/3"></div>
+          </div>
+        </div>
+        <div class="media-split reverse" style="margin-top:4em">
+          <div class="media-split-content">
+            <h2 class="media-split-title">Reversed, with the media on the left</h2>
+            <div class="padding-medium"></div>
+            <p class="feature-card-body">Alternate the two down a page to build the rhythm the
+              home page uses.</p>
+          </div>
+          <div class="media-split-media">
+            <div style="background:#b6f075;border-radius:2.5em;aspect-ratio:4/3"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Step list</p>
+        <p class="sg-note">Generalises the <code>.how-it-work-timeline-card</code> row in the black
+          section. A numbered lime circle beside a title. Horizontal by default, matching the home
+          page; add <code>.stacked</code> for a vertical list. Add <code>.on-dark</code> when it
+          sits on a dark section, rather than writing a colour override at the call site.</p>
+        <div class="step-list" style="margin-top:2em">
+          <div class="step-item"><div class="step-number">1</div><h4 class="step-title">Post donations</h4></div>
+          <div class="step-item"><div class="step-number">2</div><h4 class="step-title">Get matches</h4></div>
+          <div class="step-item"><div class="step-number">3</div><h4 class="step-title">Receive insights</h4></div>
+        </div>
+        <div class="sg-dark" style="margin-top:2em">
+          <div class="step-list stacked on-dark">
+            <div class="step-item"><div class="step-number">1</div><h4 class="step-title">Stacked, on dark</h4></div>
+            <div class="step-item"><div class="step-number">2</div><h4 class="step-title">Get matches to your needs</h4></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Pull quote</p>
+        <p class="sg-note">Generalises the <code>.project-manager-quate</code> block. A large light
+          quote with an attribution. Pair it with <code>.media-split</code> when you want a
+          portrait alongside, which is what the home page does. <code>.on-dark</code> inverts it.</p>
+        <blockquote class="pull-quote max-width-xlarge" style="margin-top:2em">
+          <p class="pull-quote-text">&ldquo;I am excited to start our collaboration with Zipli to
+            reach our ambitious 50% food waste reduction goal by 2030.&rdquo;</p>
+          <p class="pull-quote-attrib">Heta Hyvärinen</p>
+          <p class="pull-quote-role">Project Manager, Urban Environment Division</p>
+        </blockquote>
+        <p class="sg-note" style="margin-top:2em">Add <code>.small</code> for a one-line personal
+          tagline rather than an editorial quote, e.g. a founder motto under a bio. Same shape,
+          quieter type, italic, no room to overpower the bio it sits under.</p>
+        <blockquote class="pull-quote small max-width-large" style="margin-top:1em">
+          <p class="pull-quote-text">&ldquo;People first.&rdquo;</p>
+          <p class="pull-quote-attrib">Hasan Shahriar</p>
+        </blockquote>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Person card</p>
+        <p class="sg-note">Generalises the pair of contacts in the CTA section. Portrait, name,
+          role and a contact link. Note that the original <code>.cta-author-name</code> sets
+          <code>letter-spacing: -3px</code>, one of the fixed-unit bugs listed below, so this
+          version uses <code>-0.03em</code> instead and tracks correctly at every width.</p>
+        <div class="layout-grid cols-3" style="margin-top:2em">
+          <div class="person-card">
+            <img class="person-card-photo" style="aspect-ratio:1;object-fit:cover" src="{{base}}images/people/ninja-fedy.png" alt="Ninja Fedy">
+            <h4 class="person-card-name">Ninja Fedy</h4>
+            <p class="person-card-role">Founder, CEO</p>
+            <a class="person-card-link" href="mailto:ninja@nowastefutures.com">ninja@nowastefutures.com</a>
+          </div>
+          <div class="person-card">
+            <img class="person-card-photo" style="aspect-ratio:1;object-fit:cover" src="{{base}}images/people/hasan-shahriar.png" alt="Hasan Shahriar">
+            <h4 class="person-card-name">Hasan Shahriar</h4>
+            <p class="person-card-role">Co-founder, CTO</p>
+            <a class="person-card-link" href="mailto:hasan@nowastefutures.com">hasan@nowastefutures.com</a>
+          </div>
+          <div class="person-card">
+            <img class="person-card-photo" style="aspect-ratio:1;object-fit:cover" src="{{base}}images/people/heta-hyvarinen.png" alt="Heta Hyvärinen">
+            <h4 class="person-card-name">Heta Hyvärinen</h4>
+            <p class="person-card-role">Project Manager, Urban Environment Division</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Stat band</p>
+        <p class="sg-note">The number styling is lifted from <code>.box-title</code>, the large
+          figure in the black box under the hero: Space Grotesk 500, tight line-height, negative
+          tracking. The original sets <code>letter-spacing</code> in px, which does not scale, so
+          this uses em. Combine it with a layout grid for the columns. Add <code>.compact</code>
+          when you need four across, because 8em figures overflow a laptop at that count.</p>
+        <div class="stat-band layout-grid cols-3" style="margin-top:2em">
+          <div class="stat-item">
+            <p class="stat-number">1/3</p>
+            <p class="stat-label">of all food produced is wasted</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-number">50%</p>
+            <p class="stat-label">reduction target by 2030</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-number">4</p>
+            <p class="stat-label">sectors served on one platform</p>
+          </div>
+        </div>
+        <div class="sg-dark" style="margin-top:2em">
+          <div class="stat-band on-dark compact layout-grid cols-4">
+            <div class="stat-item"><p class="stat-number">1/3</p><p class="stat-label">wasted</p></div>
+            <div class="stat-item"><p class="stat-number">50%</p><p class="stat-label">target</p></div>
+            <div class="stat-item"><p class="stat-number">4</p><p class="stat-label">sectors</p></div>
+            <div class="stat-item"><p class="stat-number">2030</p><p class="stat-label">deadline</p></div>
+          </div>
+        </div>
+        <p class="sg-note"><code>.on-dark</code> inverts the text, <code>.lime</code> colours just
+          the figure, <code>.center</code> on a <code>.stat-item</code> centres it.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Logo cloud</p>
+        <p class="sg-note">For partner, customer and funder marks. Items are sized by
+          <strong>height</strong>, not width, so marks with different proportions sit on one
+          optical line. That is the thing most logo rows get wrong. Add <code>.tall</code> to a
+          mark that carries a lot of internal padding or a stacked lockup, so it reads at the same
+          weight as a plain wordmark.</p>
+        <div class="logo-cloud" style="margin-top:2em">
+          <img class="logo-cloud-item" src="{{base}}images/logos/city-of-helsinki.png" alt="City of Helsinki">
+          <img class="logo-cloud-item tall" src="{{base}}images/logos/eu-co-funded.png" alt="Co-funded by the European Union">
+        </div>
+        <p class="sg-note" style="margin-top:2em">There is deliberately <strong>no
+          greyscale-to-colour hover</strong>. The marks here are already flat black, and that
+          effect is the single clearest tell of a template site. <code>.left</code> aligns the row
+          left instead of centred; <code>.on-dark</code> inverts the marks for a dark section.</p>
+        <div class="sg-dark" style="margin-top:1.5em">
+          <div class="logo-cloud on-dark">
+            <img class="logo-cloud-item" src="{{base}}images/logos/city-of-helsinki.png" alt="City of Helsinki">
+          </div>
+        </div>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Only use <code>.on-dark</code> on a
+            single-colour mark.</strong> It works by inverting the image, which is right for a
+            black wordmark like the Helsinki one and wrong for anything with brand colour in it:
+            it would turn the EU flag's blue into orange, which is a trademark problem rather than
+            a styling one. For a colour mark on a dark section, ask the owner for their reversed
+            version instead.</p>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">FAQ accordion</p>
+        <p class="sg-note">Built on <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>,
+          so it opens and closes with <strong>no JavaScript at all</strong> and is keyboard
+          accessible for free. The only styling work is hiding the browser's default triangle and
+          drawing our own plus, which is two gradient layers on one box; opening collapses the
+          vertical one to nothing so the plus becomes a minus. Try it with the keyboard: tab to a row and press Enter.</p>
+        <div class="faq-list" style="margin-top:2em">
+          <details class="faq-item">
+            <summary class="faq-question">Who is Zipli for?</summary>
+            <div class="faq-answer"><p>Cities and municipalities, HoReCa and retail, food
+              producers, and charities and upcyclers.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Do we need to change our existing systems?</summary>
+            <div class="faq-answer"><p>No. The mobile app and the data platform sit alongside what
+              you already run.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">How does reporting work?</summary>
+            <div class="faq-answer"><p>Reports are generated automatically from the food flows
+              already recorded in the platform, for ESG tracking and stakeholder updates.</p></div>
+          </details>
+        </div>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;details class="faq-item"&gt;
+  &lt;summary class="faq-question"&gt;Question&lt;/summary&gt;
+  &lt;div class="faq-answer"&gt;&lt;p&gt;Answer.&lt;/p&gt;&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Image card</p>
+        <p class="sg-note">The feature card with a picture instead of an icon. The image sits
+          flush to the card edges, so the card takes <code>overflow: hidden</code> and the padding
+          moves onto an inner <code>.image-card-body</code>. Default crop is 3:2;
+          <code>.portrait</code> makes it square, for a person rather than a scene.</p>
+        <div class="layout-grid cols-3" style="margin-top:2em">
+          <div class="feature-card image-card">
+            <img class="image-card-media portrait" src="{{base}}images/people/ninja-fedy.png" alt="Ninja Fedy">
+            <div class="image-card-body">
+              <h4>Ninja Fedy</h4>
+              <p class="feature-card-body">Founder and CEO.</p>
+            </div>
+          </div>
+          <div class="feature-card image-card lime">
+            <img class="image-card-media portrait" src="{{base}}images/people/hasan-shahriar.png" alt="Hasan Shahriar">
+            <div class="image-card-body">
+              <h4>Hasan Shahriar</h4>
+              <p class="feature-card-body">Co-founder and CTO.</p>
+            </div>
+          </div>
+          <div class="feature-card image-card mist">
+            <img class="image-card-media portrait" src="{{base}}images/people/heta-hyvarinen.png" alt="Heta Hyvärinen">
+            <div class="image-card-body">
+              <h4>Heta Hyvärinen</h4>
+              <p class="feature-card-body">Project Manager, Urban Environment Division.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Photo placeholder</p>
+        <p class="sg-note">Stand-in for a real photograph that hasn't been dropped in yet, used on
+          the <a href="{{base}}about.html">about</a> page while final photography is pending. Same
+          pastel-fill, large-radius language as <code>.feature-card</code>, with a small icon so an
+          unfilled slot reads as intentional rather than a broken image. Keep the box's max-height
+          modest relative to its width, especially at a wide aspect ratio, or the caption ends up
+          stranded in the middle of a lot of empty colour.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <div class="photo-placeholder" style="aspect-ratio:4/3; max-height:16em">
+            <svg class="photo-placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p class="photo-placeholder-label">Caption of the intended photo.</p>
+          </div>
+          <div class="photo-placeholder lime" style="aspect-ratio:4/3; max-height:16em">
+            <svg class="photo-placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p class="photo-placeholder-label">.lime and .mist fill variants.</p>
+          </div>
+        </div>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="photo-placeholder" style="aspect-ratio:4/3; max-height:16em"&gt;
+  &lt;svg class="photo-placeholder-icon" ...&gt;&lt;/svg&gt;
+  &lt;p class="photo-placeholder-label"&gt;Caption of the intended photo.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Plan card</p>
+        <p class="sg-note">A pricing tier. There was no precedent for one in the export, so rather
+          than build a plan table from scratch this is a modifier on <code>.feature-card</code>,
+          the same way <code>.image-card</code> is: the 2.5em radius, the padding and all four
+          fills come with it, and a row of tiers is a <code>.layout-grid</code> of cards. The
+          price figure is <code>.stat-number</code>'s treatment stepped down from 8em to 4em, so
+          the number reads as the same kind of object as the figures in a stat band. Collapse is
+          inherited from the grid, so there are no bespoke breakpoints.</p>
+        <p class="sg-note">Marking the recommended tier is a fill, not an outline or a badge.
+          Nothing in this system has a border, and adding one to a single card would read as a
+          different site. The example below sits on a coloured backdrop, which is where a
+          <code>.white</code> tier is meant to be used.</p>
+        <div class="layout-grid cols-3" style="margin-top:2em;background:#fff0f2;padding:2em;border-radius:1em">
+          <div class="feature-card plan-card lime">
+            <p class="plan-name">Free</p>
+            <p class="plan-scope">1 site</p>
+            <p class="plan-price">&euro;0<span class="plan-price-unit">/site/mo</span></p>
+            <ul class="plan-features">
+              <li>Logging and donation via the app</li>
+              <li>One site&rsquo;s basic data</li>
+            </ul>
+          </div>
+          <div class="feature-card plan-card white">
+            <p class="plan-name">Mini</p>
+            <p class="plan-scope">1 to 3 sites</p>
+            <p class="plan-price">&euro;87<span class="plan-price-unit">/site/mo</span></p>
+            <ul class="plan-features">
+              <li>Connects sites to one data platform</li>
+              <li>Site comparison, optimisation and comms</li>
+            </ul>
+          </div>
+          <div class="feature-card plan-card dark">
+            <p class="plan-name">Enterprise</p>
+            <p class="plan-scope">51+ sites</p>
+            <p class="plan-price quote">Ask for a quote</p>
+            <ul class="plan-features">
+              <li>Unlimited extra user seats</li>
+              <li>SLA agreement and strategy reviews</li>
+            </ul>
+          </div>
+        </div>
+        <p class="plan-note" style="margin-top:2em">Billed monthly or annually per agreement.
+          Sold separately, get in touch and we will book a demo.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="layout-grid cols-3"&gt;
+  &lt;div class="feature-card plan-card white"&gt;
+    &lt;p class="plan-name"&gt;Mini&lt;/p&gt;
+    &lt;p class="plan-scope"&gt;1 to 3 sites&lt;/p&gt;
+    &lt;p class="plan-price"&gt;&amp;euro;87&lt;span class="plan-price-unit"&gt;/site/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;ul class="plan-features"&gt;
+      &lt;li&gt;Connects sites to one data platform&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p class="plan-note"&gt;Billed monthly or annually per agreement.&lt;/p&gt;</code></pre>
+        <p class="sg-note" style="margin-top:2em"><code>.plan-price.quote</code> is for a tier with
+          no number. At 4em the words &ldquo;Ask for a quote&rdquo; wrap to three lines and end up
+          louder than the tiers that do have a price, so it steps down to 2.25em. The feature list
+          is pushed to the foot of the card, so the lists line up across a row even where one tier
+          has a taller price line than its neighbour.</p>
+        <p class="sg-note" style="margin-top:2em">Add <code>.wide</code> when a page has one tier
+          rather than a row of them, as <a href="{{base}}kitchens.html">kitchens</a> and
+          <a href="{{base}}terminals.html">terminals</a> do. Same card turned on its side, so a
+          lone tier does not sit as a narrow column with three quarters of the row empty beside
+          it. This variant needs the extra <code>.plan-card-head</code> wrapper; the column
+          version does not.</p>
+        <div class="feature-card plan-card wide mist" style="margin-top:1.5em">
+          <div class="plan-card-head">
+            <p class="plan-name">Free</p>
+            <p class="plan-scope">1 site, for every donor kitchen</p>
+            <p class="plan-price">&euro;0<span class="plan-price-unit">/site/mo</span></p>
+          </div>
+          <ul class="plan-features">
+            <li>Logging and donation via the app</li>
+            <li>Access to your own site&rsquo;s data</li>
+          </ul>
+        </div>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="feature-card plan-card wide mist"&gt;
+  &lt;div class="plan-card-head"&gt;
+    &lt;p class="plan-name"&gt;Free&lt;/p&gt;
+    &lt;p class="plan-scope"&gt;1 site&lt;/p&gt;
+    &lt;p class="plan-price"&gt;&amp;euro;0&lt;span class="plan-price-unit"&gt;/site/mo&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;ul class="plan-features"&gt;
+    &lt;li&gt;What is included&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        <p class="sg-note" style="margin-top:2em">The wide card also carries the case where there
+          is no price yet. Put the honest words in the price slot at
+          <code>.quote</code> size rather than leaving the slot empty or inventing a figure, so a
+          page without pricing still reads as part of the same pricing story as the pages that
+          have it.</p>
+        <div class="feature-card plan-card wide" style="margin-top:1.5em">
+          <div class="plan-card-head">
+            <p class="plan-name">Custom</p>
+            <p class="plan-scope">Per terminal</p>
+            <p class="plan-price quote">Not locked yet</p>
+          </div>
+          <ul class="plan-features">
+            <li>Scoped to the volume your terminal actually handles</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">CTA band</p>
+        <p class="sg-note">A closing call to action. Lime by default, with <code>.dark</code> and
+          <code>.blush</code> as alternatives. Rounded rather than full-bleed, so it reads as a
+          block on the page like every other surface in this system. The button inside it is the
+          existing <code>.main-button</code>.</p>
+        <div class="cta-band" style="margin-top:2em">
+          <h2 class="cta-band-title">Ready to cut your food waste?</h2>
+          <p class="cta-band-lede">See how Zipli works with your existing operation, in 30 minutes.</p>
+          <div class="cta-band-actions">
+            <a href="#" class="main-button w-button">Book a demo →</a>
+          </div>
+        </div>
+        <div class="cta-band dark" style="margin-top:2em">
+          <h2 class="cta-band-title">The dark variant</h2>
+          <p class="cta-band-lede">Use this one when the section above it is light.</p>
+          <div class="cta-band-actions">
+            <a href="#" class="main-button w-button">Book a demo →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Blog card</p>
+        <p class="sg-note"><code>.feature-card.image-card</code> with a theme tag, a length badge
+          and a <code>.blog-card-readmore</code> CTA link, for the <code>/blog/</code> index.
+          Three cards can share a topic (short/medium/long versions of the same article), so the
+          badge is what tells them apart at a glance. Wrap it in an <code>&lt;a&gt;</code>, never a
+          <code>&lt;div&gt;</code>, same rule as the CTA pill.</p>
+        <div class="layout-grid cols-3" style="margin-top:2em">
+          <a href="#" class="feature-card image-card blog-card">
+            <img class="image-card-media" src="{{base}}images/blog/hub-coordination-capacity.png" alt="">
+            <div class="image-card-body">
+              <div class="feature-card-top">
+                <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                <p class="blog-card-length">Short read &middot; 2 min</p>
+              </div>
+              <div class="padding-small"></div>
+              <h4>Why Finnish redistribution hubs are running out of coordination capacity</h4>
+              <p class="feature-card-body">11 hubs, 6.6 million kg, and only 2 with any operational
+                software.</p>
+              <p class="blog-card-readmore">Read more →</p>
+            </div>
+          </a>
+          <a href="#" class="feature-card image-card blog-card lime">
+            <img class="image-card-media" src="{{base}}images/blog/catering-surplus-growth.png" alt="">
+            <div class="image-card-body">
+              <div class="feature-card-top">
+                <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                <p class="blog-card-length">Medium read &middot; 4 min</p>
+              </div>
+              <div class="padding-small"></div>
+              <h4>Catering surplus is the fastest growing donation category</h4>
+              <p class="feature-card-body">Retail donations are plateauing while catering surplus
+                nearly tripled its share of hub volume.</p>
+              <p class="blog-card-readmore">Read more →</p>
+            </div>
+          </a>
+          <a href="#" class="feature-card image-card blog-card mist">
+            <img class="image-card-media" src="{{base}}images/blog/scale-donor-network.png" alt="">
+            <div class="image-card-body">
+              <div class="feature-card-top">
+                <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                <p class="blog-card-length">Long read &middot; 7 min</p>
+              </div>
+              <div class="padding-small"></div>
+              <h4>Scale your donor network, not your workload</h4>
+              <p class="feature-card-body">The coordination case for redistribution hubs, in
+                full.</p>
+              <p class="blog-card-readmore">Read more →</p>
+            </div>
+          </a>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Group cards for one theme under a left-aligned
+          <code>.section-header</code> and stack the groups with <code>.blog-theme-group</code>,
+          which spaces itself from the one before it. Live example:
+          <a href="{{base}}blog/">the blog index</a>.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Blog article</p>
+        <p class="sg-note">The hero is <code>.hero-wrapper.page</code> (see Page hero above) with
+          a <code>.section-header-eyebrow.on-dark</code> naming the audience above the h1. Right
+          under the hero, in the white space before the copy starts, sits
+          <code>.article-meta</code>: avatar, author name, publish date and read time. The body
+          copy sits in <code>.article-body</code>: left-aligned, 48em wide, with h3 redeclared in
+          em (the export has it fixed at <code>24px/30px</code>, which breaks the scaling rule).
+          No new type sizes or colours beyond what is already on this page.</p>
+        <div class="article-meta" style="margin-top:2em;max-width:36em">
+          <img class="article-meta-avatar" src="{{base}}images/people/ninja-fedy.png" alt="Ninja Fedy">
+          <div>
+            <p class="article-meta-name">Ninja Fedy</p>
+            <p class="article-meta-detail">19 August 2026 &middot; 4 min read</p>
+          </div>
+        </div>
+        <div class="article-body" style="margin-top:1.5em;max-width:36em">
+          <p>The opening paragraph is styled larger, the hook that pulls a reader in.</p>
+          <h2>A section heading</h2>
+          <p>Body copy runs at 1.5em, left-aligned, 1.6 line-height for a long read.</p>
+          <h3>A subheading</h3>
+          <p>Use h3 to break up a section into named parts, one level down from h2.</p>
+          <p class="article-sources">Source: example citation, with a
+            <a href="#">link to the original report</a>.</p>
+        </div>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="article-meta"&gt;
+  &lt;img class="article-meta-avatar" src="{{base}}images/people/name.png" alt="Author name"&gt;
+  &lt;div&gt;
+    &lt;p class="article-meta-name"&gt;Author Name&lt;/p&gt;
+    &lt;p class="article-meta-detail"&gt;19 August 2026 &amp;middot; 4 min read&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="article-body"&gt;
+  &lt;p&gt;Lede paragraph.&lt;/p&gt;
+  &lt;h2&gt;Section heading&lt;/h2&gt;
+  &lt;p&gt;Body copy.&lt;/p&gt;
+  &lt;h3&gt;Subheading&lt;/h3&gt;
+  &lt;p&gt;Body copy.&lt;/p&gt;
+  &lt;div class="article-crosslinks"&gt;
+    &lt;p class="article-crosslinks-label"&gt;Continue reading&lt;/p&gt;
+    &lt;p&gt;&lt;a href="..."&gt;Related post title&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p class="article-sources"&gt;Source: ...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        <p class="sg-note" style="margin-top:2em">Close every post with the standard
+          <code>.cta-band</code>. Live example: <a href="{{base}}blog/scale-donor-network.html">a
+          published post</a>.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Image bank</p>
+        <p class="sg-note">Images are sorted into folders by what they are, so a photograph can be
+          found by name rather than by opening every file.
+          <code>images/people/</code> holds portraits, <code>images/logos/</code> holds partner and
+          funder marks, and <code>images/</code> keeps product shots, UI and icons.</p>
+        <p class="sg-note"><strong>Naming.</strong> A portrait is named after the person,
+          lowercase and hyphenated, with the Webflow responsive variants keeping their
+          <code>-p-500</code> style suffix so the existing <code>srcset</code> pattern still holds.
+          Before this, the CTO's headshot was called
+          <code>Screenshot-2025-05-19-at-0.23.56.png</code>, which is why this exists.</p>
+        <div class="layout-grid cols-4" style="margin-top:2em">
+          <div>
+            <img src="{{base}}images/people/ninja-fedy.png" alt="Ninja Fedy" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:.75em;display:block">
+            <p class="sg-note" style="margin-top:.5em"><code>people/ninja-fedy.png</code><br>+ p-500, p-800, p-1080, p-1600</p>
+          </div>
+          <div>
+            <img src="{{base}}images/people/hasan-shahriar.png" alt="Hasan Shahriar" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:.75em;display:block">
+            <p class="sg-note" style="margin-top:.5em"><code>people/hasan-shahriar.png</code><br>+ p-500, p-800</p>
+          </div>
+          <div>
+            <img src="{{base}}images/people/heta-hyvarinen.png" alt="Heta Hyvärinen" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:.75em;display:block">
+            <p class="sg-note" style="margin-top:.5em"><code>people/heta-hyvarinen.png</code><br>+ p-500</p>
+          </div>
+          <div>
+            <div style="background:#ebebeb;border-radius:.75em;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:1em">
+              <img src="{{base}}images/logos/city-of-helsinki.png" alt="City of Helsinki" style="max-width:100%;height:auto">
+            </div>
+            <p class="sg-note" style="margin-top:.5em"><code>logos/city-of-helsinki.png</code><br><code>logos/eu-co-funded.png</code> + p-500</p>
+          </div>
+        </div>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Alt text.</strong> Every portrait and logo in
+            the export shipped with <code>alt=""</code>, which tells a screen reader to skip it
+            entirely. That is correct for decoration and wrong for a photograph of a named person
+            or an organisation's mark, so all five now carry real alt text. Give any new portrait
+            the person's name.</p>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">The em rule</p>
+        <p class="sg-note">Every utility on this page is in <code>em</code>. That is not a style
+          preference, it is required. <code>body</code> is <code>0.8333vw</code>, so
+          <code>em</code> scales with the viewport and <code>rem</code> does not, because
+          <code>html</code> is left at the browser default of 16px.</p>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Fixed, kept here as a record:</strong>
+            the export originally had 15 rules using <code>rem</code> at desktop scope, so they
+            held a fixed size while everything around them scaled. <code>.main-button</code> was
+            the clearest case, reading <code>padding: 1em 2rem</code> and mixing both units in one
+            declaration; it now reads <code>padding: 1em 2em</code>. All of them have been
+            converted, and <code>node audit.mjs</code> reports 0 errors. Sixteen
+            <code>rem</code> values do remain in <code>zipli.webflow.css</code>, but every one sits
+            inside a <code>max-width: 991px</code> media query or narrower, where the body
+            font-size is pinned to 16px and <code>rem</code> and <code>em</code> are the same
+            thing. Those are harmless and the audit correctly ignores them.</p>
+        </div>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Deliberate exception, not a bug:</strong>
+            <code>h1</code> is set in fixed pixels rather than em, at
+            <code>font-size: 100px</code>, <code>line-height: 97px</code> and
+            <code>letter-spacing: -8px</code>. It is the one place the site opts out of the
+            scaling rule, and it is the largest type on the page, so it is also the most visible
+            place to opt out. The effect is that the hero headline holds one size while the
+            layout around it grows and shrinks: proportionally large at 1200px and proportionally
+            small at 1900px. Converting it to em is a one-line change but it visibly redraws the
+            hero at most widths, so it is a design decision rather than a cleanup, and it stays
+            as-is until someone makes that call. Do not copy this pattern into new work. Every
+            component on this page is in em.</p>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Adding a page</p>
+        <p class="sg-note">Create <code>src/pages/your-page.html</code>, copy the shell from
+          <code>src/pages/index.html</code> (front matter, the four includes, the
+          <code>.main-wrapper</code>), then write your sections. Run <code>npm run dev</code> to
+          preview and <code>npm run build</code> to produce <code>dist/</code>. Every page is built
+          once per locale automatically, so nothing extra is needed for Finnish beyond translating
+          the strings.</p>
+      </section>
+
+    </div>
+{{> footer}}
+  </div>
+{{> scripts}}
+</body>
+</html>

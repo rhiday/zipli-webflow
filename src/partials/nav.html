@@ -1,0 +1,28 @@
+    <div class="navbar-logo-left">
+      <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-logo-left-container shadow-three w-nav">
+        <div class="container">
+          <div class="navbar-wrapper">
+            <a href="{{base}}index.html" class="navbar-brand w-nav-brand" aria-label="Zipli home">{{> logo logoClass="logo-svg" logoId="nav"}}</a>
+            <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+              <div class="div-block-5">
+                <ul role="list" class="nav-menu-two w-list-unstyled">
+{{navLinks}}
+                </ul>
+                <a href="https://calendar.app.google/iv3785myKHh5hD9DA" target="_blank" rel="noopener" class="nav-cta hide-pc w-inline-block">
+                  <p class="nav-cta-text show">{{t.cta.demo}}</p>
+                </a>
+              </div>
+            </nav>
+            <div class="div-block-3">
+              <a href="https://calendar.app.google/iv3785myKHh5hD9DA" target="_blank" rel="noopener" class="nav-cta hide-tablet w-inline-block">
+                <p class="nav-cta-text">{{t.cta.demo}}</p>
+              </a>
+{{langSwitch}}
+              <div class="menu-button w-nav-button">
+                <div class="icon w-icon-nav-menu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
