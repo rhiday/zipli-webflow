@@ -186,6 +186,16 @@ html:not([lang="en"]) .navbar-wrapper {
    The styleguide has no hero, so give it a dark strip to sit on. */
 .sg-body .navbar-logo-left { background: var(--zipli-black); }
 
+/* The navbar stays fixed over every section as the page scrolls, not just
+   the hero it was designed for, so fully transparent let page copy show
+   through and collide with the nav links. A dark, mostly-opaque backdrop
+   keeps the white nav text legible over whatever scrolls underneath it. */
+.navbar-logo-left {
+  background: rgba(8, 10, 9, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 /* =====================================================================
    CLIENT-FIRST UTILITIES
    =====================================================================
