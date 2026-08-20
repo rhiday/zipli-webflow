@@ -204,6 +204,24 @@ html:not([lang="en"]) .navbar-wrapper {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* On the homepage only, Webflow's own scroll interaction also swaps the
+   nav link/logo color to black once you scroll (built for the hero's
+   dark-to-white handoff there). Our dark scrolled backdrop needs the
+   opposite, so force it back to white while .navbar-scrolled is set. */
+.navbar-logo-left.navbar-scrolled .nav-link,
+.navbar-logo-left.navbar-scrolled .nav-cta-text,
+.navbar-logo-left.navbar-scrolled .logo-svg {
+  color: #fff !important;
+}
+
+/* The logo SVG is inline by default, which leaves a baseline/descender
+   gap below it that isn't part of the visible mark, so the wordmark
+   reads as hugging the top of the navbar with extra space underneath.
+   display: block removes that gap so it centers like the nav links. */
+.logo-svg {
+  display: block;
+}
+
 /* =====================================================================
    CLIENT-FIRST UTILITIES
    =====================================================================
