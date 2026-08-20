@@ -186,12 +186,20 @@ html:not([lang="en"]) .navbar-wrapper {
    The styleguide has no hero, so give it a dark strip to sit on. */
 .sg-body .navbar-logo-left { background: var(--zipli-black); }
 
-/* The navbar stays fixed over every section as the page scrolls, not just
-   the hero it was designed for, so fully transparent let page copy show
-   through and collide with the nav links. A dark, mostly-opaque backdrop
-   keeps the white nav text legible over whatever scrolls underneath it. */
-.navbar-logo-left {
-  background: rgba(8, 10, 9, 0.85);
+/* The navbar sits fixed over the hero fully transparent, which is the
+   intended look (you can see the hero image behind it). But it also stays
+   fixed over every section below the hero, where transparent lets page
+   copy show through and collide with the nav links. js/nav-scroll.js adds
+   .navbar-scrolled once the page scrolls past the hero so the backdrop
+   only turns opaque there.
+
+   This uses box-shadow instead of background: Webflow's own scroll
+   interaction runs a Web Animations API tween on background-color, and
+   per spec a running animation wins over even an !important background
+   rule, so a background here gets silently faded back out. box-shadow
+   is a property that interaction never touches. */
+.navbar-logo-left.navbar-scrolled {
+  box-shadow: inset 0 0 0 999px rgba(8, 10, 9, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
