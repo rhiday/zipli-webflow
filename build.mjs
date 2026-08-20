@@ -160,11 +160,29 @@ async function build() {
       const linkHref = (href) =>
         href.startsWith("http") ? href : base + href;
 
-      const navLinks = t.nav.map((l) =>
-        `                  <li>\n                    <a href="${linkHref(l.href)}" class="nav-link">${
-          escapeHtml(l.label)}</a>\n                  </li>`).join("\n");
+      // A nav entry with a `children` array renders as a click-to-open
+      // dropdown (built on <details>, same no-JS pattern as the FAQ
+      // accordion) instead of a plain link. `footerOnly` keeps an entry
+      // (Contact) out of the top nav while it still appears in the footer.
+      const navLinks = t.nav.filter((l) => !l.footerOnly).map((l) => {
+        if (!l.children) {
+          return `                  <li>\n                    <a href="${linkHref(l.href)}" class="nav-link">${
+            escapeHtml(l.label)}</a>\n                  </li>`;
+        }
+        const items = l.children.map((c) =>
+          `                        <li><a href="${linkHref(c.href)}" class="nav-dropdown-link">${
+            escapeHtml(c.label)}</a></li>`).join("\n");
+        return `                  <li class="nav-item-dropdown">\n` +
+          `                    <details class="nav-dropdown">\n` +
+          `                      <summary class="nav-link nav-dropdown-toggle">${escapeHtml(l.label)}` +
+          `<span class="nav-dropdown-caret" aria-hidden="true"></span></summary>\n` +
+          `                      <ul class="nav-dropdown-menu">\n${items}\n                      </ul>\n` +
+          `                    </details>\n                  </li>`;
+      }).join("\n");
 
-      const footerLinks = t.nav.map((l) =>
+      // The footer is a flat link row, so a dropdown entry contributes its
+      // children directly rather than the unclickable group label.
+      const footerLinks = t.nav.flatMap((l) => l.children ?? [l]).map((l) =>
         `                <a href="${linkHref(l.href)}" class="footer_link">${
           escapeHtml(l.label)}</a>`).join("\n");
 

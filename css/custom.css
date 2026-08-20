@@ -1139,6 +1139,106 @@ html:not([lang="en"]) .navbar-wrapper {
 }
 
 /* ---------------------------------------------------------------------
+   Nav dropdown
+   "Resources" groups Blog and Find a Terminal under one nav item. Built
+   on <details>/<summary>, the same no-JS pattern as .faq-item, so it
+   opens and closes with no extra script and stays keyboard reachable.
+   The toggle reuses .nav-link so it matches every other top-level item;
+   only the caret and the menu underneath are new.
+
+   Below 992px the nav collapses into Webflow's full-screen white menu
+   (.nav-menu-two), so the dropdown just expands inline there, pushing
+   the items below it down, the same way a mobile accordion behaves.
+   At 992px and up it floats as a small white card under the toggle so
+   opening it does not shift the rest of the nav row.
+   --------------------------------------------------------------------- */
+.nav-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.nav-dropdown-toggle::-webkit-details-marker { display: none; }
+
+.nav-dropdown-caret {
+  width: 0.6em;
+  height: 0.6em;
+  flex: none;
+  border-right: 0.14em solid currentColor;
+  border-bottom: 0.14em solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -0.3em;
+  transition: transform 0.2s;
+}
+
+.nav-dropdown[open] .nav-dropdown-caret {
+  transform: rotate(-135deg);
+  margin-top: 0.15em;
+}
+
+.nav-dropdown-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-dropdown-link {
+  display: block;
+  font-family: var(--zipli-font-body);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+@media screen and (max-width: 991px) {
+  .nav-dropdown-menu {
+    padding: 0.75em 0 0 1em;
+    display: grid;
+    gap: 0.75em;
+  }
+
+  .nav-dropdown-link {
+    color: var(--zipli-green);
+    font-size: 1.25em;
+    font-weight: 500;
+  }
+
+  .nav-dropdown-link:hover { color: var(--zipli-black); }
+}
+
+@media screen and (min-width: 992px) {
+  .nav-item-dropdown { position: relative; }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1em;
+    min-width: 12em;
+    background-color: var(--zipli-white);
+    border-radius: var(--zipli-radius-soft);
+    padding: 0.75em;
+    display: grid;
+    gap: 0.25em;
+  }
+
+  .nav-dropdown-link {
+    color: var(--zipli-green);
+    font-size: 1.125em;
+    font-weight: 500;
+    padding: 0.5em 0.75em;
+    border-radius: 0.4em;
+  }
+
+  .nav-dropdown-link:hover {
+    color: var(--zipli-green);
+    background-color: var(--zipli-blush);
+  }
+}
+
+/* ---------------------------------------------------------------------
    Ordered step list
    A numbered instructional list, sized to match feature-card body copy.
    Webflow's base ol/ul (webflow.css:283) sets padding-left in px, which
@@ -1658,6 +1758,207 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 }
 
 .plan-note a:hover { text-decoration: underline; }
+
+/* =====================================================================
+   FIND A TERMINAL
+   =====================================================================
+   Built for the "find a terminal" donor lookup page. Two new components:
+   the lookup bar and the form. Everything else on that page is existing
+   system (.feature-card for the result panels, .faq-list for objections).
+   See docs/plan-find-a-terminal-page.md for the full brief.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Dark button
+   .main-button is white-on-transparent, built for sitting on a photo or
+   a lime CTA band. This page's CTAs sit on white and mist backgrounds,
+   where that reads as invisible, so this inverts the fill rather than
+   introducing a second button shape.
+     <a href="#" class="main-button dark w-button">Become a Donor →</a>
+   --------------------------------------------------------------------- */
+.main-button.dark {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+  transition: background-color 0.3s;
+}
+
+.main-button.dark:hover { background-color: var(--zipli-green); }
+
+/* ---------------------------------------------------------------------
+   Lime button
+   The brand accent as a fill rather than a text colour, for a CTA that
+   needs to read as a real button on a white background without going
+   as heavy as .dark, e.g. a secondary action sitting in open space.
+     <a href="#" class="main-button lime w-button">Read our story →</a>
+   --------------------------------------------------------------------- */
+.main-button.lime {
+  background-color: var(--zipli-lime);
+  color: var(--zipli-black);
+  transition: background-color 0.3s;
+}
+
+.main-button.lime:hover { background-color: var(--zipli-lime-soft); }
+
+/* ---------------------------------------------------------------------
+   Lookup bar
+   The single input-plus-button search used to check a city. Same fill
+   and radius language as .feature-card, sized as a bar rather than a
+   block.
+     <form class="lookup-bar">
+       <input class="lookup-bar-input" type="text" placeholder="Enter your city">
+       <button class="main-button dark w-button" type="submit">Check</button>
+     </form>
+   --------------------------------------------------------------------- */
+.lookup-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1em;
+  background-color: var(--zipli-mist);
+  border-radius: var(--zipli-radius-card);
+  padding: 1em 1em 1em 2em;
+}
+
+.lookup-bar-input {
+  flex: 1 1 16em;
+  min-width: 0;
+  border: none;
+  background: none;
+  font-family: var(--zipli-font-body);
+  font-size: 1.5em;
+  font-weight: 300;
+  color: var(--zipli-black);
+  padding: 0.5em 0;
+}
+
+.lookup-bar-input::placeholder { color: var(--zipli-grey); }
+.lookup-bar-input:focus { outline: none; }
+
+.lookup-bar .main-button {
+  flex: none;
+  font-size: 1.5em;
+  padding: 0.7em 1.6em;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .lookup-bar { padding: 1.2em; }
+  .lookup-bar .main-button { width: 100%; }
+}
+
+/* Result panels reuse .feature-card.lime / .feature-card.mist. Only the
+   show/hide behaviour is new, driven by a `hidden` attribute so the page
+   works with no JavaScript beyond the small mock lookup script. */
+.lookup-result { margin-top: 2em; }
+
+.lookup-reassurance {
+  font-size: 1.125em;
+  font-weight: 400;
+  color: var(--zipli-grey);
+  text-align: center;
+  margin: 1.5em auto 0;
+  max-width: 40em;
+}
+
+/* ---------------------------------------------------------------------
+   Simple form
+   The site's first form component. Same visual language as everything
+   else in this system: mist fill, 0.75em radius, no borders, sized in
+   em. Two fields can share a row via .form-row.
+     <form class="simple-form">
+       <div class="form-row">
+         <div class="form-field">
+           <label class="form-label" for="x">Label</label>
+           <input class="form-input" id="x" type="text">
+         </div>
+       </div>
+       <button class="main-button dark w-button" type="submit">Send →</button>
+     </form>
+   --------------------------------------------------------------------- */
+.simple-form {
+  width: 100%;
+  max-width: 44em;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+}
+
+.form-row + .form-row { margin-top: 1.5em; }
+
+.form-field.full { grid-column: 1 / -1; }
+
+.form-label {
+  display: block;
+  font-family: var(--zipli-font-body);
+  font-size: 1.125em;
+  font-weight: 500;
+  margin: 0 0 0.5em;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background-color: var(--zipli-mist);
+  border: none;
+  border-radius: var(--zipli-radius-soft);
+  font-family: var(--zipli-font-body);
+  font-size: 1.25em;
+  font-weight: 300;
+  color: var(--zipli-black);
+  padding: 0.85em 1.1em;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder { color: var(--zipli-grey); }
+
+.form-textarea { resize: vertical; min-height: 6em; }
+
+.form-note {
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--zipli-grey);
+  margin: 1em 0 1.5em;
+}
+
+.simple-form .main-button {
+  font-size: 1.5em;
+  border: none;
+  cursor: pointer;
+}
+
+/* Swapped in over the form on mock submit. */
+.form-success {
+  background-color: var(--zipli-lime-soft);
+  border-radius: var(--zipli-radius-card);
+  padding: 2.5em;
+  text-align: center;
+}
+
+.form-success h3 {
+  font-family: var(--zipli-font-display);
+  font-size: 2em;
+  font-weight: 500;
+  margin: 0;
+}
+
+.form-success p {
+  font-size: 1.25em;
+  font-weight: 300;
+  color: var(--zipli-graphite);
+  margin: 0.6em 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .form-row { grid-template-columns: 1fr; gap: 1.5em; }
+  .form-row + .form-row,
+  .form-field + .form-field { margin-top: 1.5em; }
+}
 
 /* =====================================================================
    RESPONSIVE REPAIRS

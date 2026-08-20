@@ -6,8 +6,11 @@
     { "label": "Terminaaleille",  "href": "terminals.html" },
     { "label": "Näin se toimii",  "href": "how-it-works.html" },
     { "label": "Meistä",          "href": "about.html" },
-    { "label": "Blogi",           "href": "blog/" },
-    { "label": "Yhteystiedot",    "href": "index.html#contact" }
+    { "label": "Resurssit", "children": [
+      { "label": "Blogi",              "href": "blog/" },
+      { "label": "Löydä terminaali",   "href": "find-a-terminal.html" }
+    ] },
+    { "label": "Yhteystiedot",    "href": "index.html#contact", "footerOnly": true }
   ],
   "cta": {
     "demo": "Varaa demo"

@@ -1,0 +1,214 @@
+<!-- meta
+title: Find a Zipli terminal near you
+description: Check if Zipli already reaches your city, then sign up to donate surplus in minutes.
+title.fi: Etsi lähin Zipli-terminaali
+description.fi: Tarkista, toimiiko Zipli jo kaupungissasi, ja aloita ylijäämän lahjoittaminen minuuteissa.
+-->
+<!DOCTYPE html>
+<html data-wf-site="6706c51d7ac521c2c8b580a0">
+<head>
+{{> head}}
+</head>
+<body>
+  <div class="page-wrapper">
+{{> global-style}}
+{{> nav}}
+    <div class="main-wrapper">
+
+      <section class="hero-section new-hoe">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="hero-wrapper page">
+              <h1 class="heading page">Is there a Zipli terminal near you?</h1>
+              <div class="padding-medium"></div>
+              <p class="hero-lede">Enter your city to check. If a terminal is already active, you
+                can start donating your surplus the same day.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="padding-section-medium">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="max-width-large align-center">
+
+              <form class="lookup-bar" id="lookupForm">
+                <input class="lookup-bar-input" id="lookupInput" type="text"
+                  placeholder="Enter your city, e.g. Helsinki" autocomplete="address-level2"
+                  aria-label="Your city">
+                <button class="main-button dark w-button" type="submit">Check</button>
+              </form>
+
+              <div class="lookup-result" id="resultActive" hidden>
+                <div class="feature-card lime">
+                  <h4>Good news &mdash; Zipli is already active in <span class="lookup-city"></span>.</h4>
+                  <p class="feature-card-body">Sign up as a donor and start logging surplus the
+                    same day. No setup fee, no long onboarding.</p>
+                  <div class="padding-xsmall"></div>
+                  <a href="#become-a-donor" class="main-button dark w-button js-scroll-to-form">Become a Donor →</a>
+                </div>
+              </div>
+
+              <div class="lookup-result" id="resultInactive" hidden>
+                <div class="feature-card mist">
+                  <h4>No terminal in <span class="lookup-city"></span> yet.</h4>
+                  <p class="feature-card-body">Leave your details below and we&rsquo;ll reach out
+                    when Zipli launches near you, or tell us about a hub we should talk to.</p>
+                  <div class="padding-xsmall"></div>
+                  <a href="#become-a-donor" class="main-button dark w-button js-scroll-to-form">Notify Me →</a>
+                </div>
+              </div>
+
+              <p class="lookup-reassurance" id="lookupReassurance" hidden>No cost, no commitment
+                &mdash; just a way to make sure good food doesn&rsquo;t go to waste.</p>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="padding-section-medium" style="background-color:#fff0f2">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="section-header">
+              <p class="section-header-eyebrow">Before you sign up</p>
+              <h2>What restaurants ask first</h2>
+            </div>
+            <div class="padding-large"></div>
+            <div class="faq-list align-center">
+              <details class="faq-item mist">
+                <summary class="faq-question">Does it cost anything to donate?</summary>
+                <div class="faq-answer"><p>No. Logging and donating is free of charge for donor
+                  restaurants via Stadin safka.</p></div>
+              </details>
+              <details class="faq-item mist">
+                <summary class="faq-question">How fast can we start?</summary>
+                <div class="faq-answer"><p>If a terminal is already active in your city, you can
+                  log your first batch the same day. There is no long onboarding.</p></div>
+              </details>
+              <details class="faq-item mist">
+                <summary class="faq-question">What if there is no terminal near us yet?</summary>
+                <div class="faq-answer"><p>Leave your details in the form below. We reach out as
+                  soon as Zipli launches near you, and a hub tip helps us prioritise where to go
+                  next.</p></div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="padding-section-medium" id="become-a-donor">
+        <div class="padding-global">
+          <div class="main-container new-home">
+            <div class="section-header">
+              <p class="section-header-eyebrow">Become a donor</p>
+              <h2>Tell us about your kitchen</h2>
+              <p class="section-header-lede">Whether Zipli is already active near you or not yet,
+                leave your details and we&rsquo;ll be in touch.</p>
+            </div>
+            <div class="padding-large"></div>
+
+            <form class="simple-form" id="donorForm" data-crm-lead>
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label" for="restaurantName">Restaurant / kitchen name</label>
+                  <input class="form-input" id="restaurantName" name="restaurantName" type="text" required>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="contactName">Your name</label>
+                  <input class="form-input" id="contactName" name="contactName" type="text" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label" for="email">Work email</label>
+                  <input class="form-input" id="email" name="email" type="email" required>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="phone">Phone (optional)</label>
+                  <input class="form-input" id="phone" name="phone" type="tel">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field full">
+                  <label class="form-label" for="city">City</label>
+                  <input class="form-input" id="city" name="city" type="text" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field full">
+                  <label class="form-label" for="message">Anything else we should know? (optional)</label>
+                  <textarea class="form-textarea" id="message" name="message" placeholder="Number of sites, typical surplus, etc."></textarea>
+                </div>
+              </div>
+              <p class="form-note">We&rsquo;ll only use these details to set up your Zipli account. No spam.</p>
+              <button class="main-button dark w-button" type="submit">Become a Donor →</button>
+            </form>
+
+            <div class="form-success max-width-medium align-center" id="formSuccess" hidden>
+              <h3>Thanks, that&rsquo;s in.</h3>
+              <p>Someone from Zipli will reach out shortly to get you set up.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+{{> footer}}
+  </div>
+{{> scripts}}
+  <script>
+// Mocked lookup: no terminal directory exists yet, so this checks against
+// the small set of cities Zipli already operates in via Stadin safka. See
+// docs/plan-find-a-terminal-page.md for what a real integration replaces.
+const ACTIVE_CITIES = ["helsinki", "espoo", "vantaa", "kauniainen"];
+
+const lookupForm = document.getElementById("lookupForm");
+const lookupInput = document.getElementById("lookupInput");
+const resultActive = document.getElementById("resultActive");
+const resultInactive = document.getElementById("resultInactive");
+const lookupReassurance = document.getElementById("lookupReassurance");
+const cityInput = document.getElementById("city");
+
+lookupForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const city = lookupInput.value.trim();
+  if (!city) return;
+
+  const isActive = ACTIVE_CITIES.includes(city.toLowerCase());
+  const target = isActive ? resultActive : resultInactive;
+  const other = isActive ? resultInactive : resultActive;
+
+  document.querySelectorAll(".lookup-city").forEach(function (el) {
+    el.textContent = city;
+  });
+  other.hidden = true;
+  target.hidden = false;
+  lookupReassurance.hidden = false;
+  if (cityInput) cityInput.value = city;
+
+  target.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+document.querySelectorAll(".js-scroll-to-form").forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("become-a-donor").scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+// Mocked submit: no CRM is wired up yet, see the data-crm-lead marker above.
+const donorForm = document.getElementById("donorForm");
+const formSuccess = document.getElementById("formSuccess");
+
+donorForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  donorForm.hidden = true;
+  formSuccess.hidden = false;
+  formSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+  </script>
+</body>
+</html>

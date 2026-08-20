@@ -6,8 +6,11 @@
     { "label": "Terminals",  "href": "terminals.html" },
     { "label": "How it works",   "href": "how-it-works.html" },
     { "label": "About",          "href": "about.html" },
-    { "label": "Blog",           "href": "blog/" },
-    { "label": "Contact",        "href": "index.html#contact" }
+    { "label": "Resources", "children": [
+      { "label": "Blog",             "href": "blog/" },
+      { "label": "Find a Terminal",  "href": "find-a-terminal.html" }
+    ] },
+    { "label": "Contact",        "href": "index.html#contact", "footerOnly": true }
   ],
   "cta": {
     "demo": "Book a demo"
