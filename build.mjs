@@ -14,6 +14,7 @@
 import { readFile, writeFile, mkdir, readdir, rm, cp } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { stampEditIds } from "./js/edit-ids.mjs";
 
 const ROOT = import.meta.dirname;
 const SRC = path.join(ROOT, "src");
@@ -199,10 +200,19 @@ async function build() {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",
           canonical: urlPath,
+          // Body copy isn't templated per locale, so every locale of a page
+          // edits back to the same English source file. Read by edit-mode.js
+          // to know which file to fetch/commit through the GitHub API.
+          editSource: `src/pages/${file}`,
         },
       };
 
-      const html = fill(await resolveIncludes(body), ctx)
+      // Stamped before includes are resolved, so ids only ever land on
+      // elements that live in the page file itself (nav/footer come from
+      // partials and are never touched), and so the same id numbering the
+      // edit-mode client computes when it re-walks the raw source file on
+      // GitHub lines up with what the teammate sees in the rendered page.
+      const html = fill(await resolveIncludes(stampEditIds(body)), ctx)
         .replace("<html", `<html lang="${lang}"`);
       const outFile = path.join(dir, file);
       await mkdir(path.dirname(outFile), { recursive: true });
@@ -254,6 +264,7 @@ if (process.argv.includes("--serve")) {
   const { watch } = await import("node:fs");
   const TYPES = {
     ".html": "text/html", ".css": "text/css", ".js": "text/javascript",
+    ".mjs": "text/javascript",
     ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg",
     ".avif": "image/avif", ".woff2": "font/woff2", ".ttf": "font/ttf",
   };
