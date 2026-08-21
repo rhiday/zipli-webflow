@@ -806,6 +806,26 @@ description: Internal reference for the Zipli marketing site type scale, palette
       </section>
 
       <section class="sg-section">
+        <p class="sg-label">Page note</p>
+        <p class="sg-note">Sources and caveats that a figure needs but that would clutter the
+          section carrying it. The claim takes a <code>.note-ref</code> asterisk that links to
+          <code>#notes</code>, and the explanation sits in a <code>.page-note</code> at the foot of
+          the page, ahead of the footer. This keeps a stat band down to a number and a label, which
+          is the whole point of a stat band, without dropping the provenance.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;p class="stat-label"&gt;the claim&lt;a class="note-ref" href="#notes"&gt;*&lt;/a&gt;&lt;/p&gt;
+
+&lt;section id="notes" class="padding-section-small"&gt;
+  &lt;p class="page-note"&gt;* The explanation.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        <p class="page-note" style="margin-top:2em">* Meals are counted as 500 g portions. Waste
+          tonnage and the &euro;2.50 per kilo value behind it are from the Natural Resources
+          Institute Finland (Luke).</p>
+        <p class="sg-note" style="margin-top:2em">One asterisk per page, covering every claim that
+          shares a source. Numbered notes would be more precise, but a marketing page carrying
+          enough figures to need numbering is a page with too many figures on it.</p>
+      </section>
+
+      <section class="sg-section">
         <p class="sg-label">CTA band</p>
         <p class="sg-note">A closing call to action. Lime by default, with <code>.dark</code> and
           <code>.blush</code> as alternatives. Rounded rather than full-bleed, so it reads as a

@@ -2274,3 +2274,32 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    quieter than a closing CTA: no fill of its own against the section it
    already sits on. */
 .cta-band.donor-band { background-color: transparent; }
+
+/* ---------------------------------------------------------------------
+   Page notes
+   Sources and caveats that would clutter the section they belong to.
+   The figure carries a .note-ref asterisk, the explanation sits in a
+   .page-note block at the foot of the page, ahead of the footer.
+     <p class="stat-label">the claim<a class="note-ref" href="#notes">*</a></p>
+     ...
+     <section id="notes"><p class="page-note">* The explanation.</p></section>
+   --------------------------------------------------------------------- */
+.note-ref {
+  color: var(--zipli-grey);
+  text-decoration: none;
+  font-size: 0.85em;
+  vertical-align: super;
+  line-height: 0;
+  padding-left: 0.15em;
+}
+
+.note-ref:hover { color: var(--zipli-ink); }
+
+.page-note {
+  max-width: 60em;
+  color: var(--zipli-grey);
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
