@@ -662,6 +662,44 @@ html:not([lang="en"]) .navbar-wrapper {
   grid-row-gap: 2.5em;
 }
 
+/* Columns variant. The default row puts the number beside the title, which
+   works when a step is two or three words. Once each step carries a
+   sentence underneath, side by side leaves the numbers stranded in a
+   narrow gutter down the left and the text running the full page width.
+   This turns each step into a column with the number above its title,
+   which is how a three-step explainer usually reads. Use it for three or
+   four steps; beyond that the columns get too narrow to hold a sentence. */
+.step-list.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 3em;
+  grid-row-gap: 3em;
+  align-items: start;
+}
+
+.step-list.columns.four { grid-template-columns: repeat(4, 1fr); }
+
+.step-list.columns .step-item {
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column-gap: 1.2em;
+  grid-row-gap: 1.2em;
+}
+
+/* In a row the title has no sentence under it, so it needs no space
+   below. In a column it does. */
+.step-list.columns .step-title { margin-bottom: 0.5em; }
+
+@media screen and (max-width: 991px) {
+  .step-list.columns,
+  .step-list.columns.four { grid-template-columns: 1fr 1fr; }
+}
+
+@media screen and (max-width: 767px) {
+  .step-list.columns,
+  .step-list.columns.four { grid-template-columns: 1fr; }
+}
+
 .step-item {
   display: flex;
   align-items: center;
