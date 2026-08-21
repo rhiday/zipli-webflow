@@ -243,8 +243,18 @@ async function build() {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ` +
     `xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`);
 
-  await writeFile(path.join(OUT, "robots.txt"),
-    `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`);
+  // Netlify sets CONTEXT to "production" for the live site and to
+  // "branch-deploy" or "deploy-preview" for everything else. Only the real
+  // site invites crawlers: a branch preview is a full copy of the marketing
+  // site on its own public URL, and if it gets indexed it competes with
+  // getzipli.com in search for our own copy. Netlify adds noindex to deploy
+  // previews on its own but NOT to branch deploys, so this covers the gap.
+  // Unset (a local build) is treated as production, so `npm run build` output
+  // is what actually ships.
+  const isProduction = !process.env.CONTEXT || process.env.CONTEXT === "production";
+  await writeFile(path.join(OUT, "robots.txt"), isProduction
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`
+    : `# ${process.env.CONTEXT} build, not the live site.\nUser-agent: *\nDisallow: /\n`);
 
   for (const a of ASSETS) {
     if (existsSync(path.join(ROOT, a))) {
