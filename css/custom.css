@@ -2427,7 +2427,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    number alone ("4/4") does not say what kind of measure it is. Sits
    above the figure rather than below, so it reads as a label on it.
      <div class="stat-item center">
-       <div class="stat-rating">…5 svgs…</div>
+       <div class="stat-rating">…svgs…</div>
        <p class="stat-number">4/4</p>
    Only for scores out of a scale. Never put stars on a volume or a
    count: a row of stars over "271 kg" implies a rating that is not there.
@@ -2490,6 +2490,22 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   display: flex;
   flex-direction: column;
   gap: 2em;
+}
+
+/* Green, not the lime used on a dark section: lime on white measures
+   1.28:1, so a row of lime stars on a white card would all but vanish.
+   Same rule as the stat figures, see the stat band flag in the guide. */
+.testimonial-rating {
+  display: flex;
+  gap: 0.2em;
+  margin: 0 0 -1em;
+}
+
+.testimonial-rating svg {
+  width: 1.4em;
+  height: 1.4em;
+  fill: var(--zipli-green);
+  flex: none;
 }
 
 .testimonial-quote {
