@@ -1650,8 +1650,13 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   padding: 2em;
 }
 
-.photo-placeholder.lime { background-color: var(--zipli-lime-soft); }
-.photo-placeholder.mist { background-color: var(--zipli-mist); }
+.photo-placeholder.lime  { background-color: var(--zipli-lime-soft); }
+.photo-placeholder.mist  { background-color: var(--zipli-mist); }
+
+/* For a placeholder sitting inside a coloured card, where the default
+   blush fill competes with the card rather than reading as an empty
+   media slot. */
+.photo-placeholder.white { background-color: var(--zipli-white); }
 
 .photo-placeholder-icon {
   width: 2.25em;
@@ -2309,4 +2314,15 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   font-weight: 300;
   line-height: 1.5;
   margin: 0;
+}
+
+/* A placeholder standing in for a real photograph in an .image-card slot
+   carries its own radius and centring, so it has to be pulled back to the
+   bled-media geometry: square corners, because the card's overflow:hidden
+   is what rounds them, and flex restored for the caption. */
+.photo-placeholder.image-card-media {
+  border-radius: 0;
+  display: flex;
+  aspect-ratio: 16 / 9;
+  padding: 1.5em;
 }

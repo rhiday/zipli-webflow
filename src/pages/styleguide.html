@@ -610,6 +610,11 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <p class="photo-placeholder-label">.lime and .mist fill variants.</p>
           </div>
         </div>
+        <p class="sg-note" style="margin-top:2em">To stand in for the picture in an
+          <code>.image-card</code>, give the placeholder <code>.image-card-media</code> as well.
+          It drops its own radius, because the card's <code>overflow: hidden</code> is what rounds
+          a bled image, and keeps its centring. Leave it on the default blush fill rather than
+          <code>.white</code>: a white slot on a white page makes the top of the card disappear.</p>
         <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="photo-placeholder" style="aspect-ratio:4/3; max-height:16em"&gt;
   &lt;svg class="photo-placeholder-icon" ...&gt;&lt;/svg&gt;
   &lt;p class="photo-placeholder-label"&gt;Caption of the intended photo.&lt;/p&gt;
