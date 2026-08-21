@@ -2420,3 +2420,139 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 /* The icon circle's own fill is white, which disappears on a .white card.
    Give it the section fill instead so the circle still reads. */
 .feature-card.white .feature-card-icon { background-color: var(--zipli-blush); }
+
+/* ---------------------------------------------------------------------
+   Stat rating
+   A row of stars above a stat figure, for a satisfaction score where the
+   number alone ("4/4") does not say what kind of measure it is. Sits
+   above the figure rather than below, so it reads as a label on it.
+     <div class="stat-item center">
+       <div class="stat-rating">…5 svgs…</div>
+       <p class="stat-number">4/4</p>
+   Only for scores out of a scale. Never put stars on a volume or a
+   count: a row of stars over "271 kg" implies a rating that is not there.
+   --------------------------------------------------------------------- */
+.stat-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.stat-rating svg {
+  width: 1.5em;
+  height: 1.5em;
+  fill: var(--zipli-lime);
+  flex: none;
+}
+
+.stat-item:not(.center) .stat-rating { justify-content: flex-start; }
+
+/* ---------------------------------------------------------------------
+   Testimonial carousel
+   A horizontal row of quote cards that scrolls when it overflows. Built
+   on scroll-snap, so there is no JavaScript, no library and no state to
+   go wrong; the browser handles the paging, and with a keyboard or a
+   trackpad it behaves the way any scroll area does.
+
+   Two or three cards fit at a desktop width and the rest scroll, which
+   is the point: a wall of six quotes reads as filler, a row you can push
+   through reads as a set.
+     <div class="testimonial-row">
+       <figure class="testimonial-card">
+         <p class="testimonial-quote">…</p>
+         <figcaption class="testimonial-author">
+           <span class="testimonial-avatar">…</span>
+           <span><span class="testimonial-name">…</span>
+                 <span class="testimonial-role">…</span></span>
+         </figcaption>
+       </figure>
+     </div>
+   --------------------------------------------------------------------- */
+.testimonial-row {
+  display: flex;
+  gap: 1.5em;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Room for the cards' own shadowless edges and the scrollbar, so the
+     first and last card are not clipped against the container. */
+  padding-bottom: 1.5em;
+  scrollbar-width: thin;
+}
+
+.testimonial-card {
+  flex: 0 0 min(28em, 80%);
+  scroll-snap-align: start;
+  background-color: var(--zipli-white);
+  border-radius: var(--zipli-radius-card);
+  padding: 2.5em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.testimonial-quote {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--zipli-ink);
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  /* webflow.css sets figcaption { text-align: center } on the element
+     itself, so inheriting left from the card is not enough to beat it. */
+  text-align: left;
+}
+
+.testimonial-avatar {
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  background-color: var(--zipli-mist);
+  color: var(--zipli-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+}
+
+.testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.testimonial-avatar svg { width: 55%; height: 55%; }
+
+.testimonial-name,
+.testimonial-role { display: block; line-height: 1.3; }
+
+.testimonial-name {
+  font-family: var(--zipli-font-display);
+  font-size: 1.25em;
+  font-weight: 500;
+  color: var(--zipli-ink);
+}
+
+.testimonial-role {
+  font-size: 1.05em;
+  font-weight: 300;
+  color: var(--zipli-grey);
+}
+
+/* The hint that there is more to the right, for a mouse user who has no
+   scrollbar until they touch it. */
+.testimonial-hint {
+  font-size: 1.05em;
+  font-weight: 300;
+  color: var(--zipli-grey);
+  margin: 0.5em 0 0;
+}
+
+.section-dark .testimonial-hint { color: var(--zipli-line); }
+
+@media screen and (max-width: 767px) {
+  .testimonial-card { flex-basis: 85%; padding: 2em; }
+}
