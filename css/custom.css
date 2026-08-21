@@ -2204,16 +2204,20 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   align-items: stretch;
 }
 
-/* The tag sits on the page rather than inside a card, and the pill's own
-   fill is white, so it needs the card fill instead to be visible at all. */
-.audience-column > .feature-card-tag {
-  align-self: flex-start;
-  background-color: var(--zipli-mist);
-}
-
-.section-blush .audience-column > .feature-card-tag,
-.section-mist .audience-column > .feature-card-tag {
-  background-color: var(--zipli-white);
+/* The column is headed by a label, not a pill. .feature-card-tag is the
+   pill that sits inside a card; floating one on the page reads as a stray
+   lozenge rather than as something that owns the two cards beneath it.
+   This is .section-header-eyebrow's treatment in ink instead of grey, so
+   it reads as a heading for the column rather than a caption. */
+.audience-label {
+  font-family: var(--zipli-font-body);
+  font-size: 1.25em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zipli-ink);
+  margin: 0 0 1.2em;
+  padding-left: 0.1em;
 }
 
 /* Each card takes an equal share of the column, so the two columns line
