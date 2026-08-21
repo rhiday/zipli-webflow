@@ -2387,3 +2387,32 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
      what the eye actually judges. */
   padding: 0.71em 1.5em 0.79em;
 }
+
+/* ---------------------------------------------------------------------
+   Store button
+   .main-button with the platform mark ahead of the label. The arrow is
+   dropped: an app store button goes to one known place, and the mark
+   already says where, so the arrow was doing nothing the icon does not.
+
+   The mark inherits currentColor, so it flips with the button fill and
+   there is no second colour to keep in step.
+     <a class="main-button dark store w-button">
+       <svg class="store-button-icon">…</svg><span>Get it on Google Play</span>
+     </a>
+   --------------------------------------------------------------------- */
+.main-button.store {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+}
+
+.store-button-icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  fill: currentColor;
+  /* Both marks read slightly high against a cap-height label, the same
+     optical problem as the button padding. */
+  position: relative;
+  top: -0.03em;
+}
