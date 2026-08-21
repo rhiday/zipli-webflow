@@ -539,14 +539,18 @@ html:not([lang="en"]) .navbar-wrapper {
 .feature-card-icon svg,
 .feature-card-icon img { width: 100%; height: auto; }
 
-/* The white pill holding the category label. From .help-card-top-title-wrapper. */
+/* The white pill holding the category label. From .help-card-top-title-wrapper.
+   The export set 2.5em of side padding and none at all top to bottom, so the
+   height came only from the text's line box: a long thin lozenge. These are
+   proportioned as a pill instead, sides a little over twice the top and
+   bottom, which is what keeps the end caps reading as semicircles rather
+   than as a stretched stadium. */
 .feature-card-tag {
   background-color: var(--zipli-white);
   border-radius: 7.5em;
   justify-content: center;
   align-items: center;
-  padding-left: 2.5em;
-  padding-right: 2.5em;
+  padding: 0.55em 1.25em;
   display: flex;
 }
 
