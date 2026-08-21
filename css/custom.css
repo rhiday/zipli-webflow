@@ -896,7 +896,14 @@ html:not([lang="en"]) .navbar-wrapper {
 .stat-band.on-dark .stat-number,
 .stat-band.on-dark .stat-label { color: var(--zipli-white); }
 
+/* .lime colours just the figure, and only works on a dark ground: lime on
+   white is 1.28:1, well under the 3:1 that large text needs, so the number
+   all but disappears. On a light section use .green, which is the same
+   brand accent at 7.8:1 and is already the colour of the CTA label and the
+   read-more link. */
 .stat-band.lime .stat-number { color: var(--zipli-lime); }
+
+.stat-band.green .stat-number { color: var(--zipli-green); }
 
 @media screen and (max-width: 991px) {
   .stat-number { font-size: 5.5em; }

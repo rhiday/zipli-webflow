@@ -482,8 +482,23 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <div class="stat-item"><p class="stat-number">2030</p><p class="stat-label">deadline</p></div>
           </div>
         </div>
-        <p class="sg-note"><code>.on-dark</code> inverts the text, <code>.lime</code> colours just
-          the figure, <code>.center</code> on a <code>.stat-item</code> centres it.</p>
+        <p class="sg-note"><code>.on-dark</code> inverts the text, <code>.center</code> on a
+          <code>.stat-item</code> centres it, and two modifiers colour just the figure:
+          <code>.lime</code> and <code>.green</code>.</p>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Which of the two depends on the ground, and
+            it is not a preference.</strong> Lime on white measures 1.28:1 against the 3:1 that
+            large text needs, so the figure all but vanishes; on the ink section it is 13.9:1.
+            Green is the mirror image: 7.8:1 on white, 2.3:1 on ink. So <code>.lime</code> on a
+            dark section, <code>.green</code> on a light one, and never the other way round.
+            Green is the same accent the CTA label and the read-more link already use, so a
+            coloured figure on a light page is not introducing a new colour.</p>
+        </div>
+        <div class="stat-band green compact layout-grid cols-3" style="margin-top:1.5em">
+          <div class="stat-item center"><p class="stat-number">71M</p><p class="stat-label">green, on a light ground</p></div>
+          <div class="stat-item center"><p class="stat-number">1 in 12</p><p class="stat-label">7.8:1, passes</p></div>
+          <div class="stat-item center"><p class="stat-number">10%</p><p class="stat-label">same accent as the CTA label</p></div>
+        </div>
       </section>
 
       <section class="sg-section">
