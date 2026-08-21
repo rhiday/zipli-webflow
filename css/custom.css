@@ -2416,3 +2416,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   position: relative;
   top: -0.03em;
 }
+
+/* The icon circle's own fill is white, which disappears on a .white card.
+   Give it the section fill instead so the circle still reads. */
+.feature-card.white .feature-card-icon { background-color: var(--zipli-blush); }
