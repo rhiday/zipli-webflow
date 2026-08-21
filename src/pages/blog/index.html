@@ -32,7 +32,24 @@ description: Research, pilot data and regulatory context on food redistribution 
         <div class="padding-global">
           <div class="main-container new-home">
 
-            <div class="blog-theme-group">
+            <fieldset class="blog-filter">
+              <legend class="blog-filter-legend">Filter by topic</legend>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-all" checked>
+              <label class="blog-filter-pill" for="topic-all">All</label>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-terminals">
+              <label class="blog-filter-pill" for="topic-terminals">Terminals &amp; hubs</label>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-reporting">
+              <label class="blog-filter-pill" for="topic-reporting">CSRD &amp; reporting</label>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-cities">
+              <label class="blog-filter-pill" for="topic-cities">Cities</label>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-impact">
+              <label class="blog-filter-pill" for="topic-impact">Impact &amp; ESG</label>
+              <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-compare">
+              <label class="blog-filter-pill" for="topic-compare">Zipli vs. the rest</label>
+            </fieldset>
+            <div class="padding-large"></div>
+
+            <div class="blog-theme-group" data-topic="terminals">
               <div class="section-header left">
                 <p class="section-header-eyebrow">For terminal coordinators</p>
                 <h2 style="text-align:left">Terminal coordination and hub capacity</h2>
@@ -42,10 +59,12 @@ description: Research, pilot data and regulatory context on food redistribution 
               <div class="padding-large"></div>
               <div class="layout-grid cols-3">
                 <a href="{{base}}blog/hub-coordination-capacity.html" class="feature-card image-card blog-card">
-                  <img class="image-card-media" src="{{base}}images/blog/hub-coordination-capacity.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/hub-coordination-capacity.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
                       <p class="blog-card-length">Short read &middot; 2 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -57,10 +76,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/catering-surplus-growth.html" class="feature-card image-card blog-card lime">
-                  <img class="image-card-media" src="{{base}}images/blog/catering-surplus-growth.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/catering-surplus-growth.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
                       <p class="blog-card-length">Medium read &middot; 4 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -72,10 +93,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/scale-donor-network.html" class="feature-card image-card blog-card mist">
-                  <img class="image-card-media" src="{{base}}images/blog/scale-donor-network.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/scale-donor-network.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Hub &amp; terminal</p></div>
                       <p class="blog-card-length">Long read &middot; 7 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -88,7 +111,7 @@ description: Research, pilot data and regulatory context on food redistribution 
               </div>
             </div>
 
-            <div class="blog-theme-group">
+            <div class="blog-theme-group" data-topic="reporting">
               <div class="section-header left">
                 <p class="section-header-eyebrow">For sustainability leads</p>
                 <h2 style="text-align:left">CSRD and multi-site food waste data</h2>
@@ -98,10 +121,12 @@ description: Research, pilot data and regulatory context on food redistribution 
               <div class="padding-large"></div>
               <div class="layout-grid cols-3">
                 <a href="{{base}}blog/csrd-food-waste-data-readiness.html" class="feature-card image-card blog-card">
-                  <img class="image-card-media" src="{{base}}images/blog/csrd-food-waste-data-readiness.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/csrd-food-waste-data-readiness.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Sustainability</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Sustainability</p></div>
                       <p class="blog-card-length">Short read &middot; 2 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -112,10 +137,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/comparable-food-waste-data-multisite.html" class="feature-card image-card blog-card lime">
-                  <img class="image-card-media" src="{{base}}images/blog/comparable-food-waste-data-multisite.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/comparable-food-waste-data-multisite.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Sustainability</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Sustainability</p></div>
                       <p class="blog-card-length">Medium read &middot; 4 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -126,10 +153,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/kitchen-to-boardroom-esg-data.html" class="feature-card image-card blog-card mist">
-                  <img class="image-card-media" src="{{base}}images/blog/kitchen-to-boardroom-esg-data.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/kitchen-to-boardroom-esg-data.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Sustainability</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Sustainability</p></div>
                       <p class="blog-card-length">Long read &middot; 7 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -142,7 +171,7 @@ description: Research, pilot data and regulatory context on food redistribution 
               </div>
             </div>
 
-            <div class="blog-theme-group">
+            <div class="blog-theme-group" data-topic="cities">
               <div class="section-header left">
                 <p class="section-header-eyebrow">For city and municipal leaders</p>
                 <h2 style="text-align:left">EU compliance and municipal infrastructure</h2>
@@ -152,10 +181,12 @@ description: Research, pilot data and regulatory context on food redistribution 
               <div class="padding-large"></div>
               <div class="layout-grid cols-3">
                 <a href="{{base}}blog/eu-food-waste-targets-finnish-cities.html" class="feature-card image-card blog-card">
-                  <img class="image-card-media" src="{{base}}images/blog/eu-food-waste-targets-finnish-cities.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/eu-food-waste-targets-finnish-cities.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Municipal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Municipal</p></div>
                       <p class="blog-card-length">Short read &middot; 2 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -166,10 +197,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/turku-helsinki-waste-directive.html" class="feature-card image-card blog-card lime">
-                  <img class="image-card-media" src="{{base}}images/blog/turku-helsinki-waste-directive.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/turku-helsinki-waste-directive.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Municipal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Municipal</p></div>
                       <p class="blog-card-length">Medium read &middot; 4 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -180,10 +213,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/cities-food-system-compliance.html" class="feature-card image-card blog-card mist">
-                  <img class="image-card-media" src="{{base}}images/blog/cities-food-system-compliance.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/cities-food-system-compliance.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Municipal</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Municipal</p></div>
                       <p class="blog-card-length">Long read &middot; 7 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -196,7 +231,7 @@ description: Research, pilot data and regulatory context on food redistribution 
               </div>
             </div>
 
-            <div class="blog-theme-group">
+            <div class="blog-theme-group" data-topic="impact">
               <div class="section-header left">
                 <p class="section-header-eyebrow">Impact and ESG</p>
                 <h2 style="text-align:left">Environmental, social and governance impact</h2>
@@ -206,10 +241,12 @@ description: Research, pilot data and regulatory context on food redistribution 
               <div class="padding-large"></div>
               <div class="layout-grid cols-3">
                 <a href="{{base}}blog/one-donation-three-kinds-of-impact.html" class="feature-card image-card blog-card">
-                  <img class="image-card-media" src="{{base}}images/blog/one-donation-three-kinds-of-impact.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/one-donation-three-kinds-of-impact.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Impact</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Impact</p></div>
                       <p class="blog-card-length">Short read &middot; 2 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -220,10 +257,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/finland-redistribution-impact-data-gap.html" class="feature-card image-card blog-card lime">
-                  <img class="image-card-media" src="{{base}}images/blog/finland-redistribution-impact-data-gap.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/finland-redistribution-impact-data-gap.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Impact</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Impact</p></div>
                       <p class="blog-card-length">Medium read &middot; 4 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -234,10 +273,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/environmental-social-governance-case.html" class="feature-card image-card blog-card mist">
-                  <img class="image-card-media" src="{{base}}images/blog/environmental-social-governance-case.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/environmental-social-governance-case.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Impact</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Impact</p></div>
                       <p class="blog-card-length">Long read &middot; 7 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -250,7 +291,7 @@ description: Research, pilot data and regulatory context on food redistribution 
               </div>
             </div>
 
-            <div class="blog-theme-group">
+            <div class="blog-theme-group" data-topic="compare">
               <div class="section-header left">
                 <p class="section-header-eyebrow">Zipli vs. measurement tools</p>
                 <h2 style="text-align:left">Measurement vs. redistribution</h2>
@@ -260,10 +301,12 @@ description: Research, pilot data and regulatory context on food redistribution 
               <div class="padding-large"></div>
               <div class="layout-grid cols-3">
                 <a href="{{base}}blog/measurement-vs-redistribution.html" class="feature-card image-card blog-card">
-                  <img class="image-card-media" src="{{base}}images/blog/measurement-vs-redistribution.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/measurement-vs-redistribution.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Comparison</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Comparison</p></div>
                       <p class="blog-card-length">Short read &middot; 2 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -274,10 +317,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/why-leanpath-winnow-stop-at-kitchen-door.html" class="feature-card image-card blog-card lime">
-                  <img class="image-card-media" src="{{base}}images/blog/why-leanpath-winnow-stop-at-kitchen-door.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/why-leanpath-winnow-stop-at-kitchen-door.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Comparison</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Comparison</p></div>
                       <p class="blog-card-length">Medium read &middot; 4 min</p>
                     </div>
                     <div class="padding-small"></div>
@@ -288,10 +333,12 @@ description: Research, pilot data and regulatory context on food redistribution 
                   </div>
                 </a>
                 <a href="{{base}}blog/kitchen-door-problem.html" class="feature-card image-card blog-card mist">
-                  <img class="image-card-media" src="{{base}}images/blog/kitchen-door-problem.png" alt="Food surplus sorted into crates ready for collection">
+                  <div class="image-card-media-wrap">
+                    <img class="image-card-media" src="{{base}}images/blog/kitchen-door-problem.png" alt="Food surplus sorted into crates ready for collection">
+                    <div class="feature-card-tag overlay"><p class="feature-card-tag-text">Comparison</p></div>
+                  </div>
                   <div class="image-card-body">
                     <div class="feature-card-top">
-                      <div class="feature-card-tag"><p class="feature-card-tag-text">Comparison</p></div>
                       <p class="blog-card-length">Long read &middot; 7 min</p>
                     </div>
                     <div class="padding-small"></div>

@@ -2572,3 +2572,78 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 @media screen and (max-width: 767px) {
   .testimonial-card { flex-basis: 85%; padding: 2em; }
 }
+
+
+/* ---------------------------------------------------------------------
+   Blog topic filter
+   A row of pills over the blog index that narrows it to one theme group.
+
+   No JavaScript. The pills are <label>s over a set of radio inputs, and
+   one :has() rule per topic hides the groups that do not match. That
+   buys real behaviour for nothing: keyboard support, arrow keys between
+   options and a proper focus ring all come from the radio, and there is
+   no state to load, hydrate or get out of sync with the markup.
+
+   The inputs themselves are taken out of the layout rather than set to
+   display:none, so they stay focusable and screen readers still announce
+   the group.
+     <fieldset class="blog-filter">
+       <legend class="blog-filter-legend">Filter by topic</legend>
+       <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-all" checked>
+       <label class="blog-filter-pill" for="topic-all">All</label>
+       …
+     </fieldset>
+   --------------------------------------------------------------------- */
+.blog-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Visually hidden, still reachable. */
+.blog-filter-legend,
+.blog-filter-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.blog-filter-pill {
+  background-color: var(--zipli-mist);
+  color: var(--zipli-ink);
+  border-radius: 7.5em;
+  padding: 0.55em 1.25em;
+  font-size: 1.25em;
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.blog-filter-pill:hover { background-color: var(--zipli-line); }
+
+.blog-filter-input:checked + .blog-filter-pill {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+}
+
+/* The focus ring has to be drawn from the input onto its label, because
+   the input it belongs to is the thing that is off-screen. */
+.blog-filter-input:focus-visible + .blog-filter-pill {
+  outline: 2px solid var(--zipli-green);
+  outline-offset: 3px;
+}
+
+.main-container:has(#topic-terminals:checked) .blog-theme-group:not([data-topic="terminals"]),
+.main-container:has(#topic-reporting:checked) .blog-theme-group:not([data-topic="reporting"]),
+.main-container:has(#topic-cities:checked) .blog-theme-group:not([data-topic="cities"]),
+.main-container:has(#topic-impact:checked) .blog-theme-group:not([data-topic="impact"]),
+.main-container:has(#topic-compare:checked) .blog-theme-group:not([data-topic="compare"]) {
+  display: none;
+}
