@@ -2363,3 +2363,21 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 @media screen and (max-width: 767px) {
   .feature-card-tag.overlay { top: 1.2em; left: 1.2em; }
 }
+
+/* ---------------------------------------------------------------------
+   Compact button
+   .main-button at 1.8em is sized to stand alone in open space. Inside a
+   card it comes out larger than the card's own body copy and takes the
+   card over, so this steps it down to sit under a paragraph.
+
+   Note it is used on a <span>, not an <a>. The track cards are already
+   links in their entirety, and putting an anchor inside an anchor is
+   invalid and breaks keyboard navigation. The span is the affordance;
+   the card is the link. Anywhere the card is NOT a link, use a real
+   <a class="main-button dark compact w-button"> instead.
+   --------------------------------------------------------------------- */
+.main-button.compact {
+  display: inline-block;
+  font-size: 1.35em;
+  padding: 0.75em 1.5em;
+}
