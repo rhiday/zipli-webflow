@@ -2379,5 +2379,11 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .main-button.compact {
   display: inline-block;
   font-size: 1.35em;
-  padding: 0.75em 1.5em;
+  /* Top and bottom are not equal on purpose. Measured in the browser, the
+     line box sits dead centre, but the ink does not: this copy has no
+     descenders, so the glyphs occupy the upper part of the line box and
+     the button reads as bottom-heavy. Taking a little off the top and
+     adding it to the bottom centres the ink rather than the box, which is
+     what the eye actually judges. */
+  padding: 0.71em 1.5em 0.79em;
 }
