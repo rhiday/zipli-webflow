@@ -214,6 +214,14 @@ html:not([lang="en"]) .navbar-wrapper {
   color: #fff !important;
 }
 
+/* The rule above forces the CTA label white, but the pill behind it is only
+   darkened by Webflow's interaction on the home page. Everywhere else the
+   pill stays white and the button reads as blank. Pin the scrolled pill to
+   green so the white label is legible on every page. */
+.navbar-logo-left.navbar-scrolled .nav-cta {
+  background-color: var(--zipli-green);
+}
+
 /* The logo SVG is inline by default, which leaves a baseline/descender
    gap below it that isn't part of the visible mark, so the wordmark
    reads as hugging the top of the navbar with extra space underneath.
@@ -2142,3 +2150,106 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   .faq-answer,
   .section-header-lede { font-size: 1.125em; }
 }
+
+/* =====================================================================
+   Sitemap restructure, August 2026
+   Patterns added for the Why Zipli / Product / Industries / Pricing /
+   Resources structure. Everything below composes classes that already
+   exist; none of it introduces a new visual language.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Section fills
+   Pages were setting section backgrounds with an inline
+   style="background-color:#fff0f2", which means the palette is not
+   greppable and a colour change is a find-and-replace across pages.
+   These carry the same fills the cards already use.
+     <section class="padding-section-medium section-blush"> ... </section>
+   --------------------------------------------------------------------- */
+.section-blush { background-color: var(--zipli-blush); }
+.section-mist  { background-color: var(--zipli-mist); }
+
+.section-dark {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+}
+
+/* A dark section inverts its own headings and ledes, so a call site does
+   not have to remember .text-color-white on each one. */
+.section-dark h2,
+.section-dark h3,
+.section-dark h4,
+.section-dark .section-header-lede,
+.section-dark .plan-note { color: var(--zipli-white); }
+
+/* ---------------------------------------------------------------------
+   Audience column
+   The Industries pages argue to two people at once: the person who uses
+   Zipli daily and the person who signs for it. Each column is a tag,
+   then "the challenge", then "the Zipli way". It is a composition of
+   .feature-card-tag and .feature-card rather than a new component, so
+   all this rule does is keep the tag left-aligned above the stack and
+   stop the two columns drifting out of step.
+     <div class="layout-grid cols-2">
+       <div class="audience-column">
+         <div class="feature-card-tag">...</div>
+         <div class="feature-card mist">The challenge</div>
+         <div class="feature-card lime">The Zipli way</div>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.audience-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* The tag sits on the page rather than inside a card, and the pill's own
+   fill is white, so it needs the card fill instead to be visible at all. */
+.audience-column > .feature-card-tag {
+  align-self: flex-start;
+  background-color: var(--zipli-mist);
+}
+
+.section-blush .audience-column > .feature-card-tag,
+.section-mist .audience-column > .feature-card-tag {
+  background-color: var(--zipli-white);
+}
+
+/* Each card takes an equal share of the column, so the two columns line
+   up row for row even when one challenge runs a line longer. */
+.audience-column > .feature-card { flex: 1 1 auto; }
+
+/* ---------------------------------------------------------------------
+   Track card
+   A .feature-card that is itself a link, used for the two-track split on
+   the home page and the entry cards on Resources. The blog card already
+   does this; this is the same behaviour without the image.
+   --------------------------------------------------------------------- */
+.track-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.track-card:hover { transform: translateY(-0.25em); }
+
+.track-card .blog-card-readmore { margin-top: 1.5em; }
+
+/* ---------------------------------------------------------------------
+   Home hero
+   The home headline is now a sentence rather than a two-word statement,
+   so it uses the subpage hero shell. It keeps more room above it than a
+   subpage does, so the home page still opens differently.
+   --------------------------------------------------------------------- */
+.hero-wrapper.page.home { padding-top: 15em; }
+
+@media screen and (max-width: 991px) {
+  .hero-wrapper.page.home { padding-top: 10em; }
+}
+
+/* The donor banner is a cross-sell to a different audience, so it sits
+   quieter than a closing CTA: no fill of its own against the section it
+   already sits on. */
+.cta-band.donor-band { background-color: transparent; }

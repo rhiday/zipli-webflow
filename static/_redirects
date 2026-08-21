@@ -1,0 +1,15 @@
+# Netlify redirects. Copied verbatim into dist/ by build.mjs.
+#
+# The August 2026 sitemap restructure renamed four pages. These are 301s so
+# the indexed URLs keep their ranking rather than starting over. Blog URLs
+# were deliberately left untouched and need no entry here.
+
+/how-it-works.html      /product.html            301
+/kitchens.html          /catering-chains.html    301
+/management.html        /catering-chains.html    301
+/terminals.html         /terminals-hubs.html     301
+
+/fi/how-it-works.html   /fi/product.html         301
+/fi/kitchens.html       /fi/catering-chains.html 301
+/fi/management.html     /fi/catering-chains.html 301
+/fi/terminals.html      /fi/terminals-hubs.html  301

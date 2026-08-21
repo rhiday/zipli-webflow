@@ -1,16 +1,57 @@
 {
   "name": "Suomi",
   "nav": [
-    { "label": "Keittiöille",     "href": "kitchens.html" },
-    { "label": "Johdolle",        "href": "management.html" },
-    { "label": "Terminaaleille",  "href": "terminals.html" },
-    { "label": "Näin se toimii",  "href": "how-it-works.html" },
-    { "label": "Meistä",          "href": "about.html" },
-    { "label": "Resurssit", "children": [
-      { "label": "Blogi",              "href": "blog/" },
-      { "label": "Löydä terminaali",   "href": "find-a-terminal.html" }
-    ] },
-    { "label": "Yhteystiedot",    "href": "index.html#contact", "footerOnly": true }
+    {
+      "label": "Miksi Zipli",
+      "href": "why-zipli.html"
+    },
+    {
+      "label": "Tuote",
+      "href": "product.html"
+    },
+    {
+      "label": "Toimialat",
+      "children": [
+        {
+          "label": "Terminaalit ja jakelukeskukset",
+          "href": "terminals-hubs.html"
+        },
+        {
+          "label": "Ruokapalveluketjut",
+          "href": "catering-chains.html"
+        }
+      ]
+    },
+    {
+      "label": "Resurssit",
+      "children": [
+        {
+          "label": "Resurssit",
+          "href": "resources.html"
+        },
+        {
+          "label": "Blogi",
+          "href": "blog/"
+        },
+        {
+          "label": "Löydä terminaali",
+          "href": "find-a-terminal.html"
+        }
+      ]
+    },
+    {
+      "label": "Hinnoittelu",
+      "href": "pricing.html"
+    },
+    {
+      "label": "Meistä",
+      "href": "about.html"
+    },
+    {
+      "label": "Yhteystiedot",
+      "href": "index.html#contact",
+      "footerOnly": true
+    }
   ],
   "cta": {
     "demo": "Varaa demo"
@@ -18,5 +59,14 @@
   "footer": {
     "copyright": "Copyright 2025 © NoWaste Futures Oy. Kaikki oikeudet pidätetään.",
     "euAlt": "Euroopan unionin osarahoittama"
+  },
+  "proof": {
+    "kg": "271 kg",
+    "entries": "81",
+    "hours": "34",
+    "recommend": "100%",
+    "days": "21",
+    "restaurants": "4",
+    "sites": "3"
   }
 }

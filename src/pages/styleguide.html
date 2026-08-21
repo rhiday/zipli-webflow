@@ -262,9 +262,9 @@ description: Internal reference for the Zipli marketing site type scale, palette
 &lt;/section&gt;</code></pre>
         <p class="sg-note"><code>.heading.page</code> steps the h1 down from 5em to 3.75em,
           because a subpage headline is a sentence rather than two words and at 5em it fills the
-          screen. Live examples: <a href="{{base}}kitchens.html">kitchens</a>,
-          <a href="{{base}}management.html">management</a>,
-          <a href="{{base}}terminals.html">terminals</a>.</p>
+          screen. Live examples: <a href="{{base}}catering-chains.html">catering chains</a>,
+          <a href="{{base}}pricing.html">pricing</a>,
+          <a href="{{base}}terminals-hubs.html">terminals and hubs</a>.</p>
       </section>
 
       <section class="sg-section">
@@ -641,8 +641,8 @@ description: Internal reference for the Zipli marketing site type scale, palette
           is pushed to the foot of the card, so the lists line up across a row even where one tier
           has a taller price line than its neighbour.</p>
         <p class="sg-note" style="margin-top:2em">Add <code>.wide</code> when a page has one tier
-          rather than a row of them, as <a href="{{base}}kitchens.html">kitchens</a> and
-          <a href="{{base}}terminals.html">terminals</a> do. Same card turned on its side, so a
+          rather than a row of them, as <a href="{{base}}catering-chains.html">catering chains</a> and
+          <a href="{{base}}terminals-hubs.html">terminals and hubs</a> do. Same card turned on its side, so a
           lone tier does not sit as a narrow column with three quarters of the row empty beside
           it. This variant needs the extra <code>.plan-card-head</code> wrapper; the column
           version does not.</p>
@@ -681,6 +681,101 @@ description: Internal reference for the Zipli marketing site type scale, palette
           <ul class="plan-features">
             <li>Scoped to the volume your terminal actually handles</li>
           </ul>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Section fill</p>
+        <p class="sg-note">Pages were setting a section background with an inline
+          <code>style="background-color:#fff0f2"</code>, which puts the palette somewhere you
+          cannot grep for it. These three classes carry the same fills the cards already use, so a
+          section is coloured the same way a card is. Put the fill on the section shell alongside
+          the padding, never on a container, because the padding has to take the colour with it.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;section class="padding-section-medium section-blush"&gt;
+  &lt;div class="padding-global"&gt;
+    &lt;div class="main-container new-home"&gt; ... &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        <p class="sg-note"><code>.section-blush</code>, <code>.section-mist</code> and
+          <code>.section-dark</code>. The dark one also inverts its own headings, ledes and plan
+          notes, so you do not have to add <code>.text-color-white</code> to each of them at the
+          call site. Body paragraphs inside it still need it, because
+          <code>.feature-card-body</code> sets its own colour.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Audience column</p>
+        <p class="sg-note">The Industries pages have to argue to two people at once: the person who
+          uses Zipli every day and the person who signs for it. Each column is a tag naming the
+          person, then their challenge, then the answer. It is a composition of
+          <code>.feature-card-tag</code> and two <code>.feature-card</code>s rather than a new
+          component, so the fills, radius and padding all come from what already exists. The class
+          only keeps the tag left-aligned above the stack and stops the two columns drifting out of
+          step when one challenge runs a line longer than the other.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <div class="audience-column">
+            <div class="feature-card-tag"><p class="feature-card-tag-text">For the terminal manager</p></div>
+            <div class="padding-small"></div>
+            <div class="feature-card mist">
+              <h4>The challenge</h4>
+              <p class="feature-card-body">Only 2 of 11 Finnish hubs run any coordination software
+                today.</p>
+            </div>
+            <div class="padding-xsmall"></div>
+            <div class="feature-card lime">
+              <h4>The Zipli way</h4>
+              <p class="feature-card-body">Photo-based logging takes seconds, and the coordinator
+                hours go back into running the terminal.</p>
+            </div>
+          </div>
+          <div class="audience-column">
+            <div class="feature-card-tag"><p class="feature-card-tag-text">For the municipality</p></div>
+            <div class="padding-small"></div>
+            <div class="feature-card mist">
+              <h4>The challenge</h4>
+              <p class="feature-card-body">Funding a terminal means trusting reports built by hand,
+                where they exist at all.</p>
+            </div>
+            <div class="padding-xsmall"></div>
+            <div class="feature-card lime">
+              <h4>The Zipli way</h4>
+              <p class="feature-card-body">A live, exportable record of kilos saved, active donors
+                and redistribution reach.</p>
+            </div>
+          </div>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Keep it to two cards per column. A third turns it
+          into a comparison table, which is a different thing and reads worse at this width. Live
+          examples: <a href="{{base}}terminals-hubs.html">terminals and hubs</a>,
+          <a href="{{base}}catering-chains.html">catering chains</a>.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Track card</p>
+        <p class="sg-note">A <code>.feature-card</code> that is itself a link, for the two-track
+          split on the home page and the entry points on Resources. The blog card already behaves
+          this way; this is the same thing without the image. Same rule as the blog card and the
+          CTA pill: the element is an <code>&lt;a&gt;</code>, never a <code>&lt;div&gt;</code> with
+          a click handler.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <a href="{{base}}terminals-hubs.html" class="feature-card mist track-card">
+            <div class="feature-card-top">
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Terminals &amp; Hubs</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>Coordinate donations, not spreadsheets</h4>
+            <p class="feature-card-body">Cut the admin that eats into volunteer and staff time.</p>
+            <p class="blog-card-readmore">See Terminals &amp; Hubs →</p>
+          </a>
+          <a href="{{base}}catering-chains.html" class="feature-card lime track-card">
+            <div class="feature-card-top">
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Catering Chains</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>A number your ESG team can defend</h4>
+            <p class="feature-card-body">Kitchen-level logging becomes a portfolio-wide record.</p>
+            <p class="blog-card-readmore">See Catering Chains →</p>
+          </a>
         </div>
       </section>
 
