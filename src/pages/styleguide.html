@@ -593,6 +593,33 @@ description: Internal reference for the Zipli marketing site type scale, palette
       </section>
 
       <section class="sg-section">
+        <p class="sg-label">Overlay tag</p>
+        <p class="sg-note">The category pill sitting on the picture instead of above the heading.
+          It frees a line of vertical space in the card body and ties the label to the image.
+          Wrap the media in <code>.image-card-media-wrap</code> and add <code>.overlay</code> to
+          the tag. Its left inset matches <code>.image-card-body</code>'s padding, so the pill and
+          the heading below sit on the same optical line, which is the whole reason it reads as
+          placed rather than floated.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="image-card-media-wrap"&gt;
+  &lt;img class="image-card-media" src="..." alt="..."&gt;
+  &lt;div class="feature-card-tag overlay"&gt;&lt;p class="feature-card-tag-text"&gt;Label&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>This carries the only shadow in the
+            system.</strong> Everything else here is flat pastel with no borders and no shadows,
+            deliberately, and that is worth keeping. The exception is here because the pill has to
+            stay legible over photography we do not control: a white pill on a pale or blown-out
+            image dissolves into it. The shadow is kept as low as it can be while still separating
+            the two, which means it is nearly invisible over a flat fill and only does work over a
+            real photo. <strong>Do not reach for it anywhere the background is a known flat
+            colour.</strong> If you find yourself wanting a shadow elsewhere, the answer is a fill
+            change, not a shadow.</p>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Live example: the two track cards on the
+          <a href="{{base}}index.html">home page</a>.</p>
+      </section>
+
+      <section class="sg-section">
         <p class="sg-label">Photo placeholder</p>
         <p class="sg-note">Stand-in for a real photograph that hasn't been dropped in yet, used on
           the <a href="{{base}}about.html">about</a> page while final photography is pending. Same

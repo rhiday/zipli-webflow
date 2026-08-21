@@ -2326,3 +2326,36 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   aspect-ratio: 16 / 9;
   padding: 1.5em;
 }
+
+/* ---------------------------------------------------------------------
+   Overlay tag
+   The category pill sitting on the picture rather than above the heading.
+   It frees a line of vertical space in the card body and ties the label
+   to the image, and it is what most card systems do with a category.
+
+   Its left inset matches .image-card-body's padding, so the pill and the
+   heading below it sit on the same optical line. That alignment is the
+   whole reason it reads as placed rather than floated.
+
+   NOTE, the one shadow in this system. Everything else here is flat
+   pastel with no borders and no shadows, deliberately. This is a scoped
+   exception, not permission to start adding shadows: the pill has to stay
+   legible over photography we do not control, and a white pill on a pale
+   or blown-out image would otherwise dissolve into it. It is kept as low
+   as it can be while still separating the pill from the picture. Do not
+   reach for it anywhere the background is a known flat colour.
+   --------------------------------------------------------------------- */
+.image-card-media-wrap { position: relative; }
+
+.feature-card-tag.overlay {
+  position: absolute;
+  top: 1.8em;
+  left: 1.8em;
+  box-shadow:
+    0 1px 2px rgba(23, 23, 23, 0.10),
+    0 4px 10px -6px rgba(23, 23, 23, 0.22);
+}
+
+@media screen and (max-width: 767px) {
+  .feature-card-tag.overlay { top: 1.2em; left: 1.2em; }
+}
