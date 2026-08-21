@@ -23,29 +23,21 @@
       ]
     },
     {
-      "label": "Resources",
-      "children": [
-        {
-          "label": "Resource hub",
-          "href": "resources.html"
-        },
-        {
-          "label": "Blog",
-          "href": "blog/"
-        },
-        {
-          "label": "Find a Terminal",
-          "href": "find-a-terminal.html"
-        }
-      ]
+      "label": "Blog",
+      "href": "blog/"
     },
     {
-      "label": "Pricing",
-      "href": "pricing.html"
+      "label": "Resources",
+      "href": "resources.html"
     },
     {
       "label": "About",
       "href": "about.html"
+    },
+    {
+      "label": "Find a Terminal",
+      "href": "find-a-terminal.html",
+      "footerOnly": true
     },
     {
       "label": "Contact",

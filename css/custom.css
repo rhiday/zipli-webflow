@@ -754,6 +754,23 @@ html:not([lang="en"]) .navbar-wrapper {
   .pull-quote-attrib { font-size: 1.5em; }
 }
 
+/* Paired variant: two testimonials side by side in a .layout-grid.cols-2.
+   The full 3em treatment is sized for a quote that owns the full measure,
+   and in half the width it wraps to eight or nine lines and shouts over
+   everything around it. This is the same quote, not a different object, so
+   it keeps the display face and the weight and only steps the size down.
+   It is not .small, which is italic and is for a one-line tagline. */
+.pull-quote.paired .pull-quote-text {
+  font-size: 1.75em;
+  line-height: 1.3;
+}
+
+.pull-quote.paired .pull-quote-attrib { font-size: 1.25em; }
+
+@media screen and (max-width: 767px) {
+  .pull-quote.paired .pull-quote-text { font-size: 1.5em; }
+}
+
 /* Small variant: a one-line personal tagline rather than an editorial
    pull quote, e.g. a founder motto under a bio. Same shape, quieter type. */
 .pull-quote.small .pull-quote-text {
