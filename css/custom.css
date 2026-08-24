@@ -2793,3 +2793,26 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   .process-steps-captions { grid-template-columns: repeat(2, 1fr); row-gap: 1.5em; }
   .process-step-label:nth-child(n+3) { margin-top: 0.5em; }
 }
+
+/* Hero background video
+   The .hero-section.new-hoe background-image (Rectangle-17.png) stays in
+   place as the <video poster> and as the fallback for browsers that block
+   autoplay, print, and prefers-reduced-motion. Content keeps stacking on
+   top via the existing .padding-global > .main-container flow, which just
+   needs a z-index once the video is in the same stacking context. */
+.hero-section { position: relative; }
+
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-section > .padding-global { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-video { display: none; }
+}
