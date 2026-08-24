@@ -2800,7 +2800,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    autoplay, print, and prefers-reduced-motion. Content keeps stacking on
    top via the existing .padding-global > .main-container flow, which just
    needs a z-index once the video is in the same stacking context. */
-.hero-section { position: relative; }
+.hero-section { position: relative; min-height: 100vh; }
 
 .hero-bg-video {
   position: absolute;
@@ -2811,7 +2811,15 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   z-index: 0;
 }
 
-.hero-section > .padding-global { position: relative; z-index: 1; }
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.hero-section > .padding-global { position: relative; z-index: 2; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-video { display: none; }
