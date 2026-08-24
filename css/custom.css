@@ -15,6 +15,7 @@
   --zipli-green: #085f33;         /* deep green, CTA text and fills */
   --zipli-blush: #fff0f2;         /* pale pink section background */
   --zipli-purple: #d08cfb;        /* Webflow --secondary */
+  --zipli-lavender: #f8d5ff;      /* pale purple section background, matches process-steps art */
   --zipli-blue: #0050bd;          /* links and highlights */
   --zipli-red: #fe5858;           /* alerts */
 
@@ -2684,4 +2685,111 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .main-container:has(#topic-impact:checked) .blog-theme-group:not([data-topic="impact"]),
 .main-container:has(#topic-compare:checked) .blog-theme-group:not([data-topic="compare"]) {
   display: none;
+}
+
+/* ---------------------------------------------------------------------
+   Process steps
+   The 4-step donation-flow visual on the home page, styled to match the
+   source deck's black-background slide: a green label above each panel,
+   four separate illustrations (cropped from the source art so a real
+   grid gap can sit between them) wrapped in a padded lavender pill, a
+   numbered badge straddling each panel's top-left corner, and a white
+   caption below. The labels/images/captions all use the same fixed
+   4-column grid (not .layout-grid.cols-4) so they stay aligned with
+   each other at every width.
+     <section class="section-dark">
+       <div class="process-steps">
+         <div class="process-steps-labels"><p class="process-step-label">Logging</p>...</div>
+         <div class="process-steps-image-wrap">
+           <div class="process-steps-images">
+             <div class="process-step-image-item">
+               <img class="process-steps-image" src="...">
+               <span class="process-step-badge">1</span>
+             </div>
+             ...
+           </div>
+         </div>
+         <div class="process-steps-captions"><p class="process-step-caption">...</p>...</div>
+       </div>
+     </section>
+   --------------------------------------------------------------------- */
+.process-steps {
+  max-width: 78em;
+  margin: 0 auto;
+}
+
+.process-steps-labels,
+.process-steps-images,
+.process-steps-captions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1.25em;
+}
+
+.process-step-label {
+  font-family: var(--zipli-font-display);
+  font-weight: 700;
+  color: var(--zipli-lime);
+  text-align: center;
+  margin: 0 0 1em;
+}
+
+.process-steps-image-wrap {
+  background-color: var(--zipli-lavender);
+  border-radius: 2em;
+  padding: 1.5em 1em;
+}
+
+.process-step-image-item { position: relative; }
+
+.process-steps-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1em;
+  display: block;
+}
+
+/* Each illustration has different internal padding before its own
+   rounded card starts (the logging and impact crops are nearly flush,
+   matching and delivery have empty space above), so the badge's vertical
+   offset is set per panel to land on that card's actual corner rather
+   than the crop's bounding box. Percentages come from scanning each
+   source image for where its content stops matching the page
+   background. Left offset is the same for all four: every panel's card
+   starts flush against the crop's left edge. */
+.process-steps-images .process-step-image-item:nth-child(1) .process-step-badge { top: calc(0.4% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(2) .process-step-badge { top: calc(27.2% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(3) .process-step-badge { top: calc(31.1% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(4) .process-step-badge { top: calc(10.5% - 1.125em); }
+
+.process-step-badge {
+  position: absolute;
+  left: -1.125em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  background-color: var(--zipli-lime);
+  color: var(--zipli-ink);
+  font-family: var(--zipli-font-display);
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+.process-steps-captions { margin-top: 1.5em; }
+
+.process-step-caption {
+  font-size: 1.125em;
+  color: var(--zipli-white);
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .process-steps-labels,
+  .process-steps-images,
+  .process-steps-captions { grid-template-columns: repeat(2, 1fr); row-gap: 1.5em; }
+  .process-step-label:nth-child(n+3) { margin-top: 0.5em; }
 }
