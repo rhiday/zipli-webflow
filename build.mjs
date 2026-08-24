@@ -308,11 +308,16 @@ if (process.argv.includes("--serve")) {
   }).listen(3456, () => console.log("\nhttp://localhost:3456"));
 
   let pending;
-  watch(SRC, { recursive: true }, () => {
+  const rebuild = () => {
     clearTimeout(pending);
     pending = setTimeout(() => {
       partialCache.clear();
       build().catch((e) => console.error(e.message));
     }, 100);
-  });
+  };
+  watch(SRC, { recursive: true }, rebuild);
+  for (const dir of ASSETS) {
+    const dirPath = path.join(ROOT, dir);
+    if (existsSync(dirPath)) watch(dirPath, { recursive: true }, rebuild);
+  }
 }

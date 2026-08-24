@@ -208,11 +208,18 @@ html:not([lang="en"]) .navbar-wrapper {
 /* On the homepage only, Webflow's own scroll interaction also swaps the
    nav link/logo color to black once you scroll (built for the hero's
    dark-to-white handoff there). Our dark scrolled backdrop needs the
-   opposite, so force it back to white while .navbar-scrolled is set. */
-.navbar-logo-left.navbar-scrolled .nav-link,
-.navbar-logo-left.navbar-scrolled .nav-cta-text,
-.navbar-logo-left.navbar-scrolled .logo-svg {
-  color: #fff !important;
+   opposite, so force it back to white while .navbar-scrolled is set.
+
+   Desktop only: below 992px the open nav becomes Webflow's full-screen
+   white dropdown, which sets .nav-link to dark green itself so it reads
+   against that white panel. Forcing white here too, regardless of scroll
+   position, made the links invisible against that same white panel. */
+@media screen and (min-width: 992px) {
+  .navbar-logo-left.navbar-scrolled .nav-link,
+  .navbar-logo-left.navbar-scrolled .nav-cta-text,
+  .navbar-logo-left.navbar-scrolled .logo-svg {
+    color: #fff !important;
+  }
 }
 
 /* The rule above forces the CTA label white, but the pill behind it is only
@@ -2800,7 +2807,13 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    autoplay, print, and prefers-reduced-motion. Content keeps stacking on
    top via the existing .padding-global > .main-container flow, which just
    needs a z-index once the video is in the same stacking context. */
-.hero-section { position: relative; min-height: 100vh; }
+.hero-section { position: relative; min-height: 50vh; }
+
+.hero-section.has-bg-video { background-image: none; background-color: #111; }
+
+.hero-section-about { min-height: 60vh; }
+.hero-section-about .hero-bg-video { object-position: top; }
+.hero-section-about .hero-wrapper.page { padding-top: 14em; padding-bottom: 11em; }
 
 .hero-bg-video {
   position: absolute;
@@ -2809,13 +2822,14 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  transition: opacity 1s ease;
 }
 
 .hero-section::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 1;
 }
 
@@ -2823,4 +2837,24 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-video { display: none; }
+}
+
+.feature-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.article-photo {
+  width: 100%;
+  border-radius: var(--zipli-radius-card);
+  display: block;
+  object-fit: cover;
+}
+
+.article-photo-caption {
+  font-size: 0.9375em;
+  color: var(--zipli-grey);
+  text-align: center;
+  margin: 0.75em 0 0;
 }
