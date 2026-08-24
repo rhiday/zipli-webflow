@@ -1,16 +1,35 @@
 {
   "name": "English",
   "nav": [
-    { "label": "Kitchens",   "href": "kitchens.html" },
-    { "label": "Management", "href": "management.html" },
-    { "label": "Terminals",  "href": "terminals.html" },
-    { "label": "How it works",   "href": "how-it-works.html" },
-    { "label": "About",          "href": "about.html" },
-    { "label": "Resources", "children": [
-      { "label": "Blog",             "href": "blog/" },
-      { "label": "Find a Terminal",  "href": "find-a-terminal.html" }
-    ] },
-    { "label": "Contact",        "href": "index.html#contact", "footerOnly": true }
+    {
+      "label": "Home",
+      "href": "index.html"
+    },
+    {
+      "label": "Why Zipli",
+      "href": "index.html#problem"
+    },
+    {
+      "label": "Product",
+      "href": "index.html#product"
+    },
+    {
+      "label": "Industries",
+      "href": "index.html#industries"
+    },
+    {
+      "label": "Blog",
+      "href": "blog/"
+    },
+    {
+      "label": "About us",
+      "href": "about.html"
+    },
+    {
+      "label": "Contact",
+      "href": "index.html#contact",
+      "footerOnly": true
+    }
   ],
   "cta": {
     "demo": "Book a demo"
@@ -18,5 +37,14 @@
   "footer": {
     "copyright": "Copyright 2025 © NoWaste Futures Oy. All Rights Reserved.",
     "euAlt": "Co-funded by the European Union"
+  },
+  "proof": {
+    "kg": "271 kg",
+    "entries": "81",
+    "hours": "34",
+    "recommend": "100%",
+    "days": "21",
+    "restaurants": "4",
+    "sites": "3"
   }
 }

@@ -6,7 +6,6 @@ description: Internal reference for the Zipli marketing site type scale, palette
 <html data-wf-site="6706c51d7ac521c2c8b580a0">
 <head>
 {{> head}}
-  <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="sg-body">
   <div class="page-wrapper">
@@ -262,9 +261,9 @@ description: Internal reference for the Zipli marketing site type scale, palette
 &lt;/section&gt;</code></pre>
         <p class="sg-note"><code>.heading.page</code> steps the h1 down from 5em to 3.75em,
           because a subpage headline is a sentence rather than two words and at 5em it fills the
-          screen. Live examples: <a href="{{base}}kitchens.html">kitchens</a>,
-          <a href="{{base}}management.html">management</a>,
-          <a href="{{base}}terminals.html">terminals</a>.</p>
+          screen. Live examples: <a href="{{base}}catering-chains.html">catering chains</a>,
+          <a href="{{base}}why-zipli.html">why Zipli</a>,
+          <a href="{{base}}terminals-hubs.html">terminals and hubs</a>.</p>
       </section>
 
       <section class="sg-section">
@@ -399,6 +398,27 @@ description: Internal reference for the Zipli marketing site type scale, palette
         <p class="sg-note" style="margin-top:2em">Add <code>.small</code> for a one-line personal
           tagline rather than an editorial quote, e.g. a founder motto under a bio. Same shape,
           quieter type, italic, no room to overpower the bio it sits under.</p>
+        <p class="sg-note" style="margin-top:2em">Add <code>.paired</code> when two quotes sit
+          side by side in a <code>.layout-grid.cols-2</code>, as the Industries pages do. The
+          default 3em is sized for a quote that owns the full measure; in half the width it wraps
+          to eight or nine lines and shouts over everything around it. <code>.paired</code> keeps
+          the display face and the weight and only steps the size down, so it is still the same
+          object. It is not <code>.small</code>, which is italic and is for a tagline.</p>
+        <div class="layout-grid cols-2" style="margin-top:1em">
+          <blockquote class="pull-quote paired">
+            <p class="pull-quote-text">&ldquo;Easy to use, you see the amount of donated food in
+              real time, you can track waste items and react to production volumes even
+              better.&rdquo;</p>
+            <p class="pull-quote-attrib">Staff restaurant, Kallio</p>
+            <p class="pull-quote-role">Sodexo, Helsinki</p>
+          </blockquote>
+          <blockquote class="pull-quote paired">
+            <p class="pull-quote-text">&ldquo;I would recommend the app because of its ease of use.
+              You do not have to do things in a complicated way.&rdquo;</p>
+            <p class="pull-quote-attrib">Student restaurants, Merihaka and Malmi</p>
+            <p class="pull-quote-role">Sodexo, Helsinki</p>
+          </blockquote>
+        </div>
         <blockquote class="pull-quote small max-width-large" style="margin-top:1em">
           <p class="pull-quote-text">&ldquo;People first.&rdquo;</p>
           <p class="pull-quote-attrib">Hasan Shahriar</p>
@@ -461,8 +481,23 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <div class="stat-item"><p class="stat-number">2030</p><p class="stat-label">deadline</p></div>
           </div>
         </div>
-        <p class="sg-note"><code>.on-dark</code> inverts the text, <code>.lime</code> colours just
-          the figure, <code>.center</code> on a <code>.stat-item</code> centres it.</p>
+        <p class="sg-note"><code>.on-dark</code> inverts the text, <code>.center</code> on a
+          <code>.stat-item</code> centres it, and two modifiers colour just the figure:
+          <code>.lime</code> and <code>.green</code>.</p>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>Which of the two depends on the ground, and
+            it is not a preference.</strong> Lime on white measures 1.28:1 against the 3:1 that
+            large text needs, so the figure all but vanishes; on the ink section it is 13.9:1.
+            Green is the mirror image: 7.8:1 on white, 2.3:1 on ink. So <code>.lime</code> on a
+            dark section, <code>.green</code> on a light one, and never the other way round.
+            Green is the same accent the CTA label and the read-more link already use, so a
+            coloured figure on a light page is not introducing a new colour.</p>
+        </div>
+        <div class="stat-band green compact layout-grid cols-3" style="margin-top:1.5em">
+          <div class="stat-item center"><p class="stat-number">71M</p><p class="stat-label">green, on a light ground</p></div>
+          <div class="stat-item center"><p class="stat-number">1 in 12</p><p class="stat-label">7.8:1, passes</p></div>
+          <div class="stat-item center"><p class="stat-number">10%</p><p class="stat-label">same accent as the CTA label</p></div>
+        </div>
       </section>
 
       <section class="sg-section">
@@ -557,6 +592,33 @@ description: Internal reference for the Zipli marketing site type scale, palette
       </section>
 
       <section class="sg-section">
+        <p class="sg-label">Overlay tag</p>
+        <p class="sg-note">The category pill sitting on the picture instead of above the heading.
+          It frees a line of vertical space in the card body and ties the label to the image.
+          Wrap the media in <code>.image-card-media-wrap</code> and add <code>.overlay</code> to
+          the tag. Its left inset matches <code>.image-card-body</code>'s padding, so the pill and
+          the heading below sit on the same optical line, which is the whole reason it reads as
+          placed rather than floated.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="image-card-media-wrap"&gt;
+  &lt;img class="image-card-media" src="..." alt="..."&gt;
+  &lt;div class="feature-card-tag overlay"&gt;&lt;p class="feature-card-tag-text"&gt;Label&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="sg-flag">
+          <p class="sg-note" style="margin:0"><strong>This carries the only shadow in the
+            system.</strong> Everything else here is flat pastel with no borders and no shadows,
+            deliberately, and that is worth keeping. The exception is here because the pill has to
+            stay legible over photography we do not control: a white pill on a pale or blown-out
+            image dissolves into it. The shadow is kept as low as it can be while still separating
+            the two, which means it is nearly invisible over a flat fill and only does work over a
+            real photo. <strong>Do not reach for it anywhere the background is a known flat
+            colour.</strong> If you find yourself wanting a shadow elsewhere, the answer is a fill
+            change, not a shadow.</p>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Live example: the two track cards on the
+          <a href="{{base}}index.html">home page</a>.</p>
+      </section>
+
+      <section class="sg-section">
         <p class="sg-label">Photo placeholder</p>
         <p class="sg-note">Stand-in for a real photograph that hasn't been dropped in yet, used on
           the <a href="{{base}}about.html">about</a> page while final photography is pending. Same
@@ -574,6 +636,11 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <p class="photo-placeholder-label">.lime and .mist fill variants.</p>
           </div>
         </div>
+        <p class="sg-note" style="margin-top:2em">To stand in for the picture in an
+          <code>.image-card</code>, give the placeholder <code>.image-card-media</code> as well.
+          It drops its own radius, because the card's <code>overflow: hidden</code> is what rounds
+          a bled image, and keeps its centring. Leave it on the default blush fill rather than
+          <code>.white</code>: a white slot on a white page makes the top of the card disappear.</p>
         <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;div class="photo-placeholder" style="aspect-ratio:4/3; max-height:16em"&gt;
   &lt;svg class="photo-placeholder-icon" ...&gt;&lt;/svg&gt;
   &lt;p class="photo-placeholder-label"&gt;Caption of the intended photo.&lt;/p&gt;
@@ -641,8 +708,8 @@ description: Internal reference for the Zipli marketing site type scale, palette
           is pushed to the foot of the card, so the lists line up across a row even where one tier
           has a taller price line than its neighbour.</p>
         <p class="sg-note" style="margin-top:2em">Add <code>.wide</code> when a page has one tier
-          rather than a row of them, as <a href="{{base}}kitchens.html">kitchens</a> and
-          <a href="{{base}}terminals.html">terminals</a> do. Same card turned on its side, so a
+          rather than a row of them, as <a href="{{base}}catering-chains.html">catering chains</a> and
+          <a href="{{base}}terminals-hubs.html">terminals and hubs</a> do. Same card turned on its side, so a
           lone tier does not sit as a narrow column with three quarters of the row empty beside
           it. This variant needs the extra <code>.plan-card-head</code> wrapper; the column
           version does not.</p>
@@ -682,6 +749,126 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <li>Scoped to the volume your terminal actually handles</li>
           </ul>
         </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Section fill</p>
+        <p class="sg-note">Pages were setting a section background with an inline
+          <code>style="background-color:#fff0f2"</code>, which puts the palette somewhere you
+          cannot grep for it. These three classes carry the same fills the cards already use, so a
+          section is coloured the same way a card is. Put the fill on the section shell alongside
+          the padding, never on a container, because the padding has to take the colour with it.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;section class="padding-section-medium section-blush"&gt;
+  &lt;div class="padding-global"&gt;
+    &lt;div class="main-container new-home"&gt; ... &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        <p class="sg-note"><code>.section-blush</code>, <code>.section-mist</code> and
+          <code>.section-dark</code>. The dark one also inverts its own headings, ledes and plan
+          notes, so you do not have to add <code>.text-color-white</code> to each of them at the
+          call site. Body paragraphs inside it still need it, because
+          <code>.feature-card-body</code> sets its own colour.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Audience column</p>
+        <p class="sg-note">The Industries pages have to argue to two people at once: the person who
+          uses Zipli every day and the person who signs for it. Each column is a label naming the
+          person, then their challenge, then the answer. The two cards are a composition of
+          <code>.feature-card</code> rather than a new component, so the fills, radius and padding
+          all come from what already exists, and the class only stops the two columns drifting out
+          of step when one challenge runs a line longer than the other.</p>
+        <p class="sg-note">The column header is <code>.audience-label</code>, not
+          <code>.feature-card-tag</code>. The tag is a pill that lives <em>inside</em> a card;
+          floating one on the page reads as a stray lozenge rather than as something that owns the
+          cards beneath it. <code>.audience-label</code> is
+          <code>.section-header-eyebrow</code>'s treatment set in ink rather than grey, so it reads
+          as a heading for the column instead of a caption. Keep the gap between the two cards at
+          <code>.padding-xxsmall</code>: the challenge and the answer are one argument, and at a
+          larger gap they read as two unrelated cards.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <div class="audience-column">
+            <p class="audience-label">For the terminal manager</p>
+            <div class="feature-card mist">
+              <h4>The challenge</h4>
+              <p class="feature-card-body">Only 2 of 11 Finnish hubs run any coordination software
+                today.</p>
+            </div>
+            <div class="padding-xxsmall"></div>
+            <div class="feature-card lime">
+              <h4>The Zipli way</h4>
+              <p class="feature-card-body">Photo-based logging takes seconds, and the coordinator
+                hours go back into running the terminal.</p>
+            </div>
+          </div>
+          <div class="audience-column">
+            <p class="audience-label">For the municipality</p>
+            <div class="feature-card mist">
+              <h4>The challenge</h4>
+              <p class="feature-card-body">Funding a terminal means trusting reports built by hand,
+                where they exist at all.</p>
+            </div>
+            <div class="padding-xxsmall"></div>
+            <div class="feature-card lime">
+              <h4>The Zipli way</h4>
+              <p class="feature-card-body">A live, exportable record of kilos saved, active donors
+                and redistribution reach.</p>
+            </div>
+          </div>
+        </div>
+        <p class="sg-note" style="margin-top:2em">Keep it to two cards per column. A third turns it
+          into a comparison table, which is a different thing and reads worse at this width. Live
+          examples: <a href="{{base}}terminals-hubs.html">terminals and hubs</a>,
+          <a href="{{base}}catering-chains.html">catering chains</a>.</p>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Track card</p>
+        <p class="sg-note">A <code>.feature-card</code> that is itself a link, for the two-track
+          split on the home page and the entry points on Resources. The blog card already behaves
+          this way; this is the same thing without the image. Same rule as the blog card and the
+          CTA pill: the element is an <code>&lt;a&gt;</code>, never a <code>&lt;div&gt;</code> with
+          a click handler.</p>
+        <div class="layout-grid cols-2" style="margin-top:2em">
+          <a href="{{base}}terminals-hubs.html" class="feature-card mist track-card">
+            <div class="feature-card-top">
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Terminals &amp; Hubs</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>Coordinate donations, not spreadsheets</h4>
+            <p class="feature-card-body">Cut the admin that eats into volunteer and staff time.</p>
+            <p class="blog-card-readmore">See Terminals &amp; Hubs →</p>
+          </a>
+          <a href="{{base}}catering-chains.html" class="feature-card lime track-card">
+            <div class="feature-card-top">
+              <div class="feature-card-tag"><p class="feature-card-tag-text">Catering Chains</p></div>
+            </div>
+            <div class="padding-small"></div>
+            <h4>A number your ESG team can defend</h4>
+            <p class="feature-card-body">Kitchen-level logging becomes a portfolio-wide record.</p>
+            <p class="blog-card-readmore">See Catering Chains →</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="sg-section">
+        <p class="sg-label">Page note</p>
+        <p class="sg-note">Sources and caveats that a figure needs but that would clutter the
+          section carrying it. The claim takes a <code>.note-ref</code> asterisk that links to
+          <code>#notes</code>, and the explanation sits in a <code>.page-note</code> at the foot of
+          the page, ahead of the footer. This keeps a stat band down to a number and a label, which
+          is the whole point of a stat band, without dropping the provenance.</p>
+        <pre style="background:#ebebeb;padding:1.25em;border-radius:.75em;overflow-x:auto;font-size:1em;line-height:1.6;margin-top:2em"><code>&lt;p class="stat-label"&gt;the claim&lt;a class="note-ref" href="#notes"&gt;*&lt;/a&gt;&lt;/p&gt;
+
+&lt;section id="notes" class="padding-section-small"&gt;
+  &lt;p class="page-note"&gt;* The explanation.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        <p class="page-note" style="margin-top:2em">* Meals are counted as 500 g portions. Waste
+          tonnage and the &euro;2.50 per kilo value behind it are from the Natural Resources
+          Institute Finland (Luke).</p>
+        <p class="sg-note" style="margin-top:2em">One asterisk per page, covering every claim that
+          shares a source. Numbered notes would be more precise, but a marketing page carrying
+          enough figures to need numbering is a page with too many figures on it.</p>
       </section>
 
       <section class="sg-section">

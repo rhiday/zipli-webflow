@@ -15,6 +15,7 @@
   --zipli-green: #085f33;         /* deep green, CTA text and fills */
   --zipli-blush: #fff0f2;         /* pale pink section background */
   --zipli-purple: #d08cfb;        /* Webflow --secondary */
+  --zipli-lavender: #f8d5ff;      /* pale purple section background, matches process-steps art */
   --zipli-blue: #0050bd;          /* links and highlights */
   --zipli-red: #fe5858;           /* alerts */
 
@@ -207,11 +208,26 @@ html:not([lang="en"]) .navbar-wrapper {
 /* On the homepage only, Webflow's own scroll interaction also swaps the
    nav link/logo color to black once you scroll (built for the hero's
    dark-to-white handoff there). Our dark scrolled backdrop needs the
-   opposite, so force it back to white while .navbar-scrolled is set. */
-.navbar-logo-left.navbar-scrolled .nav-link,
-.navbar-logo-left.navbar-scrolled .nav-cta-text,
-.navbar-logo-left.navbar-scrolled .logo-svg {
-  color: #fff !important;
+   opposite, so force it back to white while .navbar-scrolled is set.
+
+   Desktop only: below 992px the open nav becomes Webflow's full-screen
+   white dropdown, which sets .nav-link to dark green itself so it reads
+   against that white panel. Forcing white here too, regardless of scroll
+   position, made the links invisible against that same white panel. */
+@media screen and (min-width: 992px) {
+  .navbar-logo-left.navbar-scrolled .nav-link,
+  .navbar-logo-left.navbar-scrolled .nav-cta-text,
+  .navbar-logo-left.navbar-scrolled .logo-svg {
+    color: #fff !important;
+  }
+}
+
+/* The rule above forces the CTA label white, but the pill behind it is only
+   darkened by Webflow's interaction on the home page. Everywhere else the
+   pill stays white and the button reads as blank. Pin the scrolled pill to
+   green so the white label is legible on every page. */
+.navbar-logo-left.navbar-scrolled .nav-cta {
+  background-color: var(--zipli-green);
 }
 
 /* The logo SVG is inline by default, which leaves a baseline/descender
@@ -531,14 +547,18 @@ html:not([lang="en"]) .navbar-wrapper {
 .feature-card-icon svg,
 .feature-card-icon img { width: 100%; height: auto; }
 
-/* The white pill holding the category label. From .help-card-top-title-wrapper. */
+/* The white pill holding the category label. From .help-card-top-title-wrapper.
+   The export set 2.5em of side padding and none at all top to bottom, so the
+   height came only from the text's line box: a long thin lozenge. These are
+   proportioned as a pill instead, sides a little over twice the top and
+   bottom, which is what keeps the end caps reading as semicircles rather
+   than as a stretched stadium. */
 .feature-card-tag {
   background-color: var(--zipli-white);
   border-radius: 7.5em;
   justify-content: center;
   align-items: center;
-  padding-left: 2.5em;
-  padding-right: 2.5em;
+  padding: 0.55em 1.25em;
   display: flex;
 }
 
@@ -650,6 +670,44 @@ html:not([lang="en"]) .navbar-wrapper {
   grid-row-gap: 2.5em;
 }
 
+/* Columns variant. The default row puts the number beside the title, which
+   works when a step is two or three words. Once each step carries a
+   sentence underneath, side by side leaves the numbers stranded in a
+   narrow gutter down the left and the text running the full page width.
+   This turns each step into a column with the number above its title,
+   which is how a three-step explainer usually reads. Use it for three or
+   four steps; beyond that the columns get too narrow to hold a sentence. */
+.step-list.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 3em;
+  grid-row-gap: 3em;
+  align-items: start;
+}
+
+.step-list.columns.four { grid-template-columns: repeat(4, 1fr); }
+
+.step-list.columns .step-item {
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column-gap: 1.2em;
+  grid-row-gap: 1.2em;
+}
+
+/* In a row the title has no sentence under it, so it needs no space
+   below. In a column it does. */
+.step-list.columns .step-title { margin-bottom: 0.5em; }
+
+@media screen and (max-width: 991px) {
+  .step-list.columns,
+  .step-list.columns.four { grid-template-columns: 1fr 1fr; }
+}
+
+@media screen and (max-width: 767px) {
+  .step-list.columns,
+  .step-list.columns.four { grid-template-columns: 1fr; }
+}
+
 .step-item {
   display: flex;
   align-items: center;
@@ -744,6 +802,23 @@ html:not([lang="en"]) .navbar-wrapper {
 @media screen and (max-width: 767px) {
   .pull-quote-text { font-size: 2em; }
   .pull-quote-attrib { font-size: 1.5em; }
+}
+
+/* Paired variant: two testimonials side by side in a .layout-grid.cols-2.
+   The full 3em treatment is sized for a quote that owns the full measure,
+   and in half the width it wraps to eight or nine lines and shouts over
+   everything around it. This is the same quote, not a different object, so
+   it keeps the display face and the weight and only steps the size down.
+   It is not .small, which is italic and is for a one-line tagline. */
+.pull-quote.paired .pull-quote-text {
+  font-size: 1.75em;
+  line-height: 1.3;
+}
+
+.pull-quote.paired .pull-quote-attrib { font-size: 1.25em; }
+
+@media screen and (max-width: 767px) {
+  .pull-quote.paired .pull-quote-text { font-size: 1.5em; }
 }
 
 /* Small variant: a one-line personal tagline rather than an editorial
@@ -871,7 +946,14 @@ html:not([lang="en"]) .navbar-wrapper {
 .stat-band.on-dark .stat-number,
 .stat-band.on-dark .stat-label { color: var(--zipli-white); }
 
+/* .lime colours just the figure, and only works on a dark ground: lime on
+   white is 1.28:1, well under the 3:1 that large text needs, so the number
+   all but disappears. On a light section use .green, which is the same
+   brand accent at 7.8:1 and is already the colour of the CTA label and the
+   read-more link. */
 .stat-band.lime .stat-number { color: var(--zipli-lime); }
+
+.stat-band.green .stat-number { color: var(--zipli-green); }
 
 @media screen and (max-width: 991px) {
   .stat-number { font-size: 5.5em; }
@@ -1618,8 +1700,13 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   padding: 2em;
 }
 
-.photo-placeholder.lime { background-color: var(--zipli-lime-soft); }
-.photo-placeholder.mist { background-color: var(--zipli-mist); }
+.photo-placeholder.lime  { background-color: var(--zipli-lime-soft); }
+.photo-placeholder.mist  { background-color: var(--zipli-mist); }
+
+/* For a placeholder sitting inside a coloured card, where the default
+   blush fill competes with the card rather than reading as an empty
+   media slot. */
+.photo-placeholder.white { background-color: var(--zipli-white); }
 
 .photo-placeholder-icon {
   width: 2.25em;
@@ -2141,4 +2228,633 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   .feature-card-body,
   .faq-answer,
   .section-header-lede { font-size: 1.125em; }
+}
+
+/* =====================================================================
+   Sitemap restructure, August 2026
+   Patterns added for the Why Zipli / Product / Industries / Pricing /
+   Resources structure. Everything below composes classes that already
+   exist; none of it introduces a new visual language.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Section fills
+   Pages were setting section backgrounds with an inline
+   style="background-color:#fff0f2", which means the palette is not
+   greppable and a colour change is a find-and-replace across pages.
+   These carry the same fills the cards already use.
+     <section class="padding-section-medium section-blush"> ... </section>
+   --------------------------------------------------------------------- */
+.section-blush { background-color: var(--zipli-blush); }
+.section-mist  { background-color: var(--zipli-mist); }
+
+.section-dark {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+}
+
+/* A dark section inverts its own headings and ledes, so a call site does
+   not have to remember .text-color-white on each one. */
+.section-dark h2,
+.section-dark h3,
+.section-dark h4,
+.section-dark .section-header-lede,
+.section-dark .plan-note { color: var(--zipli-white); }
+
+/* ---------------------------------------------------------------------
+   Audience column
+   The Industries pages argue to two people at once: the person who uses
+   Zipli daily and the person who signs for it. Each column is a tag,
+   then "the challenge", then "the Zipli way". It is a composition of
+   .feature-card-tag and .feature-card rather than a new component, so
+   all this rule does is keep the tag left-aligned above the stack and
+   stop the two columns drifting out of step.
+     <div class="layout-grid cols-2">
+       <div class="audience-column">
+         <div class="feature-card-tag">...</div>
+         <div class="feature-card mist">The challenge</div>
+         <div class="feature-card lime">The Zipli way</div>
+       </div>
+     </div>
+   --------------------------------------------------------------------- */
+.audience-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* The column is headed by a label, not a pill. .feature-card-tag is the
+   pill that sits inside a card; floating one on the page reads as a stray
+   lozenge rather than as something that owns the two cards beneath it.
+   This is .section-header-eyebrow's treatment in ink instead of grey, so
+   it reads as a heading for the column rather than a caption. */
+.audience-label {
+  font-family: var(--zipli-font-body);
+  font-size: 1.25em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zipli-ink);
+  margin: 0 0 1.2em;
+  padding-left: 0.1em;
+}
+
+/* Each card takes an equal share of the column, so the two columns line
+   up row for row even when one challenge runs a line longer. */
+.audience-column > .feature-card { flex: 1 1 auto; }
+
+/* ---------------------------------------------------------------------
+   Track card
+   A .feature-card that is itself a link, used for the two-track split on
+   the home page and the entry cards on Resources. The blog card already
+   does this; this is the same behaviour without the image.
+   --------------------------------------------------------------------- */
+.track-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.track-card:hover { transform: translateY(-0.25em); }
+
+.track-card .blog-card-readmore { margin-top: 1.5em; }
+
+/* ---------------------------------------------------------------------
+   Home hero
+   The home headline is now a sentence rather than a two-word statement,
+   so it uses the subpage hero shell. It keeps more room above it than a
+   subpage does, so the home page still opens differently.
+   --------------------------------------------------------------------- */
+.hero-wrapper.page.home { padding-top: 15em; }
+
+@media screen and (max-width: 991px) {
+  .hero-wrapper.page.home { padding-top: 10em; }
+}
+
+/* The donor banner is a cross-sell to a different audience, so it sits
+   quieter than a closing CTA: no fill of its own against the section it
+   already sits on. */
+.cta-band.donor-band { background-color: transparent; }
+
+/* ---------------------------------------------------------------------
+   Page notes
+   Sources and caveats that would clutter the section they belong to.
+   The figure carries a .note-ref asterisk, the explanation sits in a
+   .page-note block at the foot of the page, ahead of the footer.
+     <p class="stat-label">the claim<a class="note-ref" href="#notes">*</a></p>
+     ...
+     <section id="notes"><p class="page-note">* The explanation.</p></section>
+   --------------------------------------------------------------------- */
+.note-ref {
+  color: var(--zipli-grey);
+  text-decoration: none;
+  font-size: 0.85em;
+  vertical-align: super;
+  line-height: 0;
+  padding-left: 0.15em;
+}
+
+.note-ref:hover { color: var(--zipli-ink); }
+
+.page-note {
+  max-width: 60em;
+  color: var(--zipli-grey);
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* A placeholder standing in for a real photograph in an .image-card slot
+   carries its own radius and centring, so it has to be pulled back to the
+   bled-media geometry: square corners, because the card's overflow:hidden
+   is what rounds them, and flex restored for the caption. */
+.photo-placeholder.image-card-media {
+  border-radius: 0;
+  display: flex;
+  aspect-ratio: 16 / 9;
+  padding: 1.5em;
+}
+
+/* ---------------------------------------------------------------------
+   Overlay tag
+   The category pill sitting on the picture rather than above the heading.
+   It frees a line of vertical space in the card body and ties the label
+   to the image, and it is what most card systems do with a category.
+
+   Its left inset matches .image-card-body's padding, so the pill and the
+   heading below it sit on the same optical line. That alignment is the
+   whole reason it reads as placed rather than floated.
+
+   NOTE, the one shadow in this system. Everything else here is flat
+   pastel with no borders and no shadows, deliberately. This is a scoped
+   exception, not permission to start adding shadows: the pill has to stay
+   legible over photography we do not control, and a white pill on a pale
+   or blown-out image would otherwise dissolve into it. It is kept as low
+   as it can be while still separating the pill from the picture. Do not
+   reach for it anywhere the background is a known flat colour.
+   --------------------------------------------------------------------- */
+.image-card-media-wrap { position: relative; }
+
+.feature-card-tag.overlay {
+  position: absolute;
+  top: 1.8em;
+  left: 1.8em;
+  box-shadow:
+    0 1px 2px rgba(23, 23, 23, 0.10),
+    0 4px 10px -6px rgba(23, 23, 23, 0.22);
+}
+
+@media screen and (max-width: 767px) {
+  .feature-card-tag.overlay { top: 1.2em; left: 1.2em; }
+}
+
+/* ---------------------------------------------------------------------
+   Compact button
+   .main-button at 1.8em is sized to stand alone in open space. Inside a
+   card it comes out larger than the card's own body copy and takes the
+   card over, so this steps it down to sit under a paragraph.
+
+   Note it is used on a <span>, not an <a>. The track cards are already
+   links in their entirety, and putting an anchor inside an anchor is
+   invalid and breaks keyboard navigation. The span is the affordance;
+   the card is the link. Anywhere the card is NOT a link, use a real
+   <a class="main-button dark compact w-button"> instead.
+   --------------------------------------------------------------------- */
+.main-button.compact {
+  display: inline-block;
+  font-size: 1.35em;
+  /* Top and bottom are not equal on purpose. Measured in the browser, the
+     line box sits dead centre, but the ink does not: this copy has no
+     descenders, so the glyphs occupy the upper part of the line box and
+     the button reads as bottom-heavy. Taking a little off the top and
+     adding it to the bottom centres the ink rather than the box, which is
+     what the eye actually judges. */
+  padding: 0.71em 1.5em 0.79em;
+}
+
+/* ---------------------------------------------------------------------
+   Store button
+   .main-button with the platform mark ahead of the label. The arrow is
+   dropped: an app store button goes to one known place, and the mark
+   already says where, so the arrow was doing nothing the icon does not.
+
+   The mark inherits currentColor, so it flips with the button fill and
+   there is no second colour to keep in step.
+     <a class="main-button dark store w-button">
+       <svg class="store-button-icon">…</svg><span>Get it on Google Play</span>
+     </a>
+   --------------------------------------------------------------------- */
+.main-button.store {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+}
+
+.store-button-icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  fill: currentColor;
+  /* Both marks read slightly high against a cap-height label, the same
+     optical problem as the button padding. */
+  position: relative;
+  top: -0.03em;
+}
+
+/* The icon circle's own fill is white, which disappears on a .white card.
+   Give it the section fill instead so the circle still reads. */
+.feature-card.white .feature-card-icon { background-color: var(--zipli-blush); }
+
+/* ---------------------------------------------------------------------
+   Stat rating
+   A row of stars above a stat figure, for a satisfaction score where the
+   number alone ("4/4") does not say what kind of measure it is. Sits
+   above the figure rather than below, so it reads as a label on it.
+     <div class="stat-item center">
+       <div class="stat-rating">…svgs…</div>
+       <p class="stat-number">4/4</p>
+   Only for scores out of a scale. Never put stars on a volume or a
+   count: a row of stars over "271 kg" implies a rating that is not there.
+   --------------------------------------------------------------------- */
+.stat-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.stat-rating svg {
+  width: 1.5em;
+  height: 1.5em;
+  fill: var(--zipli-lime);
+  flex: none;
+}
+
+.stat-item:not(.center) .stat-rating { justify-content: flex-start; }
+
+/* ---------------------------------------------------------------------
+   Testimonial carousel
+   A horizontal row of quote cards that scrolls when it overflows. Built
+   on scroll-snap, so there is no JavaScript, no library and no state to
+   go wrong; the browser handles the paging, and with a keyboard or a
+   trackpad it behaves the way any scroll area does.
+
+   Two or three cards fit at a desktop width and the rest scroll, which
+   is the point: a wall of six quotes reads as filler, a row you can push
+   through reads as a set.
+     <div class="testimonial-row">
+       <figure class="testimonial-card">
+         <p class="testimonial-quote">…</p>
+         <figcaption class="testimonial-author">
+           <span class="testimonial-avatar">…</span>
+           <span><span class="testimonial-name">…</span>
+                 <span class="testimonial-role">…</span></span>
+         </figcaption>
+       </figure>
+     </div>
+   --------------------------------------------------------------------- */
+.testimonial-row {
+  display: flex;
+  gap: 1.5em;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Room for the cards' own shadowless edges and the scrollbar, so the
+     first and last card are not clipped against the container. */
+  padding-bottom: 1.5em;
+  scrollbar-width: thin;
+}
+
+.testimonial-card {
+  flex: 0 0 min(28em, 80%);
+  scroll-snap-align: start;
+  background-color: var(--zipli-white);
+  border-radius: var(--zipli-radius-card);
+  padding: 2.5em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+/* Green, not the lime used on a dark section: lime on white measures
+   1.28:1, so a row of lime stars on a white card would all but vanish.
+   Same rule as the stat figures, see the stat band flag in the guide. */
+.testimonial-rating {
+  display: flex;
+  gap: 0.2em;
+  margin: 0 0 -1em;
+}
+
+.testimonial-rating svg {
+  width: 1.4em;
+  height: 1.4em;
+  fill: var(--zipli-green);
+  flex: none;
+}
+
+.testimonial-quote {
+  font-size: 1.5em;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--zipli-ink);
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  /* webflow.css sets figcaption { text-align: center } on the element
+     itself, so inheriting left from the card is not enough to beat it. */
+  text-align: left;
+}
+
+.testimonial-avatar {
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  background-color: var(--zipli-mist);
+  color: var(--zipli-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+}
+
+.testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.testimonial-avatar svg { width: 55%; height: 55%; }
+
+.testimonial-name,
+.testimonial-role { display: block; line-height: 1.3; }
+
+.testimonial-name {
+  font-family: var(--zipli-font-display);
+  font-size: 1.25em;
+  font-weight: 500;
+  color: var(--zipli-ink);
+}
+
+.testimonial-role {
+  font-size: 1.05em;
+  font-weight: 300;
+  color: var(--zipli-grey);
+}
+
+/* The hint that there is more to the right, for a mouse user who has no
+   scrollbar until they touch it. */
+.testimonial-hint {
+  font-size: 1.05em;
+  font-weight: 300;
+  color: var(--zipli-grey);
+  margin: 0.5em 0 0;
+}
+
+.section-dark .testimonial-hint { color: var(--zipli-line); }
+
+@media screen and (max-width: 767px) {
+  .testimonial-card { flex-basis: 85%; padding: 2em; }
+}
+
+
+/* ---------------------------------------------------------------------
+   Blog topic filter
+   A row of pills over the blog index that narrows it to one theme group.
+
+   No JavaScript. The pills are <label>s over a set of radio inputs, and
+   one :has() rule per topic hides the groups that do not match. That
+   buys real behaviour for nothing: keyboard support, arrow keys between
+   options and a proper focus ring all come from the radio, and there is
+   no state to load, hydrate or get out of sync with the markup.
+
+   The inputs themselves are taken out of the layout rather than set to
+   display:none, so they stay focusable and screen readers still announce
+   the group.
+     <fieldset class="blog-filter">
+       <legend class="blog-filter-legend">Filter by topic</legend>
+       <input class="blog-filter-input" type="radio" name="blog-topic" id="topic-all" checked>
+       <label class="blog-filter-pill" for="topic-all">All</label>
+       …
+     </fieldset>
+   --------------------------------------------------------------------- */
+.blog-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Visually hidden, still reachable. */
+.blog-filter-legend,
+.blog-filter-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.blog-filter-pill {
+  background-color: var(--zipli-mist);
+  color: var(--zipli-ink);
+  border-radius: 7.5em;
+  padding: 0.55em 1.25em;
+  font-size: 1.25em;
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.blog-filter-pill:hover { background-color: var(--zipli-line); }
+
+.blog-filter-input:checked + .blog-filter-pill {
+  background-color: var(--zipli-ink);
+  color: var(--zipli-white);
+}
+
+/* The focus ring has to be drawn from the input onto its label, because
+   the input it belongs to is the thing that is off-screen. */
+.blog-filter-input:focus-visible + .blog-filter-pill {
+  outline: 2px solid var(--zipli-green);
+  outline-offset: 3px;
+}
+
+.main-container:has(#topic-terminals:checked) .blog-theme-group:not([data-topic="terminals"]),
+.main-container:has(#topic-reporting:checked) .blog-theme-group:not([data-topic="reporting"]),
+.main-container:has(#topic-cities:checked) .blog-theme-group:not([data-topic="cities"]),
+.main-container:has(#topic-impact:checked) .blog-theme-group:not([data-topic="impact"]),
+.main-container:has(#topic-compare:checked) .blog-theme-group:not([data-topic="compare"]) {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------
+   Process steps
+   The 4-step donation-flow visual on the home page, styled to match the
+   source deck's black-background slide: a green label above each panel,
+   four separate illustrations (cropped from the source art so a real
+   grid gap can sit between them) wrapped in a padded lavender pill, a
+   numbered badge straddling each panel's top-left corner, and a white
+   caption below. The labels/images/captions all use the same fixed
+   4-column grid (not .layout-grid.cols-4) so they stay aligned with
+   each other at every width.
+     <section class="section-dark">
+       <div class="process-steps">
+         <div class="process-steps-labels"><p class="process-step-label">Logging</p>...</div>
+         <div class="process-steps-image-wrap">
+           <div class="process-steps-images">
+             <div class="process-step-image-item">
+               <img class="process-steps-image" src="...">
+               <span class="process-step-badge">1</span>
+             </div>
+             ...
+           </div>
+         </div>
+         <div class="process-steps-captions"><p class="process-step-caption">...</p>...</div>
+       </div>
+     </section>
+   --------------------------------------------------------------------- */
+.process-steps {
+  max-width: 78em;
+  margin: 0 auto;
+}
+
+.process-steps-labels,
+.process-steps-images,
+.process-steps-captions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1.25em;
+}
+
+.process-step-label {
+  font-family: var(--zipli-font-display);
+  font-weight: 700;
+  color: var(--zipli-lime);
+  text-align: center;
+  margin: 0 0 1em;
+}
+
+.process-steps-image-wrap {
+  background-color: var(--zipli-lavender);
+  border-radius: 2em;
+  padding: 1.5em 1em;
+}
+
+.process-step-image-item { position: relative; }
+
+.process-steps-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1em;
+  display: block;
+}
+
+/* Each illustration has different internal padding before its own
+   rounded card starts (the logging and impact crops are nearly flush,
+   matching and delivery have empty space above), so the badge's vertical
+   offset is set per panel to land on that card's actual corner rather
+   than the crop's bounding box. Percentages come from scanning each
+   source image for where its content stops matching the page
+   background. Left offset is the same for all four: every panel's card
+   starts flush against the crop's left edge. */
+.process-steps-images .process-step-image-item:nth-child(1) .process-step-badge { top: calc(0.4% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(2) .process-step-badge { top: calc(27.2% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(3) .process-step-badge { top: calc(31.1% - 1.125em); }
+.process-steps-images .process-step-image-item:nth-child(4) .process-step-badge { top: calc(10.5% - 1.125em); }
+
+.process-step-badge {
+  position: absolute;
+  left: -1.125em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  background-color: var(--zipli-lime);
+  color: var(--zipli-ink);
+  font-family: var(--zipli-font-display);
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+.process-steps-captions { margin-top: 1.5em; }
+
+.process-step-caption {
+  font-size: 1.125em;
+  color: var(--zipli-white);
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .process-steps-labels,
+  .process-steps-images,
+  .process-steps-captions { grid-template-columns: repeat(2, 1fr); row-gap: 1.5em; }
+  .process-step-label:nth-child(n+3) { margin-top: 0.5em; }
+}
+
+/* Hero background video
+   The .hero-section.new-hoe background-image (Rectangle-17.png) stays in
+   place as the <video poster> and as the fallback for browsers that block
+   autoplay, print, and prefers-reduced-motion. Content keeps stacking on
+   top via the existing .padding-global > .main-container flow, which just
+   needs a z-index once the video is in the same stacking context. */
+.hero-section { position: relative; min-height: 50vh; }
+
+.hero-section.has-bg-video { background-image: none; background-color: #111; }
+
+.hero-section-about { min-height: 60vh; }
+.hero-section-about .hero-bg-video { object-position: top; }
+.hero-section-about .hero-wrapper.page { padding-top: 14em; padding-bottom: 11em; }
+
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: opacity 1s ease;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.hero-section > .padding-global { position: relative; z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-video { display: none; }
+}
+
+.feature-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.article-photo {
+  width: 100%;
+  border-radius: var(--zipli-radius-card);
+  display: block;
+  object-fit: cover;
+}
+
+.article-photo-caption {
+  font-size: 0.9375em;
+  color: var(--zipli-grey);
+  text-align: center;
+  margin: 0.75em 0 0;
 }

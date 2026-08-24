@@ -28,8 +28,20 @@ const site = {
 // Static assets copied verbatim. Everything here is referenced with {{base}}.
 const ASSETS = ["css", "js", "images", "fonts"];
 
-// Pages kept out of the sitemap. They also carry a robots noindex meta tag.
-const noindex = new Set(["styleguide.html"]);
+// Pages kept out of the sitemap and given a robots noindex meta tag. Home,
+// About, and the blog are the only pages we're going live with for now; the
+// rest still build (direct links and the edit-mode flow keep working) but
+// stay out of nav and out of Google.
+const noindex = new Set([
+  "styleguide.html",
+  "why-zipli.html",
+  "product.html",
+  "terminals-hubs.html",
+  "catering-chains.html",
+  "resources.html",
+  "pricing.html",
+  "find-a-terminal.html",
+]);
 
 const read = (p) => readFile(p, "utf8");
 
@@ -90,7 +102,7 @@ function fill(tpl, ctx) {
       return "";
     }
     // Pre-rendered HTML fragments are trusted, plain strings are escaped.
-    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch"
+    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch" || key === "robotsMeta"
       ? v
       : escapeHtml(v);
   });
@@ -194,8 +206,12 @@ async function build() {
           `lang="${c}">${escapeHtml(locales[c].name)}</a>`;
       }).join("\n");
 
+      const robotsMeta = noindex.has(file)
+        ? `  <meta name="robots" content="noindex, nofollow">\n`
+        : "";
+
       const ctx = {
-        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch,
+        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta,
         page: {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",
@@ -243,8 +259,18 @@ async function build() {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ` +
     `xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`);
 
-  await writeFile(path.join(OUT, "robots.txt"),
-    `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`);
+  // Netlify sets CONTEXT to "production" for the live site and to
+  // "branch-deploy" or "deploy-preview" for everything else. Only the real
+  // site invites crawlers: a branch preview is a full copy of the marketing
+  // site on its own public URL, and if it gets indexed it competes with
+  // getzipli.com in search for our own copy. Netlify adds noindex to deploy
+  // previews on its own but NOT to branch deploys, so this covers the gap.
+  // Unset (a local build) is treated as production, so `npm run build` output
+  // is what actually ships.
+  const isProduction = !process.env.CONTEXT || process.env.CONTEXT === "production";
+  await writeFile(path.join(OUT, "robots.txt"), isProduction
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`
+    : `# ${process.env.CONTEXT} build, not the live site.\nUser-agent: *\nDisallow: /\n`);
 
   for (const a of ASSETS) {
     if (existsSync(path.join(ROOT, a))) {
@@ -282,11 +308,16 @@ if (process.argv.includes("--serve")) {
   }).listen(3456, () => console.log("\nhttp://localhost:3456"));
 
   let pending;
-  watch(SRC, { recursive: true }, () => {
+  const rebuild = () => {
     clearTimeout(pending);
     pending = setTimeout(() => {
       partialCache.clear();
       build().catch((e) => console.error(e.message));
     }, 100);
-  });
+  };
+  watch(SRC, { recursive: true }, rebuild);
+  for (const dir of ASSETS) {
+    const dirPath = path.join(ROOT, dir);
+    if (existsSync(dirPath)) watch(dirPath, { recursive: true }, rebuild);
+  }
 }
