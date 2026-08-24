@@ -2,42 +2,28 @@
   "name": "English",
   "nav": [
     {
+      "label": "Home",
+      "href": "index.html"
+    },
+    {
       "label": "Why Zipli",
-      "href": "why-zipli.html"
+      "href": "index.html#problem"
     },
     {
       "label": "Product",
-      "href": "product.html"
+      "href": "index.html#product"
     },
     {
       "label": "Industries",
-      "children": [
-        {
-          "label": "Terminals & Hubs",
-          "href": "terminals-hubs.html"
-        },
-        {
-          "label": "Catering Chains",
-          "href": "catering-chains.html"
-        }
-      ]
+      "href": "index.html#industries"
     },
     {
       "label": "Blog",
       "href": "blog/"
     },
     {
-      "label": "Resources",
-      "href": "resources.html"
-    },
-    {
-      "label": "About",
+      "label": "About us",
       "href": "about.html"
-    },
-    {
-      "label": "Find a Terminal",
-      "href": "find-a-terminal.html",
-      "footerOnly": true
     },
     {
       "label": "Contact",

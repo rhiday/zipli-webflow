@@ -2,42 +2,28 @@
   "name": "Suomi",
   "nav": [
     {
-      "label": "Miksi Zipli",
-      "href": "why-zipli.html"
+      "label": "Koti",
+      "href": "index.html"
     },
     {
-      "label": "Tuote",
-      "href": "product.html"
+      "label": "Miksi Zipli",
+      "href": "index.html#problem"
+    },
+    {
+      "label": "Tuotteet",
+      "href": "index.html#product"
     },
     {
       "label": "Toimialat",
-      "children": [
-        {
-          "label": "Terminaalit ja jakelukeskukset",
-          "href": "terminals-hubs.html"
-        },
-        {
-          "label": "Ruokapalveluketjut",
-          "href": "catering-chains.html"
-        }
-      ]
+      "href": "index.html#industries"
     },
     {
       "label": "Blogi",
       "href": "blog/"
     },
     {
-      "label": "Resurssit",
-      "href": "resources.html"
-    },
-    {
-      "label": "Meistä",
+      "label": "Tiimi",
       "href": "about.html"
-    },
-    {
-      "label": "Löydä terminaali",
-      "href": "find-a-terminal.html",
-      "footerOnly": true
     },
     {
       "label": "Yhteystiedot",

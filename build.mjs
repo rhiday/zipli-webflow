@@ -28,8 +28,20 @@ const site = {
 // Static assets copied verbatim. Everything here is referenced with {{base}}.
 const ASSETS = ["css", "js", "images", "fonts"];
 
-// Pages kept out of the sitemap. They also carry a robots noindex meta tag.
-const noindex = new Set(["styleguide.html"]);
+// Pages kept out of the sitemap and given a robots noindex meta tag. Home,
+// About, and the blog are the only pages we're going live with for now; the
+// rest still build (direct links and the edit-mode flow keep working) but
+// stay out of nav and out of Google.
+const noindex = new Set([
+  "styleguide.html",
+  "why-zipli.html",
+  "product.html",
+  "terminals-hubs.html",
+  "catering-chains.html",
+  "resources.html",
+  "pricing.html",
+  "find-a-terminal.html",
+]);
 
 const read = (p) => readFile(p, "utf8");
 
@@ -90,7 +102,7 @@ function fill(tpl, ctx) {
       return "";
     }
     // Pre-rendered HTML fragments are trusted, plain strings are escaped.
-    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch"
+    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch" || key === "robotsMeta"
       ? v
       : escapeHtml(v);
   });
@@ -194,8 +206,12 @@ async function build() {
           `lang="${c}">${escapeHtml(locales[c].name)}</a>`;
       }).join("\n");
 
+      const robotsMeta = noindex.has(file)
+        ? `  <meta name="robots" content="noindex, nofollow">\n`
+        : "";
+
       const ctx = {
-        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch,
+        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta,
         page: {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",
