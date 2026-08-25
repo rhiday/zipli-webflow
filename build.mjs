@@ -169,6 +169,12 @@ async function build() {
       // locale's own base to still reach dist/.
       const depth = file.split("/").length - 1;
       const base = localeBase + "../".repeat(depth);
+      // Path back to this locale's OWN root, not all the way to dist/.
+      // {{base}} is for assets, which only live once at dist/ regardless
+      // of locale. Links to other pages on the site need to stay inside
+      // the current locale, so they use {{pageBase}} instead, or they'd
+      // walk straight past the locale folder back into English.
+      const pageBase = "../".repeat(depth);
 
       // Every page declares its translations to search engines, including
       // itself, plus an x-default pointing at the default locale.
@@ -181,11 +187,11 @@ async function build() {
         `  <link rel="alternate" hreflang="x-default" href="${site.origin}/${urlSuffix(file)}">`,
       ].join("\n");
 
-      // Nav/footer hrefs are written relative to the site root in the
-      // locale file, so they resolve within the current locale from any
-      // nesting depth once prefixed with this page's own {{base}}.
+      // Nav/footer hrefs are written relative to the locale's own root in
+      // the locale file, so they resolve within the current locale from
+      // any nesting depth once prefixed with this page's own {{pageBase}}.
       const linkHref = (href) =>
-        href.startsWith("http") ? href : base + href;
+        href.startsWith("http") ? href : pageBase + href;
 
       // A nav entry with a `children` array renders as a click-to-open
       // dropdown (built on <details>, same no-JS pattern as the FAQ
@@ -237,7 +243,7 @@ async function build() {
         : "";
 
       const ctx = {
-        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta, languageNotice,
+        base, pageBase, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta, languageNotice,
         page: {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",

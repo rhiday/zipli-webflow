@@ -261,9 +261,9 @@ description: Internal reference for the Zipli marketing site type scale, palette
 &lt;/section&gt;</code></pre>
         <p class="sg-note"><code>.heading.page</code> steps the h1 down from 5em to 3.75em,
           because a subpage headline is a sentence rather than two words and at 5em it fills the
-          screen. Live examples: <a href="{{base}}catering-chains.html">catering chains</a>,
-          <a href="{{base}}why-zipli.html">why Zipli</a>,
-          <a href="{{base}}terminals-hubs.html">terminals and hubs</a>.</p>
+          screen. Live examples: <a href="{{pageBase}}catering-chains.html">catering chains</a>,
+          <a href="{{pageBase}}why-zipli.html">why Zipli</a>,
+          <a href="{{pageBase}}terminals-hubs.html">terminals and hubs</a>.</p>
       </section>
 
       <section class="sg-section">
@@ -615,13 +615,13 @@ description: Internal reference for the Zipli marketing site type scale, palette
             change, not a shadow.</p>
         </div>
         <p class="sg-note" style="margin-top:2em">Live example: the two track cards on the
-          <a href="{{base}}index.html">home page</a>.</p>
+          <a href="{{pageBase}}index.html">home page</a>.</p>
       </section>
 
       <section class="sg-section">
         <p class="sg-label">Photo placeholder</p>
         <p class="sg-note">Stand-in for a real photograph that hasn't been dropped in yet, used on
-          the <a href="{{base}}about.html">about</a> page while final photography is pending. Same
+          the <a href="{{pageBase}}about.html">about</a> page while final photography is pending. Same
           pastel-fill, large-radius language as <code>.feature-card</code>, with a small icon so an
           unfilled slot reads as intentional rather than a broken image. Keep the box's max-height
           modest relative to its width, especially at a wide aspect ratio, or the caption ends up
@@ -708,8 +708,8 @@ description: Internal reference for the Zipli marketing site type scale, palette
           is pushed to the foot of the card, so the lists line up across a row even where one tier
           has a taller price line than its neighbour.</p>
         <p class="sg-note" style="margin-top:2em">Add <code>.wide</code> when a page has one tier
-          rather than a row of them, as <a href="{{base}}catering-chains.html">catering chains</a> and
-          <a href="{{base}}terminals-hubs.html">terminals and hubs</a> do. Same card turned on its side, so a
+          rather than a row of them, as <a href="{{pageBase}}catering-chains.html">catering chains</a> and
+          <a href="{{pageBase}}terminals-hubs.html">terminals and hubs</a> do. Same card turned on its side, so a
           lone tier does not sit as a narrow column with three quarters of the row empty beside
           it. This variant needs the extra <code>.plan-card-head</code> wrapper; the column
           version does not.</p>
@@ -818,8 +818,8 @@ description: Internal reference for the Zipli marketing site type scale, palette
         </div>
         <p class="sg-note" style="margin-top:2em">Keep it to two cards per column. A third turns it
           into a comparison table, which is a different thing and reads worse at this width. Live
-          examples: <a href="{{base}}terminals-hubs.html">terminals and hubs</a>,
-          <a href="{{base}}catering-chains.html">catering chains</a>.</p>
+          examples: <a href="{{pageBase}}terminals-hubs.html">terminals and hubs</a>,
+          <a href="{{pageBase}}catering-chains.html">catering chains</a>.</p>
       </section>
 
       <section class="sg-section">
@@ -830,7 +830,7 @@ description: Internal reference for the Zipli marketing site type scale, palette
           CTA pill: the element is an <code>&lt;a&gt;</code>, never a <code>&lt;div&gt;</code> with
           a click handler.</p>
         <div class="layout-grid cols-2" style="margin-top:2em">
-          <a href="{{base}}terminals-hubs.html" class="feature-card mist track-card">
+          <a href="{{pageBase}}terminals-hubs.html" class="feature-card mist track-card">
             <div class="feature-card-top">
               <div class="feature-card-tag"><p class="feature-card-tag-text">Terminals &amp; Hubs</p></div>
             </div>
@@ -839,7 +839,7 @@ description: Internal reference for the Zipli marketing site type scale, palette
             <p class="feature-card-body">Cut the admin that eats into volunteer and staff time.</p>
             <p class="blog-card-readmore">See Terminals &amp; Hubs →</p>
           </a>
-          <a href="{{base}}catering-chains.html" class="feature-card lime track-card">
+          <a href="{{pageBase}}catering-chains.html" class="feature-card lime track-card">
             <div class="feature-card-top">
               <div class="feature-card-tag"><p class="feature-card-tag-text">Catering Chains</p></div>
             </div>
@@ -947,7 +947,7 @@ description: Internal reference for the Zipli marketing site type scale, palette
         <p class="sg-note" style="margin-top:2em">Group cards for one theme under a left-aligned
           <code>.section-header</code> and stack the groups with <code>.blog-theme-group</code>,
           which spaces itself from the one before it. Live example:
-          <a href="{{base}}blog/">the blog index</a>.</p>
+          <a href="{{pageBase}}blog/">the blog index</a>.</p>
       </section>
 
       <section class="sg-section">
@@ -995,7 +995,7 @@ description: Internal reference for the Zipli marketing site type scale, palette
   &lt;p class="article-sources"&gt;Source: ...&lt;/p&gt;
 &lt;/div&gt;</code></pre>
         <p class="sg-note" style="margin-top:2em">Close every post with the standard
-          <code>.cta-band</code>. Live example: <a href="{{base}}blog/scale-donor-network.html">a
+          <code>.cta-band</code>. Live example: <a href="{{pageBase}}blog/scale-donor-network.html">a
           published post</a>.</p>
       </section>
 
