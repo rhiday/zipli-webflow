@@ -225,9 +225,18 @@ html:not([lang="en"]) .navbar-wrapper {
 /* The rule above forces the CTA label white, but the pill behind it is only
    darkened by Webflow's interaction on the home page. Everywhere else the
    pill stays white and the button reads as blank. Pin the scrolled pill to
-   green so the white label is legible on every page. */
+   green so the white label is legible on every page.
+
+   box-shadow instead of background-color, same reason as
+   .navbar-logo-left.navbar-scrolled above: Webflow's own scroll
+   interaction also tweens this button's background-color on the home
+   page, and that running animation silently wins over a plain (even
+   !important) background rule for a beat right as .navbar-scrolled
+   gets added. The label had already flipped white by then, so for
+   that window it read as white text on the not-yet-green pill,
+   invisible. box-shadow is a property that interaction never touches. */
 .navbar-logo-left.navbar-scrolled .nav-cta {
-  background-color: var(--zipli-green);
+  box-shadow: inset 0 0 0 999px var(--zipli-green);
 }
 
 /* The logo SVG is inline by default, which leaves a baseline/descender
