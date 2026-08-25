@@ -210,15 +210,53 @@ html:not([lang="en"]) .navbar-wrapper {
    dark-to-white handoff there). Our dark scrolled backdrop needs the
    opposite, so force it back to white while .navbar-scrolled is set.
 
-   Desktop only: below 992px the open nav becomes Webflow's full-screen
-   white dropdown, which sets .nav-link to dark green itself so it reads
-   against that white panel. Forcing white here too, regardless of scroll
-   position, made the links invisible against that same white panel. */
+   Desktop only for .nav-link/.nav-cta-text: below 992px the open nav
+   becomes Webflow's full-screen white dropdown, which sets .nav-link to
+   dark green itself so it reads against that white panel. Forcing white
+   here too, regardless of scroll position, made the links invisible
+   against that same white panel.
+
+   The logo isn't subject to that: it always sits in the fixed header
+   bar itself, never inside the white dropdown, so it stays black on the
+   dark scrolled backdrop at every width unless forced white too - which
+   is exactly the black-on-black bug this fixes on mobile. */
 @media screen and (min-width: 992px) {
   .navbar-logo-left.navbar-scrolled .nav-link,
-  .navbar-logo-left.navbar-scrolled .nav-cta-text,
-  .navbar-logo-left.navbar-scrolled .logo-svg {
+  .navbar-logo-left.navbar-scrolled .nav-cta-text {
     color: #fff !important;
+  }
+}
+
+.navbar-logo-left.navbar-scrolled .logo-svg { color: #fff !important; }
+
+/* ---------------------------------------------------------------------
+   Mobile nav menu (open state)
+
+   Webflow's own script drives the open/close animation by measuring
+   .nav-menu-wrapper's real content height and tweening .w-nav-overlay's
+   height to match it (it sets that inline style itself, so we don't
+   touch it here). Our own height:100vh on .nav-menu-wrapper
+   (zipli.webflow.css, <=991px) fights that measurement: the wrapper
+   claims a full-viewport height regardless of how much content it
+   holds, so the animated overlay opens far past the two-item nav's
+   actual content, leaving dead white space below the CTA. Letting the
+   wrapper size to its content instead removes the overshoot.
+   border-radius on the wrapper/card at this breakpoint also leaves
+   rounded corner gaps that the page background bleeds through; a
+   square panel avoids that. (position/top are left untouched: forcing
+   those to escape Webflow's own absolute/top:100% broke the animation
+   entirely, since the overlay's height math assumes the wrapper stays
+   in that positioning scheme.)
+   --------------------------------------------------------------------- */
+@media screen and (max-width: 991px) {
+  .nav-menu-wrapper[data-nav-menu-open] {
+    height: auto !important;
+    min-height: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .nav-menu-wrapper[data-nav-menu-open] .nav-menu-two {
+    border-radius: 0;
   }
 }
 
@@ -1209,6 +1247,12 @@ html:not([lang="en"]) .navbar-wrapper {
 @media screen and (max-width: 767px) {
   .cta-band { padding: 3em 1.8em; }
   .cta-band-title { font-size: 2.5em; }
+
+  /* .donor-band .cta-band-title (two classes) outranks the rule above
+     (one class) on specificity regardless of source order, so the donor
+     band's title was staying at its wider-viewport 2.75em size here and
+     overflowing the band's own padding. Needs its own mobile override. */
+  .donor-band .cta-band-title { font-size: 1.9em; }
 }
 
 /* ---------------------------------------------------------------------
@@ -1964,6 +2008,22 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    underline needs killing once here rather than per variant. */
 .main-button { text-decoration: none; }
 
+/* A soft lift so the header pill reads as a raised, clickable surface
+   against a photo or video background, not just a flat shape. Subtle by
+   design: this should be felt more than seen. Kept to .nav-cta only:
+   tried on .main-button too, but on the in-page CTAs (solid colour,
+   sitting on a flat section background rather than a photo) it just
+   read as unwanted fuzz around the pill. */
+.nav-cta {
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.28);
+}
+
+/* Webflow's export padded .nav-cta asymmetrically (1.87em left, 2.19em
+   right) to leave room for a call icon that this site never uses, so the
+   label sits visibly left of centre in the pill. Even padding both
+   sides. */
+.nav-cta { padding: 0.75em 2em; }
+
 /* ---------------------------------------------------------------------
    Dark button
    .main-button is white-on-transparent, built for sitting on a photo or
@@ -2421,6 +2481,10 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 
 @media screen and (max-width: 991px) {
   .hero-wrapper.page.home { padding-top: 10em; }
+}
+
+@media screen and (max-width: 767px) {
+  .hero-wrapper.page.home { padding-top: 6em; padding-bottom: 4em; }
 }
 
 /* The donor banner is a cross-sell to a different audience, so it sits
@@ -2905,6 +2969,18 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .hero-section-about { min-height: 60vh; }
 .hero-section-about .hero-bg-video { object-position: top; }
 .hero-section-about .hero-wrapper.page { padding-top: 14em; padding-bottom: 11em; }
+
+/* These desktop em values render at literal size on a phone (root locks
+   to 16px below 992px, same issue as the TYPE SCALE section further
+   down), so the hero's own vertical padding was pushing the CTA below
+   the fold on top of an already-tall video. Cut both the padding and
+   the section's own minimum height so the heading and CTA fit in the
+   first screen. */
+@media screen and (max-width: 767px) {
+  .hero-section { min-height: 0; }
+  .hero-section-about { min-height: 0; }
+  .hero-section-about .hero-wrapper.page { padding-top: 7em; padding-bottom: 4em; }
+}
 
 /* Since "Our story" moved out of the hero and onto the section below it,
    the opening hero-lede line is standing in for a headline. Matches
