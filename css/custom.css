@@ -2372,7 +2372,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .page-note {
   max-width: 60em;
   color: var(--zipli-grey);
-  font-size: 1em;
+  font-size: 1.15em;
   font-weight: 300;
   line-height: 1.5;
   margin: 0;
