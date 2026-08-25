@@ -196,8 +196,10 @@ async function build() {
       // A nav entry with a `children` array renders as a click-to-open
       // dropdown (built on <details>, same no-JS pattern as the FAQ
       // accordion) instead of a plain link. `footerOnly` keeps an entry
-      // (Contact) out of the top nav while it still appears in the footer.
-      const navLinks = t.nav.filter((l) => !l.footerOnly).map((l) => {
+      // out of the top nav; the footer mirrors the top nav exactly, so it
+      // stays out of both until it's unmarked.
+      const visibleNav = t.nav.filter((l) => !l.footerOnly);
+      const navLinks = visibleNav.map((l) => {
         if (!l.children) {
           return `                  <li>\n                    <a href="${linkHref(l.href)}" class="nav-link">${
             escapeHtml(l.label)}</a>\n                  </li>`;
@@ -215,7 +217,7 @@ async function build() {
 
       // The footer is a flat link row, so a dropdown entry contributes its
       // children directly rather than the unclickable group label.
-      const footerLinks = t.nav.flatMap((l) => l.children ?? [l]).map((l) =>
+      const footerLinks = visibleNav.flatMap((l) => l.children ?? [l]).map((l) =>
         `                <a href="${linkHref(l.href)}" class="footer_link">${
           escapeHtml(l.label)}</a>`).join("\n");
 
