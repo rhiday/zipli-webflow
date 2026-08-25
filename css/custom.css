@@ -2127,10 +2127,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 @media screen and (max-width: 767px) {
   .heading.page { font-size: 2.75em; }
   .hero-lede { font-size: 1.5em; }
+  .hero-section-about .hero-lede.lead { font-size: 2em; }
 }
 
 @media screen and (max-width: 479px) {
   .heading.page { font-size: 2.25em; }
+  .hero-section-about .hero-lede.lead { font-size: 1.6em; }
 }
 
 /* ---------------------------------------------------------------------
@@ -2813,7 +2815,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 
 .hero-section-about { min-height: 60vh; }
 .hero-section-about .hero-bg-video { object-position: top; }
-.hero-section-about .hero-wrapper.page { padding-top: 14em; padding-bottom: 11em; }
+.hero-section-about .hero-wrapper.page { padding-top: 18em; padding-bottom: 11em; }
+
+/* Since "Our story" moved out of the hero and onto the section below it,
+   the opening hero-lede line is standing in for a headline and needs the
+   size to read as one. */
+.hero-section-about .hero-lede.lead { font-size: 2.5em; font-weight: 400; }
 
 .hero-bg-video {
   position: absolute;
