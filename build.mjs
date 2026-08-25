@@ -103,7 +103,7 @@ function fill(tpl, ctx) {
     }
     // Pre-rendered HTML fragments are trusted, plain strings are escaped.
     return key === "hreflang" || key.endsWith("Links") || key === "langSwitch" ||
-      key === "robotsMeta" || key === "languageNotice"
+      key === "robotsMeta"
       ? v
       : escapeHtml(v);
   });
@@ -230,20 +230,8 @@ async function build() {
         ? `  <meta name="robots" content="noindex, nofollow">\n`
         : "";
 
-      // A thin strip under the nav, only on pages that are still showing
-      // the English fallback inside a non-English locale, telling the
-      // reader why. Uses the *other* locale's own wording, since the page
-      // chrome around the English content is in that locale.
-      const languageNotice = usesFallback
-        ? `      <div class="padding-global" style="background:#fff4e5;border-bottom:1px solid #f0dcb8;">\n` +
-          `        <div class="main-container new-home" style="padding:0.6em 0;">\n` +
-          `          <p class="page-note" style="margin:0;">${escapeHtml(t.contentEnglishOnly ?? "This page is only available in English.")}</p>\n` +
-          `        </div>\n` +
-          `      </div>\n`
-        : "";
-
       const ctx = {
-        base, pageBase, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta, languageNotice,
+        base, pageBase, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta,
         page: {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",
@@ -266,8 +254,24 @@ async function build() {
       // <html lang> describes the page's actual content, not the URL's
       // locale folder, so an untranslated page under /fi/ still declares
       // itself English.
-      const html = fill(await resolveIncludes(stampEditIds(body)), ctx)
+      let html = fill(await resolveIncludes(stampEditIds(body)), ctx)
         .replace("<html", `<html lang="${contentLang}"`);
+
+      // On a page still showing the English fallback inside a non-English
+      // locale, drop a small notice right after the hero section (the
+      // page's first </section>, true on every page in this site) telling
+      // the reader why. Uses the *other* locale's own wording, since the
+      // chrome around the English content is in that locale.
+      if (usesFallback) {
+        const notice = `      <section class="padding-section-small">\n` +
+          `        <div class="padding-global">\n` +
+          `          <div class="main-container new-home" style="background:#fff4e5;border:1px solid #f0dcb8;border-radius:0.5em;padding:0.8em 1.2em;">\n` +
+          `            <p class="page-note" style="margin:0;">${escapeHtml(t.contentEnglishOnly ?? "This page is only available in English.")}</p>\n` +
+          `          </div>\n` +
+          `        </div>\n` +
+          `      </section>\n`;
+        html = html.replace("</section>", `</section>\n${notice}`);
+      }
       const outFile = path.join(dir, file);
       await mkdir(path.dirname(outFile), { recursive: true });
       await writeFile(outFile, html);
