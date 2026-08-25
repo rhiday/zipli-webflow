@@ -6,6 +6,10 @@
       "href": "index.html"
     },
     {
+      "label": "Tiimi",
+      "href": "about.html"
+    },
+    {
       "label": "Miksi Zipli",
       "href": "index.html#problem"
     },
@@ -20,10 +24,6 @@
     {
       "label": "Blogi",
       "href": "blog/"
-    },
-    {
-      "label": "Tiimi",
-      "href": "about.html"
     },
     {
       "label": "Yhteystiedot",
