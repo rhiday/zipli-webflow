@@ -2813,12 +2813,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   .process-step-label:nth-child(n+3) { margin-top: 0.5em; }
 }
 
-/* Hero background video
-   The .hero-section.new-hoe background-image (Rectangle-17.png) stays in
-   place as the <video poster> and as the fallback for browsers that block
-   autoplay, print, and prefers-reduced-motion. Content keeps stacking on
-   top via the existing .padding-global > .main-container flow, which just
-   needs a z-index once the video is in the same stacking context. */
+/* Hero background media. .hero-bg-video is shared by a plain <img> (the
+   home page, since Aug 2026) and a <video> (About), so it only sets what
+   both need: fill the section, sit behind the content. Content keeps
+   stacking on top via the existing .padding-global > .main-container flow,
+   which just needs a z-index once the media is in the same stacking
+   context. */
 .hero-section { position: relative; min-height: 50vh; }
 
 .hero-section.has-bg-video { background-image: none; background-color: #111; }
@@ -2853,7 +2853,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .hero-section > .padding-global { position: relative; z-index: 2; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg-video { display: none; }
+  video.hero-bg-video { display: none; }
 }
 
 .feature-card-list {
