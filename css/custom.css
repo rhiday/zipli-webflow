@@ -1665,6 +1665,7 @@ html:not([lang="en"]) .navbar-wrapper {
   .article-body h3 { font-size: 1.25em; }
   .article-body p,
   .article-body li { font-size: 1.25em; }
+  .article-more-toggle { font-size: 1.25em; }
 }
 
 /* ---------------------------------------------------------------------
