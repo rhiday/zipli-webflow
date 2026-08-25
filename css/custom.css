@@ -871,11 +871,16 @@ html:not([lang="en"]) .navbar-wrapper {
 .quote-media-card .pull-quote-text { font-size: 1.375em; line-height: 1.45; }
 .quote-media-card .pull-quote-attrib { font-size: 1.125em; margin-top: 0.75em; }
 
+/* aspect-ratio instead of height:100% - the parent's align-items:center
+   means a flex child's height never resolves to a definite value, so
+   height:100% was a no-op and the image rendered at its own intrinsic
+   size instead of filling its column. aspect-ratio sizes it purely off
+   the width it's already guaranteed (flex + width:100%), so it always
+   fills its half of the card regardless of row height. */
 .quote-media-card .quote-media-image {
   flex: 1 1 0;
   width: 100%;
-  height: 100%;
-  max-height: 22em;
+  aspect-ratio: 4 / 3;
   border-radius: calc(var(--zipli-radius-card) - 0.75em);
   object-fit: cover;
 }
@@ -887,7 +892,6 @@ html:not([lang="en"]) .navbar-wrapper {
     padding: 1.5em;
   }
   .quote-media-card .pull-quote-text { font-size: 1.25em; }
-  .quote-media-card .quote-media-image { max-height: 18em; }
 }
 
 /* ---------------------------------------------------------------------
@@ -1947,6 +1951,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    See docs/plan-find-a-terminal-page.md for the full brief.
    ===================================================================== */
 
+/* Webflow's export never resets link underline on this class, since every
+   original use case is a <span>, not an <a>. Now that some call sites are
+   real links (the two home track card buttons, the hero CTAs), the
+   underline needs killing once here rather than per variant. */
+.main-button { text-decoration: none; }
+
 /* ---------------------------------------------------------------------
    Dark button
    .main-button is white-on-transparent, built for sitting on a photo or
@@ -1977,6 +1987,21 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 }
 
 .main-button.lime:hover { background-color: var(--zipli-lime-soft); }
+
+/* ---------------------------------------------------------------------
+   Green button
+   Deep green fill, white text. Same shape as .dark/.lime, quieter than
+   the lime accent, for a CTA that needs to read as calmer than a bright
+   accent color without going all the way to black.
+     <a href="#" class="main-button green compact w-button">Book a demo →</a>
+   --------------------------------------------------------------------- */
+.main-button.green {
+  background-color: var(--zipli-green);
+  color: var(--zipli-white);
+  transition: background-color 0.3s;
+}
+
+.main-button.green:hover { background-color: var(--zipli-ink); }
 
 /* ---------------------------------------------------------------------
    Lookup bar
