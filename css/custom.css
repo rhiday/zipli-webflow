@@ -1543,6 +1543,41 @@ html:not([lang="en"]) .navbar-wrapper {
   line-height: 1.6;
 }
 
+/* ---------------------------------------------------------------------
+   In-article read-more
+   Built on <details>/<summary>, the same no-JS pattern as .faq-item and
+   .nav-dropdown, so it expands in place with no JavaScript and is
+   keyboard accessible for free. Once open there's nothing left to
+   collapse back to, so the toggle just disappears rather than turning
+   into a "show less" - the content itself is now the ending.
+     <div class="article-body">
+       <p>Always visible.</p>
+       <details class="article-more">
+         <summary class="article-more-toggle">Lue lisää</summary>
+         <div class="article-more-content">
+           <p>Revealed on click.</p>
+         </div>
+       </details>
+     </div>
+   --------------------------------------------------------------------- */
+.article-more-toggle {
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: 500;
+  color: var(--zipli-green);
+  cursor: pointer;
+  list-style: none;
+}
+
+.article-more-toggle::-webkit-details-marker { display: none; }
+.article-more-toggle:hover { text-decoration: underline; }
+
+.article-more[open] .article-more-toggle { display: none; }
+
+/* Revealed content sits one element deeper than .article-body's own
+   children, so it needs its own copy of the same child spacing rule. */
+.article-more-content > * + * { margin-top: 1.2em; }
+
 .article-body ul,
 .article-body ol {
   padding-left: 1.4em;
@@ -1630,6 +1665,7 @@ html:not([lang="en"]) .navbar-wrapper {
   .article-body h3 { font-size: 1.25em; }
   .article-body p,
   .article-body li { font-size: 1.25em; }
+  .article-more-toggle { font-size: 1.25em; }
 }
 
 /* ---------------------------------------------------------------------
