@@ -2008,6 +2008,21 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    underline needs killing once here rather than per variant. */
 .main-button { text-decoration: none; }
 
+/* A soft lift so every pill CTA reads as a raised, clickable surface
+   against a photo or video background, not just a flat shape. Subtle by
+   design: this should be felt more than seen. Shared with .nav-cta below
+   so the header pill and the in-page buttons match. */
+.main-button,
+.nav-cta {
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.28);
+}
+
+/* Webflow's export padded .nav-cta asymmetrically (1.87em left, 2.19em
+   right) to leave room for a call icon that this site never uses, so the
+   label sits visibly left of centre in the pill. Even padding both
+   sides. */
+.nav-cta { padding: 0.75em 2em; }
+
 /* ---------------------------------------------------------------------
    Dark button
    .main-button is white-on-transparent, built for sitting on a photo or
