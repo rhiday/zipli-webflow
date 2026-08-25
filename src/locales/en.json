@@ -6,6 +6,10 @@
       "href": "index.html"
     },
     {
+      "label": "About us",
+      "href": "about.html"
+    },
+    {
       "label": "Why Zipli",
       "href": "index.html#problem"
     },
@@ -20,10 +24,6 @@
     {
       "label": "Blog",
       "href": "blog/"
-    },
-    {
-      "label": "About us",
-      "href": "about.html"
     },
     {
       "label": "Contact",
