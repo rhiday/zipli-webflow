@@ -11,19 +11,23 @@
     },
     {
       "label": "Miksi Zipli",
-      "href": "index.html#problem"
+      "href": "index.html#problem",
+      "footerOnly": true
     },
     {
       "label": "Tuotteet",
-      "href": "index.html#product"
+      "href": "index.html#product",
+      "footerOnly": true
     },
     {
       "label": "Toimialat",
-      "href": "index.html#industries"
+      "href": "index.html#industries",
+      "footerOnly": true
     },
     {
       "label": "Blogi",
-      "href": "blog/"
+      "href": "blog/",
+      "footerOnly": true
     },
     {
       "label": "Yhteystiedot",
