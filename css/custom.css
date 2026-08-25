@@ -845,6 +845,52 @@ html:not([lang="en"]) .navbar-wrapper {
 }
 
 /* ---------------------------------------------------------------------
+   Quote + photo card
+   A bordered box pairing a pull-quote with its supporting photo side by
+   side, instead of the quote running at full 3em editorial size with the
+   photo stacked underneath. One story-length quote, one photo, read as a
+   single unit rather than two separate blocks in the article flow.
+     <div class="quote-media-card">
+       <blockquote class="pull-quote framed">
+         <p class="pull-quote-text">...</p>
+         <p class="pull-quote-attrib">Name</p>
+       </blockquote>
+       <img class="quote-media-image" src="..." alt="...">
+     </div>
+   --------------------------------------------------------------------- */
+.quote-media-card {
+  display: flex;
+  align-items: center;
+  gap: 2.5em;
+  border: 1px solid var(--zipli-line);
+  border-radius: var(--zipli-radius-card);
+  padding: 2.5em;
+}
+
+.quote-media-card .pull-quote { flex: 1.2 1 0; }
+.quote-media-card .pull-quote-text { font-size: 1.375em; line-height: 1.45; }
+.quote-media-card .pull-quote-attrib { font-size: 1.125em; margin-top: 0.75em; }
+
+.quote-media-card .quote-media-image {
+  flex: 1 1 0;
+  width: 100%;
+  height: 100%;
+  max-height: 22em;
+  border-radius: calc(var(--zipli-radius-card) - 0.75em);
+  object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+  .quote-media-card {
+    flex-direction: column;
+    gap: 1.5em;
+    padding: 1.5em;
+  }
+  .quote-media-card .pull-quote-text { font-size: 1.25em; }
+  .quote-media-card .quote-media-image { max-height: 18em; }
+}
+
+/* ---------------------------------------------------------------------
    Person card
    Generalises the pair of contacts in the CTA section. Portrait, name,
    role and a contact line. The original sets letter-spacing in px, which
