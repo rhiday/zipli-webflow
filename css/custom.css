@@ -844,6 +844,7 @@ html:not([lang="en"]) .navbar-wrapper {
   margin-top: 0.75em;
 }
 
+
 /* ---------------------------------------------------------------------
    Person card
    Generalises the pair of contacts in the CTA section. Portrait, name,
@@ -1901,6 +1902,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    See docs/plan-find-a-terminal-page.md for the full brief.
    ===================================================================== */
 
+/* Webflow's export never resets link underline on this class, since every
+   original use case is a <span>, not an <a>. Now that some call sites are
+   real links (the two home track card buttons, the hero CTAs), the
+   underline needs killing once here rather than per variant. */
+.main-button { text-decoration: none; }
+
 /* ---------------------------------------------------------------------
    Dark button
    .main-button is white-on-transparent, built for sitting on a photo or
@@ -1931,6 +1938,21 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 }
 
 .main-button.lime:hover { background-color: var(--zipli-lime-soft); }
+
+/* ---------------------------------------------------------------------
+   Green button
+   Deep green fill, white text. Same shape as .dark/.lime, quieter than
+   the lime accent, for a CTA that needs to read as calmer than a bright
+   accent color without going all the way to black.
+     <a href="#" class="main-button green compact w-button">Book a demo →</a>
+   --------------------------------------------------------------------- */
+.main-button.green {
+  background-color: var(--zipli-green);
+  color: var(--zipli-white);
+  transition: background-color 0.3s;
+}
+
+.main-button.green:hover { background-color: var(--zipli-ink); }
 
 /* ---------------------------------------------------------------------
    Lookup bar

@@ -22,8 +22,16 @@ const OUT = path.join(ROOT, "dist");
 
 const site = {
   origin: "https://www.getzipli.com",
-  defaultLocale: "en",
+  // Which locale's URLs sit at the site root vs its own /<lang>/ folder.
+  defaultLocale: "fi",
 };
+
+// The locale actually authored in src/pages/ (edited live via browser edit
+// mode). Every other locale either has its own src/pages-<lang>/ override
+// per page, or falls back to this one's content. Separate from
+// site.defaultLocale on purpose: which locale owns the raw files doesn't
+// change just because Finnish now sits at the URL root.
+const CONTENT_SOURCE_LOCALE = "en";
 
 // Static assets copied verbatim. Everything here is referenced with {{base}}.
 const ASSETS = ["css", "js", "images", "fonts"];
@@ -158,11 +166,12 @@ async function build() {
         ? await read(overridePath)
         : await read(path.join(SRC, "pages", file));
       const { meta, body } = parseFrontMatter(raw);
-      // A non-default locale with no override is showing the English
-      // source verbatim (e.g. Blog, which isn't translated yet). The page
-      // itself is still in English, whatever locale folder it sits in.
-      const usesFallback = !isDefault && !hasOverride;
-      const contentLang = usesFallback ? site.defaultLocale : lang;
+      // Any locale other than the content source with no override of its
+      // own is showing the English source verbatim (e.g. Blog, which isn't
+      // translated yet). The page itself is still in English, regardless
+      // of whether English or Finnish happens to sit at the URL root.
+      const usesFallback = lang !== CONTENT_SOURCE_LOCALE && !hasOverride;
+      const contentLang = usesFallback ? CONTENT_SOURCE_LOCALE : lang;
       const urlPath = (isDefault ? "/" : `/${lang}/`) + urlSuffix(file);
 
       // Nested pages (blog/slug.html) need extra "../" on top of the
