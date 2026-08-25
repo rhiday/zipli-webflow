@@ -767,6 +767,12 @@ html:not([lang="en"]) .navbar-wrapper {
   .step-title { font-size: 1.75em; }
 }
 
+/* The home page testimonial (Heta Hyvärinen) still uses the raw Webflow
+   export classes rather than .pull-quote below, and the export's 3em/2em
+   sizing runs heavier than the rest of the page's editorial quotes. */
+.project-manager-quate { font-size: 2em; }
+.project-manager-profile-info { font-size: 1.375em; }
+
 /* ---------------------------------------------------------------------
    Pull quote
    Generalises the .project-manager-quate block. A large light quote with
@@ -1174,6 +1180,11 @@ html:not([lang="en"]) .navbar-wrapper {
   margin: 0;
   text-align: center;
 }
+
+/* The donor band's question reads more like a qualifier than a headline,
+   so it doesn't need the full 4em .cta-band-title weight the other bands
+   (the app download CTA) use. */
+.donor-band .cta-band-title { font-size: 2.75em; }
 
 .cta-band-lede {
   font-size: 1.75em;
@@ -2857,7 +2868,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 
 .hero-section-about { min-height: 60vh; }
 .hero-section-about .hero-bg-video { object-position: top; }
-.hero-section-about .hero-wrapper.page { padding-top: 18em; padding-bottom: 11em; }
+.hero-section-about .hero-wrapper.page { padding-top: 14em; padding-bottom: 11em; }
 
 /* Since "Our story" moved out of the hero and onto the section below it,
    the opening hero-lede line is standing in for a headline. Matches
