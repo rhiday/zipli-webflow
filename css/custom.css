@@ -622,6 +622,16 @@ html:not([lang="en"]) .navbar-wrapper {
    height. */
 .media-split-media.phone { max-width: 18em; margin: 0 auto; }
 
+/* A raw screenshot with no device around it reads as a floating rectangle.
+   A tighter radius plus a hairline border and a soft lift give it just
+   enough of a device edge to feel like a phone, without building a full
+   bezel/notch mockup. */
+.media-split-media.phone img {
+  border-radius: 1.8em;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1.5em 3em -1.2em rgba(0, 0, 0, 0.3);
+}
+
 .media-split-title {
   text-align: left;
   font-family: var(--zipli-font-body);
