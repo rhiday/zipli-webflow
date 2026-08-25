@@ -1,5 +1,13 @@
 # Netlify redirects. Copied verbatim into dist/ by build.mjs.
 #
+# Finnish moved from /fi/ to the site root (Aug 2026 default-locale flip).
+# Ninja has already shared /fi links with clients externally, so these need
+# to keep resolving permanently, not just during a transition window. Must
+# come before the renamed-page rules below, since a /fi/ path needs to lose
+# its /fi/ prefix before those rules can match what's left of the path.
+/fi/*  /:splat  301
+/fi    /        301
+
 # The August 2026 sitemap restructure renamed four pages. These are 301s so
 # the indexed URLs keep their ranking rather than starting over. Blog URLs
 # were deliberately left untouched and need no entry here.
@@ -8,8 +16,3 @@
 /kitchens.html          /catering-chains.html    301
 /management.html        /catering-chains.html    301
 /terminals.html         /terminals-hubs.html     301
-
-/fi/how-it-works.html   /fi/product.html         301
-/fi/kitchens.html       /fi/catering-chains.html 301
-/fi/management.html     /fi/catering-chains.html 301
-/fi/terminals.html      /fi/terminals-hubs.html  301
