@@ -1215,7 +1215,7 @@ html:not([lang="en"]) .navbar-wrapper {
 }
 
 .hero-lede {
-  max-width: 40em;
+  max-width: 46em;
   color: var(--zipli-white);
   text-align: center;
   font-size: 1.75em;
@@ -2131,18 +2131,19 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
    subpage headline now steps down in time with the home page one.
    --------------------------------------------------------------------- */
 @media screen and (max-width: 991px) {
-  .heading.page { font-size: 3.25em; }
+  .heading.page,
+  .hero-section-about .hero-lede.lead { font-size: 3.25em; }
 }
 
 @media screen and (max-width: 767px) {
-  .heading.page { font-size: 2.75em; }
+  .heading.page,
+  .hero-section-about .hero-lede.lead { font-size: 2.75em; }
   .hero-lede { font-size: 1.5em; }
-  .hero-section-about .hero-lede.lead { font-size: 2em; }
 }
 
 @media screen and (max-width: 479px) {
-  .heading.page { font-size: 2.25em; }
-  .hero-section-about .hero-lede.lead { font-size: 1.6em; }
+  .heading.page,
+  .hero-section-about .hero-lede.lead { font-size: 2.25em; }
 }
 
 /* ---------------------------------------------------------------------
@@ -2828,9 +2829,17 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .hero-section-about .hero-wrapper.page { padding-top: 18em; padding-bottom: 11em; }
 
 /* Since "Our story" moved out of the hero and onto the section below it,
-   the opening hero-lede line is standing in for a headline and needs the
-   size to read as one. */
-.hero-section-about .hero-lede.lead { font-size: 2.5em; font-weight: 400; }
+   the opening hero-lede line is standing in for a headline. Matches
+   .heading.page's look exactly (color, font, weight, size steps) rather
+   than just being a bigger .hero-lede, since it's playing that role. */
+.hero-section-about .hero-lede.lead {
+  max-width: 16em;
+  color: var(--zipli-lime);
+  font-family: var(--zipli-font-display);
+  font-weight: 500;
+  font-size: 3.75em;
+  line-height: 1.05;
+}
 
 .hero-bg-video {
   position: absolute;
