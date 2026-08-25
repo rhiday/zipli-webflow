@@ -9,3 +9,6 @@ node_modules/
 *.local.md
 .claude/settings.local.json
 docs/_local/
+
+# Local Netlify folder
+.netlify
