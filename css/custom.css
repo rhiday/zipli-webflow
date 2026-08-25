@@ -1247,6 +1247,12 @@ html:not([lang="en"]) .navbar-wrapper {
 @media screen and (max-width: 767px) {
   .cta-band { padding: 3em 1.8em; }
   .cta-band-title { font-size: 2.5em; }
+
+  /* .donor-band .cta-band-title (two classes) outranks the rule above
+     (one class) on specificity regardless of source order, so the donor
+     band's title was staying at its wider-viewport 2.75em size here and
+     overflowing the band's own padding. Needs its own mobile override. */
+  .donor-band .cta-band-title { font-size: 1.9em; }
 }
 
 /* ---------------------------------------------------------------------
