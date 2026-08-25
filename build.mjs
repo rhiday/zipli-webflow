@@ -102,7 +102,8 @@ function fill(tpl, ctx) {
       return "";
     }
     // Pre-rendered HTML fragments are trusted, plain strings are escaped.
-    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch" || key === "robotsMeta"
+    return key === "hreflang" || key.endsWith("Links") || key === "langSwitch" ||
+      key === "robotsMeta"
       ? v
       : escapeHtml(v);
   });
@@ -147,14 +148,33 @@ async function build() {
     await mkdir(dir, { recursive: true });
 
     for (const file of pages) {
-      const raw = await read(path.join(SRC, "pages", file));
+      // A locale can override a page's body copy with its own literal HTML
+      // by adding a same-named file under src/pages-<lang>/. Falls back to
+      // the English source when no override exists (e.g. Blog, which has
+      // no translation yet), so every locale still builds every page.
+      const overridePath = path.join(SRC, `pages-${lang}`, file);
+      const hasOverride = existsSync(overridePath);
+      const raw = hasOverride
+        ? await read(overridePath)
+        : await read(path.join(SRC, "pages", file));
       const { meta, body } = parseFrontMatter(raw);
+      // A non-default locale with no override is showing the English
+      // source verbatim (e.g. Blog, which isn't translated yet). The page
+      // itself is still in English, whatever locale folder it sits in.
+      const usesFallback = !isDefault && !hasOverride;
+      const contentLang = usesFallback ? site.defaultLocale : lang;
       const urlPath = (isDefault ? "/" : `/${lang}/`) + urlSuffix(file);
 
       // Nested pages (blog/slug.html) need extra "../" on top of the
       // locale's own base to still reach dist/.
       const depth = file.split("/").length - 1;
       const base = localeBase + "../".repeat(depth);
+      // Path back to this locale's OWN root, not all the way to dist/.
+      // {{base}} is for assets, which only live once at dist/ regardless
+      // of locale. Links to other pages on the site need to stay inside
+      // the current locale, so they use {{pageBase}} instead, or they'd
+      // walk straight past the locale folder back into English.
+      const pageBase = "../".repeat(depth);
 
       // Every page declares its translations to search engines, including
       // itself, plus an x-default pointing at the default locale.
@@ -167,11 +187,11 @@ async function build() {
         `  <link rel="alternate" hreflang="x-default" href="${site.origin}/${urlSuffix(file)}">`,
       ].join("\n");
 
-      // Nav/footer hrefs are written relative to the site root in the
-      // locale file, so they resolve within the current locale from any
-      // nesting depth once prefixed with this page's own {{base}}.
+      // Nav/footer hrefs are written relative to the locale's own root in
+      // the locale file, so they resolve within the current locale from
+      // any nesting depth once prefixed with this page's own {{pageBase}}.
       const linkHref = (href) =>
-        href.startsWith("http") ? href : base + href;
+        href.startsWith("http") ? href : pageBase + href;
 
       // A nav entry with a `children` array renders as a click-to-open
       // dropdown (built on <details>, same no-JS pattern as the FAQ
@@ -211,15 +231,18 @@ async function build() {
         : "";
 
       const ctx = {
-        base, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta,
+        base, pageBase, lang, t, site, hreflang, navLinks, footerLinks, langSwitch, robotsMeta,
         page: {
           title: meta[`title.${lang}`] ?? meta.title ?? "Zipli",
           description: meta[`description.${lang}`] ?? meta.description ?? "",
           canonical: urlPath,
-          // Body copy isn't templated per locale, so every locale of a page
-          // edits back to the same English source file. Read by edit-mode.js
-          // to know which file to fetch/commit through the GitHub API.
-          editSource: `src/pages/${file}`,
+          // A locale without its own override still edits back to the
+          // English source (that's the only copy that exists). A locale
+          // with a real translated file, like src/pages-fi/, edits back to
+          // that file instead, so a browser edit never overwrites the
+          // English source with translated text. Read by edit-mode.js to
+          // know which file to fetch/commit through the GitHub API.
+          editSource: hasOverride ? `src/pages-${lang}/${file}` : `src/pages/${file}`,
         },
       };
 
@@ -228,8 +251,31 @@ async function build() {
       // partials and are never touched), and so the same id numbering the
       // edit-mode client computes when it re-walks the raw source file on
       // GitHub lines up with what the teammate sees in the rendered page.
-      const html = fill(await resolveIncludes(stampEditIds(body)), ctx)
-        .replace("<html", `<html lang="${lang}"`);
+      // <html lang> describes the page's actual content, not the URL's
+      // locale folder, so an untranslated page under /fi/ still declares
+      // itself English.
+      let html = fill(await resolveIncludes(stampEditIds(body)), ctx)
+        .replace("<html", `<html lang="${contentLang}"`);
+
+      // On a page still showing the English fallback inside a non-English
+      // locale, drop a small notice right after the hero section (the
+      // page's first </section>, true on every page in this site) telling
+      // the reader why. Uses the *other* locale's own wording, since the
+      // chrome around the English content is in that locale.
+      if (usesFallback) {
+        // No padding-section-* wrapper on purpose: those add multiple ems
+        // of space on their own, and the next section's own top padding
+        // would stack on top of that. This sits flush against the hero
+        // above and only as tall as its own text needs.
+        const notice = `      <div style="background:#fff4e5;border-top:1px solid #f0dcb8;border-bottom:1px solid #f0dcb8;">\n` +
+          `        <div class="padding-global">\n` +
+          `          <div class="main-container new-home" style="padding:0.7em 0;">\n` +
+          `            <p class="page-note" style="margin:0;">${escapeHtml(t.contentEnglishOnly ?? "This page is only available in English.")}</p>\n` +
+          `          </div>\n` +
+          `        </div>\n` +
+          `      </div>\n`;
+        html = html.replace("</section>", `</section>\n${notice}`);
+      }
       const outFile = path.join(dir, file);
       await mkdir(path.dirname(outFile), { recursive: true });
       await writeFile(outFile, html);
