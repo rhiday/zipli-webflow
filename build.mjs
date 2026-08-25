@@ -263,13 +263,17 @@ async function build() {
       // the reader why. Uses the *other* locale's own wording, since the
       // chrome around the English content is in that locale.
       if (usesFallback) {
-        const notice = `      <section class="padding-section-small">\n` +
+        // No padding-section-* wrapper on purpose: those add multiple ems
+        // of space on their own, and the next section's own top padding
+        // would stack on top of that. This sits flush against the hero
+        // above and only as tall as its own text needs.
+        const notice = `      <div style="background:#fff4e5;border-top:1px solid #f0dcb8;border-bottom:1px solid #f0dcb8;">\n` +
           `        <div class="padding-global">\n` +
-          `          <div class="main-container new-home" style="background:#fff4e5;border:1px solid #f0dcb8;border-radius:0.5em;padding:0.8em 1.2em;">\n` +
+          `          <div class="main-container new-home" style="padding:0.7em 0;">\n` +
           `            <p class="page-note" style="margin:0;">${escapeHtml(t.contentEnglishOnly ?? "This page is only available in English.")}</p>\n` +
           `          </div>\n` +
           `        </div>\n` +
-          `      </section>\n`;
+          `      </div>\n`;
         html = html.replace("</section>", `</section>\n${notice}`);
       }
       const outFile = path.join(dir, file);
