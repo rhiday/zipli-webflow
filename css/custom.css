@@ -1225,6 +1225,7 @@ html:not([lang="en"]) .navbar-wrapper {
   color: var(--zipli-black);
   margin: 0;
   text-align: center;
+  overflow-wrap: break-word;
 }
 
 /* The donor band's question reads more like a qualifier than a headline,
