@@ -808,8 +808,16 @@ html:not([lang="en"]) .navbar-wrapper {
 /* The home page testimonial (Heta Hyvärinen) still uses the raw Webflow
    export classes rather than .pull-quote below, and the export's 3em/2em
    sizing runs heavier than the rest of the page's editorial quotes. */
-.project-manager-quate { font-size: 2em; }
+.project-manager-quate { font-size: 2em; overflow-wrap: break-word; }
 .project-manager-profile-info { font-size: 1.375em; }
+
+@media screen and (max-width: 767px) {
+  /* This unqualified 2em rule above beats the Webflow export's own
+     1.5em mobile rule regardless of source order (same specificity,
+     later in the cascade), so the FI quote ("...vuoteen 2030
+     mennessä.") was overflowing the green card on phones. */
+  .project-manager-quate { font-size: 1.5em; }
+}
 
 /* ---------------------------------------------------------------------
    Pull quote
