@@ -1197,6 +1197,13 @@ html:not([lang="en"]) .navbar-wrapper {
 /* Portrait crop, for a person rather than a scene. */
 .image-card-media.portrait { aspect-ratio: 1; }
 
+/* On a phone the cards stack full width and the 3:2 landscape frame crops
+   these portrait source photos hard. Square shows more of the photo.
+   Desktop keeps 3:2. */
+@media screen and (max-width: 767px) {
+  .image-card-media { aspect-ratio: 1 / 1; }
+}
+
 .image-card-body { padding: 1.8em 1.8em 2.5em; }
 
 /* ---------------------------------------------------------------------
@@ -3067,7 +3074,12 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 @media screen and (max-width: 767px) {
   .hero-section { min-height: 0; }
   .hero-section-about { min-height: 0; }
-  .hero-section-about .hero-wrapper.page { padding-top: 7em; padding-bottom: 4em; }
+  /* Match the home hero's phone padding so the CTA sits as high. */
+  .hero-section-about .hero-wrapper.page { padding-top: 6em; padding-bottom: 4em; }
+  /* The lead line is a full sentence here, not a short headline, so on a
+     phone it drops to the same size as the home hero's lede paragraph
+     rather than the headline steps, keeping the CTA in view. */
+  .hero-section-about .hero-lede.lead { font-size: 1.5em; }
 }
 
 /* Since "Our story" moved out of the hero and onto the section below it,
