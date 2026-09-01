@@ -2962,11 +2962,86 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   margin: 0;
 }
 
+/* Mobile: the three desktop grids (labels / images / captions) are collapsed
+   with display:contents so every label, figure and caption becomes a direct
+   child of .process-steps, then reordered so each step's three pieces sit
+   together as one vertical card: label, portrait figure, caption. Desktop is
+   untouched. */
 @media screen and (max-width: 767px) {
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .process-steps-labels,
   .process-steps-images,
-  .process-steps-captions { grid-template-columns: repeat(2, 1fr); row-gap: 1.5em; }
-  .process-step-label:nth-child(n+3) { margin-top: 0.5em; }
+  .process-steps-captions,
+  .process-steps-image-wrap { display: contents; }
+
+  /* step 1 */
+  .process-steps-labels .process-step-label:nth-child(1) { order: 0; }
+  .process-steps-images .process-step-image-item:nth-child(1) { order: 1; }
+  .process-steps-captions .process-step-caption:nth-child(1) { order: 2; }
+  /* step 2 */
+  .process-steps-labels .process-step-label:nth-child(2) { order: 3; }
+  .process-steps-images .process-step-image-item:nth-child(2) { order: 4; }
+  .process-steps-captions .process-step-caption:nth-child(2) { order: 5; }
+  /* step 3 */
+  .process-steps-labels .process-step-label:nth-child(3) { order: 6; }
+  .process-steps-images .process-step-image-item:nth-child(3) { order: 7; }
+  .process-steps-captions .process-step-caption:nth-child(3) { order: 8; }
+  /* step 4 */
+  .process-steps-labels .process-step-label:nth-child(4) { order: 9; }
+  .process-steps-images .process-step-image-item:nth-child(4) { order: 10; }
+  .process-steps-captions .process-step-caption:nth-child(4) { order: 11; }
+
+  .process-step-label {
+    margin: 0 0 0.5em;
+    font-size: 1.25em;
+  }
+
+  .process-step-image-item {
+    width: 100%;
+    max-width: 20em;
+    margin: 0 auto;
+    background-color: var(--zipli-lavender);
+    border-radius: 1.5em;
+    padding: 0.6em;
+  }
+
+  /* The four crops have different aspect ratios and a lot of internal
+     lavender padding (matching/delivery especially), so at full card width
+     they render tall and empty. A fixed square frame with object-fit:cover
+     equalises card height and trims the dead space to the illustration. */
+  .process-steps-image {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1em;
+  }
+
+  /* Single-column: badge sits in each tile's own top-left corner. The
+     :nth-child(n) keeps this at the same specificity as the desktop
+     per-panel percentage offsets so, coming later, it overrides all four. */
+  .process-steps-images .process-step-image-item:nth-child(n) .process-step-badge {
+    top: -0.6em;
+    left: -0.6em;
+  }
+
+  .process-step-caption {
+    margin: 0.75em 0 0;
+  }
+
+  /* Space between steps, not within a step. The figure and caption above
+     carry no bottom margin, so this only opens up the gap before the next
+     step's label. */
+  .process-steps-captions .process-step-caption:nth-child(1),
+  .process-steps-captions .process-step-caption:nth-child(2),
+  .process-steps-captions .process-step-caption:nth-child(3) {
+    margin-bottom: 2.75em;
+  }
 }
 
 /* Hero background media. .hero-bg-video is shared by a plain <img> (the
