@@ -3051,3 +3051,96 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
   text-align: center;
   margin: 0.75em 0 0;
 }
+
+/* ---------------------------------------------------------------------
+   Story quote
+   A photograph and a longer quotation shown as one unit inside the
+   article body: square-cropped image beside the text on a tinted card,
+   the photo caption sitting under the image. Used once, in the About
+   story.
+     <figure class="story-quote">
+       <div class="story-quote-card">
+         <div class="story-quote-figure">
+           <img class="story-quote-photo" src="..." alt="...">
+           <figcaption class="story-quote-caption">Caption.</figcaption>
+         </div>
+         <div class="story-quote-body">
+           <p class="story-quote-text">"Quote."</p>
+           <p class="story-quote-attrib">Name</p>
+         </div>
+       </div>
+     </figure>
+   --------------------------------------------------------------------- */
+.story-quote { margin: 3em 0; }
+
+/* From tablet up the card breaks out past the 56em article measure so the
+   photo can be shown larger. It is centred on the article's centre line,
+   capped to the viewport less the page gutters. */
+@media screen and (min-width: 992px) {
+  .story-quote {
+    width: min(84em, calc(100vw - 4em));
+    margin-top: 5.5em;
+    margin-bottom: 5.5em;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.story-quote-card {
+  display: flex;
+  align-items: center;
+  gap: 3.5em;
+  padding: 3em;
+  background-color: var(--zipli-blush);
+  border-radius: var(--zipli-radius-card);
+}
+
+.story-quote-figure { flex: 0 0 46%; }
+
+.story-quote-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: calc(var(--zipli-radius-card) - 1em);
+  display: block;
+}
+
+.story-quote-body { flex: 1; }
+
+.story-quote-text {
+  font-family: var(--zipli-font-display);
+  font-size: 1.45em;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.35;
+  margin: 0;
+  /* hang the opening quote mark so the first line aligns with the rest */
+  text-indent: -0.44em;
+}
+
+.story-quote-attrib {
+  font-family: var(--zipli-font-display);
+  font-size: 1.15em;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0.9em 0 0;
+}
+
+.story-quote-caption {
+  font-size: 0.9375em;
+  color: var(--zipli-grey);
+  text-align: center;
+  margin: 0.85em 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .story-quote-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5em;
+    padding: 1.5em;
+  }
+  .story-quote-figure { flex-basis: auto; }
+  .story-quote-photo { aspect-ratio: 4 / 3; }
+  .story-quote-text { font-size: 1.25em; }
+}
