@@ -895,13 +895,17 @@ html:not([lang="en"]) .navbar-wrapper {
 /* Small variant: a one-line personal tagline rather than an editorial
    pull quote, e.g. a founder motto under a bio. Same shape, quieter type. */
 .pull-quote.small .pull-quote-text {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 400;
   font-style: italic;
+  /* Hang the opening quote mark into the margin so the first word lines up
+     with the body copy above it. Plain text-indent rather than
+     hanging-punctuation so Chrome and Firefox behave the same as Safari. */
+  text-indent: -0.44em;
 }
 
 .pull-quote.small .pull-quote-attrib {
-  font-size: 1.125em;
+  font-size: 1em;
   margin-top: 0.75em;
 }
 
@@ -2524,7 +2528,7 @@ a.feature-card.blog-card:hover .blog-card-readmore { text-decoration: underline;
 .page-note {
   max-width: 60em;
   color: var(--zipli-grey);
-  font-size: 1.15em;
+  font-size: 1.5em;
   font-weight: 300;
   line-height: 1.5;
   margin: 0;
